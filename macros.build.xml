@@ -44,11 +44,10 @@
   <macrodef name="buildModule">
     <attribute name="svn.username"/>
     <attribute name="svn.password"/>
-    <attribute name="module.svn.url"/>
     <attribute name="module.name"/>
     <sequential>
       <mkdir dir="${system.build.dir}/@{module.name}"/>
-      <svn.checkout svn.url="@{module.svn.url}" 
+      <svn.checkout svn.url="https://@{module.name}.googlecode.com/svn/trunk/" 
                     local.workspace="${system.build.dir}/@{module.name}"
                     username="@{svn.username}" 
                     password="@{svn.password}" />

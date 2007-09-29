@@ -3,14 +3,14 @@
   The master build file for creating system-level releases of Hackystat.
   </description>
   
-  <!-- Always make environment variables available with the "env." prefix. --> 
-  <property environment="env"/> 
-
-  <!-- Make sure that SvnKit is installed . --> 
-  <available file="${env.SVNKIT_HOME}/svnkit.jar" type="file" property="svnkit.available"/>
-  <fail message="This package requires SVNKit to be downloaded and SVNKIT_HOME defined" unless="svnkit.available"/>
-
-  <!-- Basic properties for this system. --> 
+  <!-- Define build system subdirectories -->
+  <property name="system.build.dir" location="${basedir}/build"/>
+  <property name="system.zip.dir" location="${basedir}/build/dist/zip"/>
+  <property name="system.jar.dir" location="${basedir}/build/dist/jar"/>
+  <mkdir dir="${system.zip.dir}"/>
+  <mkdir dir="${system.jar.dir}"/>
+  
+  <!-- Get today's version number. --> 
   <property name="majorVersionNumber" value="8" />
   <property name="minorVersionNumber" value="0" />
   <tstamp>
@@ -18,24 +18,54 @@
   </tstamp>
   <property name="version" value="${majorVersionNumber}.${minorVersionNumber}.${DAYSTAMP}" />
   
-  <property name="system.build.dir" location="${basedir}/build"/>
-  <property name="system.zip.dir" location="${basedir}/build/dist/zip"/>
-  <property name="system.jar.dir" location="${basedir}/build/dist/jar"/>
-  <mkdir dir="${system.zip.dir}"/>
-  <mkdir dir="${system.jar.dir}"/>
-  
+  <!-- Now we override the following environment variables to point into this build. -->
+  <property name="sensorbase.system.name" value="hackystat-sensorbase-uh"/>
+  <property name="env.HACKYSTAT_SENSORBASE_HOME" location="${system.build.dir}/${sensorbase.system.name}" />
+  <property name="utilities.system.name" value="hackystat-utilities"/>
+  <property name="env.HACKYSTAT_UTILITIES_HOME" location="${system.build.dir}/${utilities.system.name}" />
+  <property name="sensorshell.system.name" value="hackystat-sensor-shell"/>
+  <property name="env.HACKYSTAT_SENSORSHELL_HOME" location="${system.build.dir}/${sensorshell.system.name}" />
+   
+  <!-- Now get the other environment variables (for JUnit, Checkstyle, etc.) --> 
+  <property environment="env"/>
+
+  <!-- Make sure that SvnKit is installed . --> 
+  <available file="${env.SVNKIT_HOME}/svnkit.jar" type="file" property="svnkit.available"/>
+  <fail message="This package requires SVNKit to be downloaded and SVNKIT_HOME defined" unless="svnkit.available"/>
+ 
   <!-- read in svn.username and svn.password -->
   <property file="svn.properties"/>
 
   <import file="macros.build.xml"/>
   
-  <target name="default">
-    <buildModule svn.username="${svn.username}"  svn.password="${svn.password}"
-                 module.svn.url="https://hackystat-sensorbase-uh.googlecode.com/svn/trunk/"
-                 module.name="hackystat-sensorbase-uh"/>
-    <copyDist module.name="hackystat-sensorbase-uh"/>
-    <copyJar module.name="hackystat-sensorbase-uh" jar.name="sensorbase"/>
-    <copyJar module.name="hackystat-sensorbase-uh" jar.name="sensorbase.lib"/>
+  <target name="default" depends="build.sensorbase, build.utilities, build.sensorshell, build.ant"/>
+  
+  <target name="build.sensorbase">
+    <buildModule module.name="${sensorbase.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <copyDist module.name="${sensorbase.system.name}"/>
+    <copyJar module.name="${sensorbase.system.name}" jar.name="sensorbase"/>
+    <copyJar module.name="${sensorbase.system.name}" jar.name="sensorbase.lib"/>
+  </target>
+  
+  <target name="build.utilities">
+    <buildModule module.name="${utilities.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <copyDist module.name="${utilities.system.name}"/>
+    <copyJar module.name="${utilities.system.name}" jar.name="stacktrace.lib"/>
+    <copyJar module.name="${utilities.system.name}" jar.name="tstamp.lib"/>
+    <copyJar module.name="${utilities.system.name}" jar.name="uricache.lib"/>
+  </target>
+  
+  <target name="build.sensorshell">
+    <buildModule module.name="${sensorshell.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <copyDist module.name="${sensorshell.system.name}"/>
+    <copyJar module.name="${sensorshell.system.name}" jar.name="sensorshell"/>
+  </target>
+  
+  <target name="build.ant">
+    <property name="ant.system.name" value="hackystat-sensor-ant"/>
+    <buildModule module.name="${ant.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <copyDist module.name="${ant.system.name}"/>
+    <copyJar module.name="${ant.system.name}" jar.name="antsensors"/>
   </target>
     
 
