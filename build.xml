@@ -6,9 +6,9 @@
   <!-- Define build system subdirectories -->
   <property name="system.build.dir" location="${basedir}/build"/>
   <property name="system.zip.dir" location="${basedir}/build/dist/zip"/>
-  <property name="system.jar.dir" location="${basedir}/build/dist/jar"/>
+  <property name="system.bin.dir" location="${basedir}/build/dist/bin"/>
   <mkdir dir="${system.zip.dir}"/>
-  <mkdir dir="${system.jar.dir}"/>
+  <mkdir dir="${system.bin.dir}"/>
   
   <!-- Get today's version number. --> 
   <property name="majorVersionNumber" value="8" />
@@ -38,35 +38,59 @@
 
   <import file="macros.build.xml"/>
   
-  <target name="default" depends="build.sensorbase, build.utilities, build.sensorshell, build.ant"/>
+  <target name="default" 
+    depends="build.sensorbase, build.utilities, build.sensorshell, build.ant, build.xmldata, build.emacs, build.eclipse"/>
   
   <target name="build.sensorbase">
     <buildModule module.name="${sensorbase.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <copyDist module.name="${sensorbase.system.name}"/>
-    <copyJar module.name="${sensorbase.system.name}" jar.name="sensorbase"/>
-    <copyJar module.name="${sensorbase.system.name}" jar.name="sensorbase.lib"/>
+    <copyBin module.name="${sensorbase.system.name}" bin.name="sensorbase.jar"/>
+    <copyBin module.name="${sensorbase.system.name}" bin.name="sensorbase.lib.jar"/>
   </target>
   
   <target name="build.utilities">
     <buildModule module.name="${utilities.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <copyDist module.name="${utilities.system.name}"/>
-    <copyJar module.name="${utilities.system.name}" jar.name="stacktrace.lib"/>
-    <copyJar module.name="${utilities.system.name}" jar.name="tstamp.lib"/>
-    <copyJar module.name="${utilities.system.name}" jar.name="uricache.lib"/>
+    <copyBin module.name="${utilities.system.name}" bin.name="stacktrace.lib.jar"/>
+    <copyBin module.name="${utilities.system.name}" bin.name="tstamp.lib.jar"/>
+    <copyBin module.name="${utilities.system.name}" bin.name="uricache.lib.jar"/>
   </target>
   
   <target name="build.sensorshell">
     <buildModule module.name="${sensorshell.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <copyDist module.name="${sensorshell.system.name}"/>
-    <copyJar module.name="${sensorshell.system.name}" jar.name="sensorshell"/>
+    <copyBin module.name="${sensorshell.system.name}" bin.name="sensorshell.jar"/>
   </target>
   
   <target name="build.ant">
     <property name="ant.system.name" value="hackystat-sensor-ant"/>
     <buildModule module.name="${ant.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <copyDist module.name="${ant.system.name}"/>
-    <copyJar module.name="${ant.system.name}" jar.name="antsensors"/>
+    <copyBin module.name="${ant.system.name}" bin.name="antsensors.jar"/>
   </target>
+  
+  <target name="build.xmldata">
+    <property name="xmldata.system.name" value="hackystat-sensor-xmldata"/>
+    <buildModule module.name="${xmldata.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <copyDist module.name="${xmldata.system.name}"/>
+    <copyBin module.name="${xmldata.system.name}" bin.name="xmldata-cli.jar"/>
+   </target>
+  
+  <target name="build.emacs">
+     <property name="emacs.system.name" value="hackystat-sensor-emacs"/>
+     <buildModule module.name="${emacs.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+     <copyDist module.name="${emacs.system.name}"/>
+     <copyBin module.name="${emacs.system.name}" bin.name="build/sensor-package.el"/>
+  </target>
+  
+  <target name="build.eclipse">
+      <property name="eclipse.system.name" value="hackystat-sensor-eclipse"/>
+      <buildModule module.name="${eclipse.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+      <!--  Not yet working.
+        <copyDist module.name="${eclipse.system.name}"/>
+      -->
+      <copyBin module.name="${eclipse.system.name}" bin.name="build/dist/hackystat-sensor-eclipse-${version}.zip"/>
+   </target>
     
 
 </project>

@@ -64,11 +64,11 @@
    </sequential>
   </macrodef>
 
-  <macrodef name="copyJar">
+  <macrodef name="copyBin">
    <attribute name="module.name"/>
-   <attribute name="jar.name"/>
+   <attribute name="bin.name"/>
    <sequential>
-     <copy file="${system.build.dir}/@{module.name}/@{jar.name}.jar" todir="${system.jar.dir}"/>
+     <copy file="${system.build.dir}/@{module.name}/@{bin.name}" todir="${system.bin.dir}"/>
    </sequential>
   </macrodef>
 
