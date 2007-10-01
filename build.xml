@@ -1,15 +1,8 @@
-<project name="system.build" default="default">
+<project name="system.build" default="build.all">
   <description>
   The master build file for creating system-level releases of Hackystat.
   </description>
-  
-  <!-- Define build system subdirectories -->
-  <property name="system.build.dir" location="${basedir}/build"/>
-  <property name="system.zip.dir" location="${basedir}/build/dist/zip"/>
-  <property name="system.bin.dir" location="${basedir}/build/dist/bin"/>
-  <mkdir dir="${system.zip.dir}"/>
-  <mkdir dir="${system.bin.dir}"/>
-  
+	
   <!-- Get today's version number. --> 
   <property name="majorVersionNumber" value="8" />
   <property name="minorVersionNumber" value="0" />
@@ -17,6 +10,13 @@
     <format property="DAYSTAMP" pattern="Mdd" />
   </tstamp>
   <property name="version" value="${majorVersionNumber}.${minorVersionNumber}.${DAYSTAMP}" />
+  
+  <!-- Define build system subdirectories -->
+  <property name="system.build.dir" location="${basedir}/build"/>
+  <property name="system.zip.dir" location="${basedir}/build/dist/dist"/>
+  <property name="system.bin.dir" location="${basedir}/build/dist/bin"/>
+  <mkdir dir="${system.zip.dir}"/>
+  <mkdir dir="${system.bin.dir}"/>
   
   <!-- Now we override the following environment variables to point into this build. -->
   <property name="sensorbase.system.name" value="hackystat-sensorbase-uh"/>
@@ -38,8 +38,8 @@
 
   <import file="macros.build.xml"/>
   
-  <target name="default" 
-    depends="build.sensorbase, build.utilities, build.sensorshell, build.ant, build.xmldata, build.emacs, build.eclipse"/>
+  <target name="build.all" 
+    depends="build.utilities, build.sensorbase, build.sensorshell, build.ant, build.xmldata, build.emacs, build.eclipse"/>
   
   <target name="build.sensorbase">
     <buildModule module.name="${sensorbase.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
@@ -77,21 +77,27 @@
    </target>
   
   <target name="build.emacs">
-     <property name="emacs.system.name" value="hackystat-sensor-emacs"/>
-     <buildModule module.name="${emacs.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
-     <copyDist module.name="${emacs.system.name}"/>
-     <copyBin module.name="${emacs.system.name}" bin.name="build/sensor-package.el"/>
+    <property name="emacs.system.name" value="hackystat-sensor-emacs"/>
+    <buildModule module.name="${emacs.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <copyDist module.name="${emacs.system.name}"/>
+    <copyBin module.name="${emacs.system.name}" bin.name="build/sensor-package.el"/>
   </target>
   
   <target name="build.eclipse">
-      <property name="eclipse.system.name" value="hackystat-sensor-eclipse"/>
-      <buildModule module.name="${eclipse.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
-      <!--  Not yet working.
-        <copyDist module.name="${eclipse.system.name}"/>
-      -->
-      <copyBin module.name="${eclipse.system.name}" bin.name="build/dist/hackystat-sensor-eclipse-${version}.zip"/>
-   </target>
-    
+    <property name="eclipse.system.name" value="hackystat-sensor-eclipse"/>
+    <buildModule module.name="${eclipse.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <!--  Not yet working.
+      <copyDist module.name="${eclipse.system.name}"/>
+    -->
+    <copyBin module.name="${eclipse.system.name}" bin.name="build/dist/hackystat-sensor-eclipse-${version}.zip"/>
+  </target>
+  
+  <target name="clean" description="Delete build/ directory and top-level hackystat zip files.">
+    <delete>
+      <fileset dir="${basedir}" includes="hackystat*.zip"/> 
+    </delete>
+    <delete dir="${system.build.dir}"/> 
+  </target>
 
 </project>
 

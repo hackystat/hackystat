@@ -68,7 +68,8 @@
    <attribute name="module.name"/>
    <attribute name="bin.name"/>
    <sequential>
-     <copy file="${system.build.dir}/@{module.name}/@{bin.name}" todir="${system.bin.dir}"/>
+  	 <mkdir dir="${system.bin.dir}/@{module.name}"/>
+     <copy file="${system.build.dir}/@{module.name}/@{bin.name}" todir="${system.bin.dir}/@{module.name}"/>
    </sequential>
   </macrodef>
 
