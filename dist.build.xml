@@ -1,0 +1,28 @@
+<project name="dist" default="dist">
+  <description>
+  Provides the target for building a distribution of all of the Hackystat services.
+  </description>
+
+  <import file="build.xml"/>
+    
+  <target name="dist" depends="build.all" description="Create a distribution package.">
+    <!-- Define the directories and distribution name -->
+    <property name="dist.dir" location="${system.build.dir}/dist" />
+    <property name="dist.tmp.dir" location="${basedir}/dist-tmp" />
+    <property name="dist.name" value="hackystat-${version}" />
+
+    <!-- Copy distribution files to the tmp dir. -->
+ 
+    <mkdir dir="${dist.tmp.dir}/${dist.name}" />
+  	<copy todir="${dist.tmp.dir}/${dist.name}">
+      <fileset dir="${dist.dir}"/>
+      <fileset file="${basedir}/README.html"/>
+    </copy>
+
+    <!-- Create the zip distribution of this system, and then delete the tmp dir. -->
+    <zip zipfile="${basedir}/hackystat-${version}.zip" basedir="${dist.tmp.dir}" />
+    <delete dir="${dist.tmp.dir}"/>   
+  </target>
+
+</project>
+
