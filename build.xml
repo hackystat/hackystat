@@ -86,11 +86,23 @@
   <target name="build.eclipse">
     <property name="eclipse.system.name" value="hackystat-sensor-eclipse"/>
     <buildModule module.name="${eclipse.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
-    <!--  Not yet working.
-      <copyDist module.name="${eclipse.system.name}"/>
-    -->
-    <copyBin module.name="${eclipse.system.name}" bin.name="build/dist/hackystat-sensor-eclipse-${version}.zip"/>
+    <copyDist module.name="${eclipse.system.name}"/>
+    <copyBin module.name="${eclipse.system.name}" bin.name="hackystat-sensor-eclipse.zip"/>
   </target>
+	
+  <target name="build.sensordataviewer">
+    <property name="sdv.system.name" value="hackystat-ui-sensordataviewer"/>
+    <buildModule module.name="${sdv.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <copyDist module.name="${sdv.system.name}"/>
+    <copyBin module.name="${sdv.system.name}" bin.name="sensordataviewer.war"/>
+  </target>
+	
+  <target name="build.sensordatabrowser">
+    <property name="sdb.system.name" value="hackystat-ui-sensordatabrowser"/>
+    <buildModule module.name="${sdb.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <copyDist module.name="${sdb.system.name}"/>
+    <copyBin module.name="${sdb.system.name}" bin.name="sensordatabrowser.war"/>
+  </target>	
   
   <target name="clean" description="Delete build/ directory and top-level hackystat zip files.">
     <delete>
