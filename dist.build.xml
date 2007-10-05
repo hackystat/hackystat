@@ -5,22 +5,30 @@
 
   <import file="build.xml"/>
     
-  <target name="dist" depends="build.all" description="Create a distribution package.">
+  <target name="dist" description="Create a distribution package.">
     <!-- Define the directories and distribution name -->
-    <property name="dist.dir" location="${system.build.dir}/dist" />
+    <property name="dist.dir" location="${system.build.dir}/system" />
     <property name="dist.tmp.dir" location="${basedir}/dist-tmp" />
-    <property name="dist.name" value="hackystat-${version}" />
 
-    <!-- Copy distribution files to the tmp dir. -->
- 
-    <mkdir dir="${dist.tmp.dir}/${dist.name}" />
-  	<copy todir="${dist.tmp.dir}/${dist.name}">
-      <fileset dir="${dist.dir}"/>
+    <!-- Copy service distribution files to the tmp dir. -->
+    <property name="dist.services.name" value="hackystat-services-${version}" />
+    <mkdir dir="${dist.tmp.dir}/${dist.services.name}" />
+  	<copy todir="${dist.tmp.dir}/${dist.services.name}/">
+      <fileset dir="${dist.dir}/services"/>
+      <fileset file="${basedir}/README.html"/>
+    </copy>
+  	
+    <!-- Copy sensor distribution files to the tmp dir. -->
+    <property name="dist.sensors.name" value="hackystat-sensors-${version}" />
+    <mkdir dir="${dist.tmp.dir}/${dist.sensors.name}" />
+   	<copy todir="${dist.tmp.dir}/${dist.sensors.name}/">
+      <fileset dir="${dist.dir}/sensors"/>
       <fileset file="${basedir}/README.html"/>
     </copy>
 
     <!-- Create the zip distribution of this system, and then delete the tmp dir. -->
-    <zip zipfile="${basedir}/hackystat-${version}.zip" basedir="${dist.tmp.dir}" />
+    <zip zipfile="${basedir}/hackystat-services-${version}.zip" basedir="${dist.tmp.dir}/${dist.services.name}" />
+    <zip zipfile="${basedir}/hackystat-sensors-${version}.zip" basedir="${dist.tmp.dir}/${dist.sensors.name}" />
     <delete dir="${dist.tmp.dir}"/>   
   </target>
 

@@ -56,21 +56,43 @@
     </sequential>
   </macrodef>
 
-  <macrodef name="copyDist">
+  <macrodef name="copyServiceDist">
    <attribute name="module.name"/>
    <sequential>
+	 <mkdir dir="${system.services.dir}/@{module.name}/dist"/>
      <copy file="${system.build.dir}/@{module.name}/build/dist/@{module.name}-${version}.zip" 
-           todir="${system.zip.dir}"/>
+           todir="${system.services.dir}/@{module.name}/dist"/>
    </sequential>
   </macrodef>
 
-  <macrodef name="copyBin">
+  <macrodef name="copyServiceBin">
    <attribute name="module.name"/>
    <attribute name="bin.name"/>
    <sequential>
-  	 <mkdir dir="${system.bin.dir}/@{module.name}"/>
-     <copy file="${system.build.dir}/@{module.name}/@{bin.name}" todir="${system.bin.dir}/@{module.name}"/>
+ 	 <mkdir dir="${system.services.dir}/@{module.name}/bin"/>
+     <copy file="${system.build.dir}/@{module.name}/@{bin.name}" 
+     	   todir="${system.services.dir}/@{module.name}/bin"/>
    </sequential>
   </macrodef>
+	
+  <macrodef name="copySensorDist">
+   <attribute name="module.name"/>
+   <sequential>
+	 <mkdir dir="${system.sensors.dir}/@{module.name}/dist"/>
+     <copy file="${system.build.dir}/@{module.name}/build/dist/@{module.name}-${version}.zip" 
+           todir="${system.sensors.dir}/@{module.name}/dist"/>
+   </sequential>
+  </macrodef>
+
+  <macrodef name="copySensorBin">
+   <attribute name="module.name"/>
+   <attribute name="bin.name"/>
+   <attribute name="bin.subdir" default=""/>  <!-- must start with '/' if supplied. For Eclipse sensor. -->
+   <sequential>
+  	 <mkdir dir="${system.sensors.dir}/@{module.name}/bin@{bin.subdir}"/>
+     <copy file="${system.build.dir}/@{module.name}@{bin.subdir}/@{bin.name}" 
+     	   todir="${system.sensors.dir}/@{module.name}/bin@{bin.subdir}"/>
+   </sequential>
+  </macrodef>	
 
   </project>
