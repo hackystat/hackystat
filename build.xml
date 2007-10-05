@@ -8,6 +8,7 @@
   <property name="minorVersionNumber" value="0" />
   <tstamp>
     <format property="DAYSTAMP" pattern="Mdd" />
+    <format property="YEARDAYSTAMP" pattern="yyyyMdd" />
   </tstamp>
   <property name="version" value="${majorVersionNumber}.${minorVersionNumber}.${DAYSTAMP}" />
   
@@ -87,7 +88,7 @@
     <property name="eclipse.system.name" value="hackystat-sensor-eclipse"/>
     <buildModule module.name="${eclipse.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <copyDist module.name="${eclipse.system.name}"/>
-    <copyBin module.name="${eclipse.system.name}" bin.name="hackystat-sensor-eclipse.zip"/>
+    <copyBin module.name="${eclipse.system.name}" bin.name="org.hackystat.sensor.eclipse_${majorVersionNumber}.${minorVersionNumber}.v${YEARDAYSTAMP}.jar"/>
   </target>
 	
   <target name="build.sensordataviewer">
