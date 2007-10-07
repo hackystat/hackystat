@@ -8,7 +8,9 @@
   <property name="minorVersionNumber" value="0" />
   <tstamp>
     <format property="DAYSTAMP" pattern="Mdd" />
+  	<format property="RELEASEDATE" pattern="MMMM dd yyyy"/>
   </tstamp>
+
   <property name="version" value="${majorVersionNumber}.${minorVersionNumber}.${DAYSTAMP}" />
   
   <!-- Define build system subdirectories -->
@@ -39,7 +41,8 @@
   <import file="macros.build.xml"/>
   
   <target name="build.all" 
-    depends="build.utilities, 
+    depends="clean,
+  	         build.utilities, 
   	         build.sensorbase, 
   	         build.sensorshell, 
   	         build.ant, 
@@ -62,6 +65,7 @@
     <copyServiceBin module.name="${utilities.system.name}" bin.name="stacktrace.lib.jar"/>
     <copyServiceBin module.name="${utilities.system.name}" bin.name="tstamp.lib.jar"/>
     <copyServiceBin module.name="${utilities.system.name}" bin.name="uricache.lib.jar"/>
+    <copyServiceBin module.name="${utilities.system.name}" bin.name="hackystatlogger.lib.jar"/>
   </target>
   
   <target name="build.sensorshell">
@@ -113,11 +117,9 @@
     <copyServiceBin module.name="${sdb.system.name}" bin.name="sensordatabrowser.war"/>
   </target>	
   
-  <target name="clean" description="Delete build/ directory and top-level hackystat zip files.">
-    <delete>
-      <fileset dir="${basedir}" includes="hackystat*.zip"/> 
-    </delete>
-    <delete dir="${system.build.dir}"/> 
+  <target name="clean" description="Delete build/system directories.">
+    <delete dir="${system.services.dir}" quiet="true"/> 
+    <delete dir="${system.sensors.dir}" quiet="true"/> 
   </target>
 
 </project>

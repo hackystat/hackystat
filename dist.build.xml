@@ -31,6 +31,25 @@
     <zip zipfile="${basedir}/hackystat-sensors-${version}.zip" basedir="${dist.tmp.dir}/${dist.sensors.name}" />
     <delete dir="${dist.tmp.dir}"/>   
   </target>
+	
+  <target name="upload" description="Upload the distribution to google code">
+  	<!-- Override this property on the command line to change. -->
+  	<property name="googlecode.upload.jar" value="ant-googlecode-0.0.0test.jar"/>
+	<available file="${env.GOOGLECODE_UPLOAD_HOME}/${googlecode.upload.jar}" type="file" property="googlecode.upload.available"/>
+  	<fail message="Could not find ${env.GOOGLECODE_UPLOAD_HOME}/${googlecode.upload.jar}.  This task requires the GoogleCode upload ant task to be downloaded and GOOGLECODE_UPLOAD_HOME defined" unless="googlecode.upload.available"/>
+  	 
+    <taskdef classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="${env.GOOGLECODE_UPLOAD_HOME}/${googlecode.upload.jar}" name="gcupload"/>
+	<echo message="***** Starting upload of hackystat-services-${version}.zip"/>
+    <gcupload username="${svn.username}" password="${svn.password}" projectname="hackystat"
+		      filename="${basedir}/hackystat-services-${version}.zip" targetfilename="hackystat-services-${version}.zip"
+			  summary="System Services Distribution ${RELEASEDATE}" />
+	<echo message="***** Starting upload of hackystat-sensors-${version}.zip"/>
+    <gcupload username="${svn.username}" password="${svn.password}" projectname="hackystat"
+		      filename="${basedir}/hackystat-sensors-${version}.zip" targetfilename="hackystat-sensors-${version}.zip"
+			  summary="System Sensors Distribution ${RELEASEDATE}" />
+	<echo message="Finished upload. You may want to set these files to be FEATURED."/>
+  </target>
+
 
 </project>
 
