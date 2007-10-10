@@ -50,13 +50,15 @@
   	         build.emacs, 
   	         build.eclipse, 
   	         build.sensordataviewer, 
-  	         build.sensordatabrowser"/>
+  	         build.sensordatabrowser,
+  	         build.dailyprojectdata"/>
   
   <target name="build.sensorbase">
     <buildModule module.name="${sensorbase.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <copyServiceDist module.name="${sensorbase.system.name}"/>
     <copyServiceBin module.name="${sensorbase.system.name}" bin.name="sensorbase.jar"/>
-    <copyServiceBin module.name="${sensorbase.system.name}" bin.name="sensorbase.lib.jar"/>
+    <copyServiceBinDir module.name="${sensorbase.system.name}" dir.name="xml"/>
+    <copyServiceBin module.name="${sensorbase.system.name}" bin.name="sample.sensorbase.properties"/>
   </target>
   
   <target name="build.utilities">
@@ -115,6 +117,13 @@
     <buildModule module.name="${sdb.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <copyServiceDist module.name="${sdb.system.name}"/>
     <copyServiceBin module.name="${sdb.system.name}" bin.name="sensordatabrowser.war"/>
+  </target>	
+	
+  <target name="build.dailyprojectdata">
+    <property name="dpd.system.name" value="hackystat-analysis-dailyprojectdata"/>
+    <buildModule module.name="${dpd.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <copyServiceDist module.name="${dpd.system.name}"/>
+    <copyServiceBin module.name="${dpd.system.name}" bin.name="dailyprojectdata.jar"/>
   </target>	
   
   <target name="clean" description="Delete build/system directories.">

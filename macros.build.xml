@@ -75,6 +75,17 @@
    </sequential>
   </macrodef>
 	
+  <macrodef name="copyServiceBinDir">
+   <attribute name="module.name"/>
+   <attribute name="dir.name"/>
+   <sequential>
+ 	 <mkdir dir="${system.services.dir}/@{module.name}/bin/@{dir.name}"/>
+     <copy todir="${system.services.dir}/@{module.name}/bin/@{dir.name}">
+   	    <fileset dir="${system.build.dir}/@{module.name}/@{dir.name}"/>
+     </copy>     	
+   </sequential>
+  </macrodef>
+	
   <macrodef name="copySensorDist">
    <attribute name="module.name"/>
    <sequential>
