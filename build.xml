@@ -57,6 +57,7 @@
     <buildModule module.name="${sensorbase.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <copyServiceDist module.name="${sensorbase.system.name}"/>
     <copyServiceBin module.name="${sensorbase.system.name}" bin.name="sensorbase.jar"/>
+    <copyServiceBin module.name="${sensorbase.system.name}" bin.name="sensorbase.lib.jar"/>
     <copyServiceBinDir module.name="${sensorbase.system.name}" dir.name="xml"/>
     <copyServiceBin module.name="${sensorbase.system.name}" bin.name="sample.sensorbase.properties"/>
   </target>
@@ -124,6 +125,7 @@
     <buildModule module.name="${dpd.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <copyServiceDist module.name="${dpd.system.name}"/>
     <copyServiceBin module.name="${dpd.system.name}" bin.name="dailyprojectdata.jar"/>
+    <copyServiceBin module.name="${dpd.system.name}" bin.name="dailyprojectdata.lib.jar"/>
   </target>	
   
   <target name="clean" description="Delete build/system directories.">
