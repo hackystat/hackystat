@@ -24,7 +24,7 @@
     <attribute name="username"/>
     <attribute name="password"/>
       <sequential>
-          <java classname="org.tmatesoft.svn.cli.SVN" fork="true">
+          <java classname="org.tmatesoft.svn.cli.SVN" fork="true" failonerror="true">
             <arg value="checkout"/>
             <arg value="@{svn.url}"/>
             <arg value="@{local.workspace}"/>

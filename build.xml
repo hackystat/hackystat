@@ -27,7 +27,8 @@
   <property name="env.HACKYSTAT_UTILITIES_HOME" location="${system.build.dir}/${utilities.system.name}" />
   <property name="sensorshell.system.name" value="hackystat-sensor-shell"/>
   <property name="env.HACKYSTAT_SENSORSHELL_HOME" location="${system.build.dir}/${sensorshell.system.name}" />
-  <property name="emma.enabled" value="false" />
+  <!-- Disable Emma during integration build due to ExceptionInInitializer error on Windows platform. --> 
+  <property name="emma.disabled" value="true" />
    
   <!-- Now get the other environment variables (for JUnit, Checkstyle, etc.) --> 
   <property environment="env"/>
