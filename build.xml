@@ -102,6 +102,8 @@
   
   <target name="build.eclipse">
     <property name="eclipse.system.name" value="hackystat-sensor-eclipse"/>
+    <!-- Do the following delete to avoid incremental accumulation of plugin versions in distributions. -->
+  	<delete dir="${system.build.dir}/${eclipse.system.name}/site" quiet="true"/>
     <buildModule module.name="${eclipse.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <copySensorDist module.name="${eclipse.system.name}"/>
     <copySensorBin module.name="${eclipse.system.name}" bin.subdir="/site/plugins" bin.name="org.hackystat.sensor.eclipse_${version}.jar"/>
