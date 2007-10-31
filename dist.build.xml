@@ -3,51 +3,72 @@
   Provides the target for building a distribution of all of the Hackystat services.
   </description>
 
-  <import file="build.xml"/>
-    
-  <target name="dist" description="Create a distribution package.">
+  <import file="build.xml" />
+
+  <target name="dist" description="Create the distribution zip files.">
     <!-- Define the directories and distribution name -->
     <property name="dist.dir" location="${system.build.dir}/system" />
     <property name="dist.tmp.dir" location="${basedir}/dist-tmp" />
 
-    <!-- Copy service distribution files to the tmp dir. -->
-    <property name="dist.services.name" value="hackystat-services-${version}" />
-    <mkdir dir="${dist.tmp.dir}/${dist.services.name}/${dist.services.name}" />
-    <copy todir="${dist.tmp.dir}/${dist.services.name}/${dist.services.name}/">
-      <fileset dir="${dist.dir}/services"/>
-      <fileset file="${basedir}/README.html"/>
+    <!-- There are four distributions:
+      hackystat-<version>-sensors-bin.zip
+      hackystat-<version>-sensors-src.zip
+      hackystat-<version>-services-bin.zip
+      hackystat-<version>-services-src.zip
+    -->
+    <property name="sensors.bin.dir" location="${dist.tmp.dir}/hackystat-${version}-sensors-bin/hackystat-${version}-sensors-bin" />
+    <property name="sensors.src.dir" location="${dist.tmp.dir}/hackystat-${version}-sensors-src/hackystat-${version}-sensors-src" />
+    <property name="services.bin.dir" location="${dist.tmp.dir}/hackystat-${version}-services-bin/hackystat-${version}-services-bin" />
+    <property name="services.src.dir" location="${dist.tmp.dir}/hackystat-${version}-services-src/hackystat-${version}-services-src" />
+
+    <mkdir dir="${sensors.bin.dir}" />
+    <mkdir dir="${sensors.src.dir}" />
+    <mkdir dir="${services.src.dir}" />
+    <mkdir dir="${services.bin.dir}" />
+
+    <!-- Copy sensors and services bin and src to the tmp dir. -->
+    <copy todir="${sensors.bin.dir}">
+      <fileset dir="${dist.dir}/sensors/bin" />
     </copy>
-  	
-    <!-- Copy sensor distribution files to the tmp dir. -->
-    <property name="dist.sensors.name" value="hackystat-sensors-${version}" />
-    <mkdir dir="${dist.tmp.dir}/${dist.sensors.name}/${dist.sensors.name}" />
-    <copy todir="${dist.tmp.dir}/${dist.sensors.name}/${dist.sensors.name}/">
-      <fileset dir="${dist.dir}/sensors"/>
-      <fileset file="${basedir}/README.html"/>
+    <copy todir="${sensors.src.dir}">
+      <fileset dir="${dist.dir}/sensors/dist" />
+    </copy>
+    <copy todir="${services.bin.dir}">
+      <fileset dir="${dist.dir}/services/bin" />
+    </copy>
+    <copy todir="${services.src.dir}">
+      <fileset dir="${dist.dir}/services/dist" />
     </copy>
 
-    <!-- Create the zip distribution of this system, and then delete the tmp dir. -->
-    <zip zipfile="${basedir}/hackystat-services-${version}.zip" basedir="${dist.tmp.dir}/${dist.services.name}" />
-    <zip zipfile="${basedir}/hackystat-sensors-${version}.zip" basedir="${dist.tmp.dir}/${dist.sensors.name}" />
-    <delete dir="${dist.tmp.dir}"/>   
+    <!-- Create the zip files, and then delete the tmp dir. -->
+    <zip zipfile="${basedir}/hackystat-${version}-sensors-bin.zip" basedir="${dist.tmp.dir}/hackystat-${version}-sensors-bin" />
+    <zip zipfile="${basedir}/hackystat-${version}-sensors-src.zip" basedir="${dist.tmp.dir}/hackystat-${version}-sensors-src" />
+    <zip zipfile="${basedir}/hackystat-${version}-services-bin.zip" basedir="${dist.tmp.dir}/hackystat-${version}-services-bin" />
+    <zip zipfile="${basedir}/hackystat-${version}-services-src.zip" basedir="${dist.tmp.dir}/hackystat-${version}-services-src" />
+
+    <delete dir="${dist.tmp.dir}" />
   </target>
-	
+
   <target name="upload" description="Upload the distribution to google code">
-  	<!-- Override this property on the command line to change. -->
-  	<property name="googlecode.upload.jar" value="ant-googlecode-0.0.0test.jar"/>
-	<available file="${env.GOOGLECODE_UPLOAD_HOME}/${googlecode.upload.jar}" type="file" property="googlecode.upload.available"/>
-  	<fail message="Could not find ${env.GOOGLECODE_UPLOAD_HOME}/${googlecode.upload.jar}.  This task requires the GoogleCode upload ant task to be downloaded and GOOGLECODE_UPLOAD_HOME defined" unless="googlecode.upload.available"/>
-  	 
-    <taskdef classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="${env.GOOGLECODE_UPLOAD_HOME}/${googlecode.upload.jar}" name="gcupload"/>
-	<echo message="***** Starting upload of hackystat-services-${version}.zip"/>
-    <gcupload username="${svn.username}" password="${svn.password}" projectname="hackystat"
-		      filename="${basedir}/hackystat-services-${version}.zip" targetfilename="hackystat-services-${version}.zip"
-			  summary="System Services Distribution ${RELEASEDATE}" />
-	<echo message="***** Starting upload of hackystat-sensors-${version}.zip"/>
-    <gcupload username="${svn.username}" password="${svn.password}" projectname="hackystat"
-		      filename="${basedir}/hackystat-sensors-${version}.zip" targetfilename="hackystat-sensors-${version}.zip"
-			  summary="System Sensors Distribution ${RELEASEDATE}" />
-	<echo message="Finished upload. You may want to set these files to be FEATURED."/>
+    <!-- Override this property on the command line to change. -->
+    <property name="googlecode.upload.jar" value="ant-googlecode-0.0.0test.jar" />
+    <available file="${env.GOOGLECODE_UPLOAD_HOME}/${googlecode.upload.jar}" type="file" property="googlecode.upload.available" />
+    <fail message="Could not find ${env.GOOGLECODE_UPLOAD_HOME}/${googlecode.upload.jar}.  This task requires the GoogleCode upload ant task to be downloaded and GOOGLECODE_UPLOAD_HOME defined" unless="googlecode.upload.available" />
+
+    <taskdef classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="${env.GOOGLECODE_UPLOAD_HOME}/${googlecode.upload.jar}" name="gcupload" />
+    <echo message="***** [1/4] Starting upload of hackystat-${version}-sensors-bin.zip" />
+    <gcupload username="${svn.username}" password="${svn.password}" projectname="hackystat" 
+      filename="${basedir}/hackystat-${version}-sensors-bin.zip" targetfilename="hackystat-${version}-sensors-bin.zip" summary="Hackystat Sensors Bin Distribution ${RELEASEDATE}" />
+    <echo message="***** [2/4] Starting upload of hackystat-${version}-sensors-src.zip" />
+    <gcupload username="${svn.username}" password="${svn.password}" projectname="hackystat" 
+      filename="${basedir}/hackystat-${version}-sensors-src.zip" targetfilename="hackystat-${version}-sensors-src.zip" summary="Hackystat Sensors Src Distribution ${RELEASEDATE}" />
+    <echo message="***** [3/4] Starting upload of hackystat-${version}-services-bin.zip" />
+     <gcupload username="${svn.username}" password="${svn.password}" projectname="hackystat" 
+       filename="${basedir}/hackystat-${version}-services-bin.zip" targetfilename="hackystat-${version}-services-bin.zip" summary="Hackystat Services Bin Distribution ${RELEASEDATE}" />
+     <echo message="***** [4/4] Starting upload of hackystat-${version}-services-src.zip" />
+     <gcupload username="${svn.username}" password="${svn.password}" projectname="hackystat" 
+       filename="${basedir}/hackystat-${version}-services-src.zip" targetfilename="hackystat-${version}-services-src.zip" summary="Hackystat Services Src Distribution ${RELEASEDATE}" />
+    <echo message="Finished upload. You may want to set these files to be FEATURED." />
   </target>
 
 

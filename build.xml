@@ -46,16 +46,17 @@
   
   <target name="build.all" 
     depends="clean,
-  	         build.utilities, 
-  	         build.sensorbase, 
-  	         build.sensorshell, 
-  	         build.ant, 
-  	         build.xmldata, 
-  	         build.emacs, 
-  	         build.eclipse, 
-  	         build.sensordataviewer, 
-  	         build.sensordatabrowser,
-  	         build.dailyprojectdata"/>
+  	     build.utilities, 
+  	     build.sensorbase, 
+  	     build.sensorshell,
+             build.dailyprojectdata,
+             build.telemetry,
+  	     build.ant, 
+  	     build.xmldata, 
+  	     build.emacs, 
+  	     build.eclipse, 
+  	     build.sensordataviewer, 
+  	     build.sensordatabrowser"/>
   
   <target name="build.sensorbase">
     <buildModule module.name="${sensorbase.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
@@ -130,7 +131,15 @@
     <copyServiceDist module.name="${dpd.system.name}"/>
     <copyServiceBin module.name="${dpd.system.name}" bin.name="dailyprojectdata.jar"/>
     <copyServiceBin module.name="${dpd.system.name}" bin.name="dailyprojectdata.lib.jar"/>
-  </target>	
+  </target>
+  
+  <target name="build.telemetry">
+     <property name="tel.system.name" value="hackystat-analysis-telemetry"/>
+     <buildModule module.name="${tel.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+     <copyServiceDist module.name="${tel.system.name}"/>
+     <copyServiceBin module.name="${tel.system.name}" bin.name="telemetry.jar"/>
+     <copyServiceBin module.name="${tel.system.name}" bin.name="telemetry.lib.jar"/>
+   </target>  
   
   <target name="clean" description="Delete build/system directories.">
     <delete dir="${system.services.dir}" quiet="true"/> 
