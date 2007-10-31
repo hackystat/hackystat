@@ -139,6 +139,7 @@
      <copyServiceDist module.name="${tel.system.name}"/>
      <copyServiceBin module.name="${tel.system.name}" bin.name="telemetry.jar"/>
      <copyServiceBin module.name="${tel.system.name}" bin.name="telemetry.lib.jar"/>
+     <copyServiceBin module.name="${tel.system.name}" bin.name="sample.telemetry.properties"/>
    </target>  
   
   <target name="clean" description="Delete build/system directories.">
