@@ -49,12 +49,13 @@
   	     build.utilities, 
   	     build.sensorbase, 
   	     build.sensorshell,
-             build.dailyprojectdata,
-             build.telemetry,
+         build.dailyprojectdata,
+         build.telemetry,
   	     build.ant, 
   	     build.xmldata, 
   	     build.emacs, 
-  	     build.eclipse, 
+  	     build.eclipse,
+         build.stackyhack,
   	     build.sensordataviewer, 
   	     build.sensordatabrowser"/>
   
@@ -141,6 +142,12 @@
      <copyServiceBin module.name="${tel.system.name}" bin.name="telemetry.lib.jar"/>
      <copyServiceBin module.name="${tel.system.name}" bin.name="sample.telemetry.properties"/>
    </target>  
+  
+  <target name="build.stackyhack">
+      <property name="stackyhack.system.name" value="hackystat-sensor-example"/>
+      <buildModule module.name="${stackyhack.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+      <copySensorDist module.name="${stackyhack.system.name}"/>
+  </target>  
   
   <target name="clean" description="Delete build/system directories.">
     <delete dir="${system.services.dir}" quiet="true"/> 
