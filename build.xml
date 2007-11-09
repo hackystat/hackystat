@@ -147,6 +147,7 @@
       <property name="stackyhack.system.name" value="hackystat-sensor-example"/>
       <buildModule module.name="${stackyhack.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
       <copySensorDist module.name="${stackyhack.system.name}"/>
+      <copySensorBin module.name="${stackyhack.system.name}" bin.name="build/dist/${stackyhack.system.name}-${version}.zip"/>
   </target>  
   
   <target name="clean" description="Delete build/system directories.">
