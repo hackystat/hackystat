@@ -64,6 +64,7 @@
     <copyServiceDist module.name="${sensorbase.system.name}"/>
     <copyServiceBin module.name="${sensorbase.system.name}" bin.name="sensorbase.jar"/>
     <copyServiceBin module.name="${sensorbase.system.name}" bin.name="sensorbase.lib.jar"/>
+    <copyServiceBin module.name="${sensorbase.system.name}" bin.name="sensorbaseclient.jar"/>
     <copyServiceBinDir module.name="${sensorbase.system.name}" dir.name="xml"/>
     <copyServiceBin module.name="${sensorbase.system.name}" bin.name="sample.sensorbase.properties"/>
   </target>
