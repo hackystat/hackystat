@@ -132,6 +132,7 @@
     <copyServiceDist module.name="${dpd.system.name}"/>
     <copyServiceBin module.name="${dpd.system.name}" bin.name="dailyprojectdata.jar"/>
     <copyServiceBin module.name="${dpd.system.name}" bin.name="dailyprojectdata.lib.jar"/>
+    <copyServiceBin module.name="${dpd.system.name}" bin.name="sample.dailyprojectdata.properties"/>
   </target>
   
   <target name="build.telemetry">
@@ -140,7 +141,7 @@
      <copyServiceDist module.name="${tel.system.name}"/>
      <copyServiceBin module.name="${tel.system.name}" bin.name="telemetry.jar"/>
      <copyServiceBin module.name="${tel.system.name}" bin.name="telemetry.lib.jar"/>
-     <copyServiceBin module.name="${tel.system.name}" bin.name="sample.telemetry.properties"/>
+    <copyServiceBin module.name="${tel.system.name}" bin.name="sample.telemetry.properties"/>
    </target>  
   
   <target name="build.stackyhack">
