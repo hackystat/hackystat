@@ -54,10 +54,11 @@
   	     build.ant, 
   	     build.xmldata, 
   	     build.emacs, 
-  	     build.eclipse,
+         build.vim,
          build.stackyhack,
   	     build.sensordataviewer, 
-  	     build.sensordatabrowser"/>
+  	     build.sensordatabrowser,
+	     build.eclipse"/>
   
   <target name="build.sensorbase">
     <buildModule module.name="${sensorbase.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
@@ -104,6 +105,14 @@
     <buildModule module.name="${emacs.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <copySensorDist module.name="${emacs.system.name}"/>
     <copySensorBin module.name="${emacs.system.name}" bin.name="build/sensor-package.el"/>
+  </target>
+  
+  <target name="build.vim">
+    <property name="vim.system.name" value="hackystat-sensor-vim"/>
+    <buildModule module.name="${vim.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <copySensorDist module.name="${vim.system.name}"/>
+    <copySensorBin module.name="${vim.system.name}" bin.name="HSVimSensor.class"/>
+    <copySensorBin module.name="${vim.system.name}" bin.name="VIMsensor.vim"/>
   </target>
   
   <target name="build.eclipse">
