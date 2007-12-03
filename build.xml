@@ -87,6 +87,7 @@
     <buildModule module.name="${sensorshell.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <copySensorDist module.name="${sensorshell.system.name}"/>
     <copySensorBin module.name="${sensorshell.system.name}" bin.name="sensorshell.jar"/>
+    <copySensorBin module.name="${sensorshell.system.name}" bin.name="sample.sensorshell.properties"/>
   </target>
   
   <target name="build.ant">
