@@ -58,6 +58,8 @@
          build.stackyhack,
   	     build.sensordataviewer, 
   	     build.sensordatabrowser,
+         build.telemetryviewer,
+         build.projectviewer,
 	     build.eclipse"/>
   
   <target name="build.sensorbase">
@@ -78,6 +80,7 @@
     <copyServiceBin module.name="${utilities.system.name}" bin.name="uricache.lib.jar"/>
     <copyServiceBin module.name="${utilities.system.name}" bin.name="hackystatlogger.lib.jar"/>
     <copyServiceBin module.name="${utilities.system.name}" bin.name="time.lib.jar"/>
+    <copyServiceBin module.name="${utilities.system.name}" bin.name="hackystatuserhome.lib.jar"/>
   </target>
   
   <target name="build.sensorshell">
@@ -135,6 +138,20 @@
     <copyServiceDist module.name="${sdb.system.name}"/>
     <copyServiceBin module.name="${sdb.system.name}" bin.name="sensordatabrowser.war"/>
   </target>	
+  
+  <target name="build.projectviewer">
+     <property name="pviewer.system.name" value="hackystat-ui-projectviewer"/>
+     <buildModule module.name="${pviewer.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+     <copyServiceDist module.name="${pviewer.system.name}"/>
+     <copyServiceBin module.name="${pviewer.system.name}" bin.name="build/hackystat-ui-projectviewer.war"/>
+   </target>	
+  
+  <target name="build.telemetryviewer">
+      <property name="tviewer.system.name" value="hackystat-ui-telemetryviewer"/>
+      <buildModule module.name="${tviewer.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+      <copyServiceDist module.name="${tviewer.system.name}"/>
+      <copyServiceBin module.name="${tviewer.system.name}" bin.name="telemetryviewer.war"/>
+    </target>
 	
   <target name="build.dailyprojectdata">
     <property name="dpd.system.name" value="hackystat-analysis-dailyprojectdata"/>
