@@ -32,7 +32,7 @@
   <property name="dpd.system.name" value="hackystat-analysis-dailyprojectdata" />
   <property name="env.HACKYSTAT_DAILYPROJECTDATA_HOME" location="${system.build.dir}/${dpd.system.name}" />
   <property name="telemetry.system.name" value="hackystat-analysis-telemetry" />
-  <property name="env.HACKYSTAT_TELEMETRY_HOME" location="${system.build.dir}/${telemetry.system.name}" />
+  <property name="env.HACKYSTAT_TELEMETRY_HOME" location="${system.build.dir}/${telemetryant.system.name}" />
   <!-- Disable Emma during integration build due to ExceptionInInitializer error on Windows platform. -->
   <property name="emma.disabled" value="true" />
 
