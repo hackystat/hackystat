@@ -2,193 +2,196 @@
   <description>
   The master build file for creating system-level releases of Hackystat.
   </description>
-	
-  <!-- Get today's version number. --> 
+
+  <!-- Get today's version number. -->
   <property name="majorVersionNumber" value="8" />
   <property name="minorVersionNumber" value="0" />
   <tstamp>
     <format property="DAYSTAMP" pattern="Mdd" />
-    <format property="RELEASEDATE" pattern="MMMM dd yyyy"/>
-    <format property="ECLIPSEDATE" pattern="yyyyMMdd"/>
+    <format property="RELEASEDATE" pattern="MMMM dd yyyy" />
+    <format property="ECLIPSEDATE" pattern="yyyyMMdd" />
   </tstamp>
 
   <property name="version" value="${majorVersionNumber}.${minorVersionNumber}.${DAYSTAMP}" />
   <property name="eclipse.version" value="${majorVersionNumber}.${minorVersionNumber}.v${ECLIPSEDATE}" />
-  
+
   <!-- Define build system subdirectories -->
-  <property name="system.build.dir" location="${basedir}/build"/>
-  <property name="system.services.dir" location="${basedir}/build/system/services/"/>
-  <property name="system.sensors.dir" location="${basedir}/build/system/sensors/"/>
-  <mkdir dir="${system.services.dir}"/>
-  <mkdir dir="${system.sensors.dir}"/>
-  
+  <property name="system.build.dir" location="${basedir}/build" />
+  <property name="system.services.dir" location="${basedir}/build/system/services/" />
+  <property name="system.sensors.dir" location="${basedir}/build/system/sensors/" />
+  <mkdir dir="${system.services.dir}" />
+  <mkdir dir="${system.sensors.dir}" />
+
   <!-- Now we override the following environment variables to point into this build. -->
-  <property name="sensorbase.system.name" value="hackystat-sensorbase-uh"/>
+  <property name="sensorbase.system.name" value="hackystat-sensorbase-uh" />
   <property name="env.HACKYSTAT_SENSORBASE_HOME" location="${system.build.dir}/${sensorbase.system.name}" />
-  <property name="utilities.system.name" value="hackystat-utilities"/>
+  <property name="utilities.system.name" value="hackystat-utilities" />
   <property name="env.HACKYSTAT_UTILITIES_HOME" location="${system.build.dir}/${utilities.system.name}" />
-  <property name="sensorshell.system.name" value="hackystat-sensor-shell"/>
+  <property name="sensorshell.system.name" value="hackystat-sensor-shell" />
   <property name="env.HACKYSTAT_SENSORSHELL_HOME" location="${system.build.dir}/${sensorshell.system.name}" />
-  <!-- Disable Emma during integration build due to ExceptionInInitializer error on Windows platform. --> 
+  <property name="dpd.system.name" value="hackystat-analysis-dailyprojectdata" />
+  <property name="env.HACKYSTAT_DAILYPROJECTDATA_HOME" location="${system.build.dir}/${dpd.system.name}" />
+  <property name="telemetry.system.name" value="hackystat-analysis-telemetry" />
+  <property name="env.HACKYSTAT_TELEMETRY_HOME" location="${system.build.dir}/${telemetry.system.name}" />
+  <!-- Disable Emma during integration build due to ExceptionInInitializer error on Windows platform. -->
   <property name="emma.disabled" value="true" />
-   
-  <!-- Now get the other environment variables (for JUnit, Checkstyle, etc.) --> 
-  <property environment="env"/>
 
-  <!-- Make sure that SvnKit is installed . --> 
-  <available file="${env.SVNKIT_HOME}/svnkit.jar" type="file" property="svnkit.available"/>
-  <fail message="This package requires SVNKit to be downloaded and SVNKIT_HOME defined" unless="svnkit.available"/>
- 
+  <!-- Now get the other environment variables (for JUnit, Checkstyle, etc.) -->
+  <property environment="env" />
+
+  <!-- Make sure that SvnKit is installed . -->
+  <available file="${env.SVNKIT_HOME}/svnkit.jar" type="file" property="svnkit.available" />
+  <fail message="This package requires SVNKit to be downloaded and SVNKIT_HOME defined" unless="svnkit.available" />
+
   <!-- read in svn.username and svn.password -->
-  <property file="svn.properties"/>
+  <property file="svn.properties" />
 
-  <import file="macros.build.xml"/>
-  
-  <target name="build.all" 
-    depends="clean,
+  <import file="macros.build.xml" />
+
+  <target name="build.all" depends="clean,
   	     build.utilities, 
   	     build.sensorbase, 
   	     build.sensorshell,
-         build.dailyprojectdata,
-         build.telemetry,
+             build.dailyprojectdata,
+             build.telemetry,
   	     build.ant, 
   	     build.xmldata, 
   	     build.emacs, 
-         build.vim,
-         build.stackyhack,
+             build.vim,
+             build.stackyhack,
   	     build.sensordataviewer, 
   	     build.sensordatabrowser,
-         build.telemetryviewer,
-         build.projectviewer,
-	     build.eclipse"/>
-  
+             build.telemetryviewer,
+             build.projectviewer,
+	     build.eclipse" />
+
   <target name="build.sensorbase">
     <buildModule module.name="${sensorbase.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
-    <copyServiceDist module.name="${sensorbase.system.name}"/>
-    <copyServiceBin module.name="${sensorbase.system.name}" bin.name="sensorbase.jar"/>
-    <copyServiceBin module.name="${sensorbase.system.name}" bin.name="sensorbase.lib.jar"/>
-    <copyServiceBin module.name="${sensorbase.system.name}" bin.name="sensorbaseclient.jar"/>
-    <copyServiceBinDir module.name="${sensorbase.system.name}" dir.name="xml"/>
-    <copyServiceBin module.name="${sensorbase.system.name}" bin.name="sample.sensorbase.properties"/>
+    <copyServiceDist module.name="${sensorbase.system.name}" />
+    <copyServiceBin module.name="${sensorbase.system.name}" bin.name="sensorbase.jar" />
+    <copyServiceBin module.name="${sensorbase.system.name}" bin.name="sensorbase.lib.jar" />
+    <copyServiceBin module.name="${sensorbase.system.name}" bin.name="sensorbaseclient.jar" />
+    <copyServiceBinDir module.name="${sensorbase.system.name}" dir.name="xml" />
+    <copyServiceBin module.name="${sensorbase.system.name}" bin.name="sample.sensorbase.properties" />
   </target>
-  
+
   <target name="build.utilities">
     <buildModule module.name="${utilities.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
-    <copyServiceDist module.name="${utilities.system.name}"/>
-    <copyServiceBin module.name="${utilities.system.name}" bin.name="stacktrace.lib.jar"/>
-    <copyServiceBin module.name="${utilities.system.name}" bin.name="tstamp.lib.jar"/>
-    <copyServiceBin module.name="${utilities.system.name}" bin.name="uricache.lib.jar"/>
-    <copyServiceBin module.name="${utilities.system.name}" bin.name="hackystatlogger.lib.jar"/>
-    <copyServiceBin module.name="${utilities.system.name}" bin.name="time.lib.jar"/>
-    <copyServiceBin module.name="${utilities.system.name}" bin.name="hackystatuserhome.lib.jar"/>
+    <copyServiceDist module.name="${utilities.system.name}" />
+    <copyServiceBin module.name="${utilities.system.name}" bin.name="stacktrace.lib.jar" />
+    <copyServiceBin module.name="${utilities.system.name}" bin.name="tstamp.lib.jar" />
+    <copyServiceBin module.name="${utilities.system.name}" bin.name="uricache.lib.jar" />
+    <copyServiceBin module.name="${utilities.system.name}" bin.name="hackystatlogger.lib.jar" />
+    <copyServiceBin module.name="${utilities.system.name}" bin.name="time.lib.jar" />
+    <copyServiceBin module.name="${utilities.system.name}" bin.name="hackystatuserhome.lib.jar" />
   </target>
-  
+
   <target name="build.sensorshell">
     <buildModule module.name="${sensorshell.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
-    <copySensorDist module.name="${sensorshell.system.name}"/>
-    <copySensorBin module.name="${sensorshell.system.name}" bin.name="sensorshell.jar"/>
-    <copySensorBin module.name="${sensorshell.system.name}" bin.name="sample.sensorshell.properties"/>
+    <copySensorDist module.name="${sensorshell.system.name}" />
+    <copySensorBin module.name="${sensorshell.system.name}" bin.name="sensorshell.jar" />
+    <copySensorBin module.name="${sensorshell.system.name}" bin.name="sample.sensorshell.properties" />
   </target>
-  
+
   <target name="build.ant">
-    <property name="ant.system.name" value="hackystat-sensor-ant"/>
+    <property name="ant.system.name" value="hackystat-sensor-ant" />
     <buildModule module.name="${ant.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
-    <copySensorDist module.name="${ant.system.name}"/>
-    <copySensorBin module.name="${ant.system.name}" bin.name="antsensors.jar"/>
+    <copySensorDist module.name="${ant.system.name}" />
+    <copySensorBin module.name="${ant.system.name}" bin.name="antsensors.jar" />
   </target>
-  
+
   <target name="build.xmldata">
-    <property name="xmldata.system.name" value="hackystat-sensor-xmldata"/>
+    <property name="xmldata.system.name" value="hackystat-sensor-xmldata" />
     <buildModule module.name="${xmldata.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
-    <copySensorDist module.name="${xmldata.system.name}"/>
-    <copySensorBin module.name="${xmldata.system.name}" bin.name="xmldata-cli.jar"/>
-   </target>
-  
+    <copySensorDist module.name="${xmldata.system.name}" />
+    <copySensorBin module.name="${xmldata.system.name}" bin.name="xmldata-cli.jar" />
+  </target>
+
   <target name="build.emacs">
-    <property name="emacs.system.name" value="hackystat-sensor-emacs"/>
+    <property name="emacs.system.name" value="hackystat-sensor-emacs" />
     <buildModule module.name="${emacs.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
-    <copySensorDist module.name="${emacs.system.name}"/>
-    <copySensorBin module.name="${emacs.system.name}" bin.name="build/sensor-package.el"/>
+    <copySensorDist module.name="${emacs.system.name}" />
+    <copySensorBin module.name="${emacs.system.name}" bin.name="build/sensor-package.el" />
   </target>
-  
+
   <target name="build.vim">
-    <property name="vim.system.name" value="hackystat-sensor-vim"/>
+    <property name="vim.system.name" value="hackystat-sensor-vim" />
     <buildModule module.name="${vim.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
-    <copySensorDist module.name="${vim.system.name}"/>
-    <copySensorBin module.name="${vim.system.name}" bin.name="HSVimSensor.class"/>
-    <copySensorBin module.name="${vim.system.name}" bin.name="VIMsensor.vim"/>
+    <copySensorDist module.name="${vim.system.name}" />
+    <copySensorBin module.name="${vim.system.name}" bin.name="HSVimSensor.class" />
+    <copySensorBin module.name="${vim.system.name}" bin.name="VIMsensor.vim" />
   </target>
-  
+
   <target name="build.eclipse">
-    <property name="eclipse.system.name" value="hackystat-sensor-eclipse"/>
+    <property name="eclipse.system.name" value="hackystat-sensor-eclipse" />
     <buildModule module.name="${eclipse.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
-    <copySensorDist module.name="${eclipse.system.name}"/>
-    <copySensorBin module.name="${eclipse.system.name}" bin.name="org.hackystat.sensor.eclipse_${eclipse.version}.jar"/>
+    <copySensorDist module.name="${eclipse.system.name}" />
+    <copySensorBin module.name="${eclipse.system.name}" bin.name="org.hackystat.sensor.eclipse_${eclipse.version}.jar" />
   </target>
-	
+
   <target name="build.sensordataviewer">
-    <property name="sdv.system.name" value="hackystat-ui-sensordataviewer"/>
+    <property name="sdv.system.name" value="hackystat-ui-sensordataviewer" />
     <buildModule module.name="${sdv.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
-    <copyServiceDist module.name="${sdv.system.name}"/>
-    <copyServiceBin module.name="${sdv.system.name}" bin.name="sensordataviewer.war"/>
+    <copyServiceDist module.name="${sdv.system.name}" />
+    <copyServiceBin module.name="${sdv.system.name}" bin.name="sensordataviewer.war" />
   </target>
-	
+
   <target name="build.sensordatabrowser">
-    <property name="sdb.system.name" value="hackystat-ui-sensordatabrowser"/>
+    <property name="sdb.system.name" value="hackystat-ui-sensordatabrowser" />
     <buildModule module.name="${sdb.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
-    <copyServiceDist module.name="${sdb.system.name}"/>
-    <copyServiceBin module.name="${sdb.system.name}" bin.name="sensordatabrowser.war"/>
-  </target>	
-  
-  <target name="build.projectviewer">
-     <property name="pviewer.system.name" value="hackystat-ui-projectviewer"/>
-     <buildModule module.name="${pviewer.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
-     <copyServiceDist module.name="${pviewer.system.name}"/>
-     <copyServiceBin module.name="${pviewer.system.name}" bin.name="build/hackystat-ui-projectviewer.war"/>
-   </target>	
-  
-  <target name="build.telemetryviewer">
-      <property name="tviewer.system.name" value="hackystat-ui-telemetryviewer"/>
-      <buildModule module.name="${tviewer.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
-      <copyServiceDist module.name="${tviewer.system.name}"/>
-      <copyServiceBin module.name="${tviewer.system.name}" bin.name="telemetryviewer.war"/>
-    </target>
-	
-  <target name="build.dailyprojectdata">
-    <property name="dpd.system.name" value="hackystat-analysis-dailyprojectdata"/>
-    <buildModule module.name="${dpd.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
-    <copyServiceDist module.name="${dpd.system.name}"/>
-    <copyServiceBin module.name="${dpd.system.name}" bin.name="dailyprojectdata.jar"/>
-    <copyServiceBin module.name="${dpd.system.name}" bin.name="dailyprojectdata.lib.jar"/>
-    <copyServiceBin module.name="${dpd.system.name}" bin.name="sample.dailyprojectdata.properties"/>
+    <copyServiceDist module.name="${sdb.system.name}" />
+    <copyServiceBin module.name="${sdb.system.name}" bin.name="sensordatabrowser.war" />
   </target>
-  
+
+  <target name="build.projectviewer">
+    <property name="pviewer.system.name" value="hackystat-ui-projectviewer" />
+    <buildModule module.name="${pviewer.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <copyServiceDist module.name="${pviewer.system.name}" />
+    <copyServiceBin module.name="${pviewer.system.name}" bin.name="build/hackystat-ui-projectviewer.war" />
+  </target>
+
+  <target name="build.telemetryviewer">
+    <property name="tviewer.system.name" value="hackystat-ui-telemetryviewer" />
+    <buildModule module.name="${tviewer.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <copyServiceDist module.name="${tviewer.system.name}" />
+    <copyServiceBin module.name="${tviewer.system.name}" bin.name="telemetryviewer.war" />
+  </target>
+
+  <target name="build.dailyprojectdata">
+    <property name="dpd.system.name" value="hackystat-analysis-dailyprojectdata" />
+    <buildModule module.name="${dpd.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <copyServiceDist module.name="${dpd.system.name}" />
+    <copyServiceBin module.name="${dpd.system.name}" bin.name="dailyprojectdata.jar" />
+    <copyServiceBin module.name="${dpd.system.name}" bin.name="dailyprojectdata.lib.jar" />
+    <copyServiceBin module.name="${dpd.system.name}" bin.name="sample.dailyprojectdata.properties" />
+  </target>
+
   <target name="build.telemetry">
-     <property name="tel.system.name" value="hackystat-analysis-telemetry"/>
-     <buildModule module.name="${tel.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
-     <copyServiceDist module.name="${tel.system.name}"/>
-     <copyServiceBin module.name="${tel.system.name}" bin.name="telemetry.jar"/>
-     <copyServiceBin module.name="${tel.system.name}" bin.name="telemetry.lib.jar"/>
-    <copyServiceBin module.name="${tel.system.name}" bin.name="sample.telemetry.properties"/>
-   </target>  
-  
+    <property name="tel.system.name" value="hackystat-analysis-telemetry" />
+    <buildModule module.name="${tel.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <copyServiceDist module.name="${tel.system.name}" />
+    <copyServiceBin module.name="${tel.system.name}" bin.name="telemetry.jar" />
+    <copyServiceBin module.name="${tel.system.name}" bin.name="telemetry.lib.jar" />
+    <copyServiceBin module.name="${tel.system.name}" bin.name="sample.telemetry.properties" />
+  </target>
+
   <target name="build.stackyhack">
-      <property name="stackyhack.system.name" value="hackystat-sensor-example"/>
-      <buildModule module.name="${stackyhack.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
-      <copySensorDist module.name="${stackyhack.system.name}"/>
-      <copySensorBin module.name="${stackyhack.system.name}" bin.name="build/dist/${stackyhack.system.name}-${version}.zip"/>
-  </target>  
-  
+    <property name="stackyhack.system.name" value="hackystat-sensor-example" />
+    <buildModule module.name="${stackyhack.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <copySensorDist module.name="${stackyhack.system.name}" />
+    <copySensorBin module.name="${stackyhack.system.name}" bin.name="build/dist/${stackyhack.system.name}-${version}.zip" />
+  </target>
+
   <target name="build.systemstatus">
-       <property name="sysstat.system.name" value="hackystat-sensor-example"/>
-       <buildModule module.name="${sysstat.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
-       <copyServiceDist module.name="${sysstat.system.name}"/>
-       <copyServiceBin module.name="${sysstat.system.name}" bin.name="pingmail.jar"/>
-  </target>  
-  
+    <property name="sysstat.system.name" value="hackystat-sensor-example" />
+    <buildModule module.name="${sysstat.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <copyServiceDist module.name="${sysstat.system.name}" />
+    <copyServiceBin module.name="${sysstat.system.name}" bin.name="pingmail.jar" />
+  </target>
+
   <target name="clean" description="Delete build/system directories.">
-    <delete dir="${system.services.dir}" quiet="true"/> 
-    <delete dir="${system.sensors.dir}" quiet="true"/> 
+    <delete dir="${system.services.dir}" quiet="true" />
+    <delete dir="${system.sensors.dir}" quiet="true" />
   </target>
 
 </project>
