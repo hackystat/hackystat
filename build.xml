@@ -45,25 +45,25 @@
 
   <!-- read in svn.username and svn.password -->
   <property file="svn.properties" />
-
+ 
   <import file="macros.build.xml" />
 
   <target name="build.all" depends="clean,
-  	     build.utilities, 
-  	     build.sensorbase, 
-  	     build.sensorshell,
-             build.dailyprojectdata,
-             build.telemetry,
-  	     build.ant, 
-  	     build.xmldata, 
-  	     build.emacs, 
-             build.vim,
-             build.stackyhack,
-  	     build.sensordataviewer, 
-  	     build.sensordatabrowser,
-             build.telemetryviewer,
-             build.projectviewer,
-	     build.eclipse" />
+  	                                build.utilities, 
+  	                                build.sensorbase, 
+  	                                build.sensorshell,
+                                    build.dailyprojectdata,
+                                    build.telemetry,
+  	                                build.ant, 
+  	                                build.xmldata, 
+  	                                build.emacs, 
+                                    build.vim,
+                                    build.stackyhack,
+  	                                build.sensordataviewer, 
+  	                                build.sensordatabrowser,
+                                    build.telemetryviewer,
+                                    build.projectviewer,
+	                                build.eclipse" />
 
   <target name="build.sensorbase">
     <buildModule module.name="${sensorbase.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
@@ -90,6 +90,7 @@
     <buildModule module.name="${sensorshell.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <copySensorDist module.name="${sensorshell.system.name}" />
     <copySensorBin module.name="${sensorshell.system.name}" bin.name="sensorshell.jar" />
+    <copySensorBin module.name="${sensorshell.system.name}" bin.name="shellperfeval.jar" />
     <copySensorBin module.name="${sensorshell.system.name}" bin.name="sample.sensorshell.properties" />
   </target>
 
