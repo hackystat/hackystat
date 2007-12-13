@@ -56,18 +56,20 @@
     <fail message="Could not find ${env.GOOGLECODE_UPLOAD_HOME}/${googlecode.upload.jar}.  This task requires the GoogleCode upload ant task to be downloaded and GOOGLECODE_UPLOAD_HOME defined" unless="googlecode.upload.available" />
 
     <taskdef classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="${env.GOOGLECODE_UPLOAD_HOME}/${googlecode.upload.jar}" name="gcupload" />
-    <echo message="***** [1/4] Starting upload of hackystat-${version}-sensors-bin.zip" />
+    <echo message="***** [1] Starting upload of hackystat-${version}-sensors-bin.zip" />
     <gcupload username="${svn.username}" password="${svn.password}" projectname="hackystat" 
       filename="${basedir}/hackystat-${version}-sensors-bin.zip" targetfilename="hackystat-${version}-sensors-bin.zip" summary="Hackystat Sensors Bin Distribution ${RELEASEDATE}" />
-    <echo message="***** [2/4] Starting upload of hackystat-${version}-sensors-src.zip" />
-    <gcupload username="${svn.username}" password="${svn.password}" projectname="hackystat" 
-      filename="${basedir}/hackystat-${version}-sensors-src.zip" targetfilename="hackystat-${version}-sensors-src.zip" summary="Hackystat Sensors Src Distribution ${RELEASEDATE}" />
-    <echo message="***** [3/4] Starting upload of hackystat-${version}-services-bin.zip" />
+    <echo message="***** [2] Starting upload of hackystat-${version}-services-bin.zip" />
      <gcupload username="${svn.username}" password="${svn.password}" projectname="hackystat" 
        filename="${basedir}/hackystat-${version}-services-bin.zip" targetfilename="hackystat-${version}-services-bin.zip" summary="Hackystat Services Bin Distribution ${RELEASEDATE}" />
-     <echo message="***** [4/4] Starting upload of hackystat-${version}-services-src.zip" />
+    <!--
+    <echo message="***** [3] Starting upload of hackystat-${version}-sensors-src.zip" />
+    <gcupload username="${svn.username}" password="${svn.password}" projectname="hackystat" 
+      filename="${basedir}/hackystat-${version}-sensors-src.zip" targetfilename="hackystat-${version}-sensors-src.zip" summary="Hackystat Sensors Src Distribution ${RELEASEDATE}" />
+     <echo message="***** [4] Starting upload of hackystat-${version}-services-src.zip" />
      <gcupload username="${svn.username}" password="${svn.password}" projectname="hackystat" 
        filename="${basedir}/hackystat-${version}-services-src.zip" targetfilename="hackystat-${version}-services-src.zip" summary="Hackystat Services Src Distribution ${RELEASEDATE}" />
+     -->
     <echo message="Finished upload. You may want to set these files to be FEATURED." />
   </target>
 
