@@ -62,22 +62,25 @@
      </sequential>
    </macrodef>
 
-  
-  <macrodef name="buildModule.anonymous">
-     <attribute name="module.name"/>
-     <sequential>
-       <module.checkout.anonymous module.name="@{module.name}"/>
-       <ant dir="${system.build.dir}/@{module.name}" antfile="verify.build.xml" />
-       <ant dir="${system.build.dir}/@{module.name}" antfile="dist.build.xml" />
-     </sequential>
-   </macrodef>
+  <macrodef name="module.checkout.wiki">
+      <attribute name="svn.username"/>
+      <attribute name="svn.password"/>
+      <attribute name="module.name"/>
+      <sequential>
+        <mkdir dir="${system.build.dir}/wiki-@{module.name}"/>
+        <svn.checkout svn.url="https://@{module.name}.googlecode.com/svn/wiki/" 
+                      local.workspace="${system.build.dir}/wiki-@{module.name}"
+                      username="@{svn.username}" 
+                      password="@{svn.password}" />
+      </sequential>
+    </macrodef>
+
   
   <macrodef name="buildModule">
     <attribute name="svn.username"/>
     <attribute name="svn.password"/>
     <attribute name="module.name"/>
     <sequential>
-      <module.checkout module.name="@{module.name}" svn.username="@{svn.username}" svn.password="@{svn.password}"/>
       <ant dir="${system.build.dir}/@{module.name}" antfile="verify.build.xml" />
       <ant dir="${system.build.dir}/@{module.name}" antfile="dist.build.xml" />
     </sequential>

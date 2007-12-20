@@ -2,7 +2,7 @@
   <description>
   The master build file for creating system-level releases of Hackystat.
   </description>
-  
+
   <!--
    Note: if you get the following certificate issue, just type 'p' at the command line:
     svnCheckout:
@@ -34,24 +34,33 @@
   <property name="eclipse.version" value="${majorVersionNumber}.${minorVersionNumber}.v${ECLIPSEDATE}" />
 
   <!-- Define build system subdirectories -->
-  <property name="system.build.dir" location="${basedir}/build" />
+  <property name="system.build.dir" location="${basedir}" />
   <property name="system.services.dir" location="${system.build.dir}/system/services/" />
   <property name="system.sensors.dir" location="${system.build.dir}/system/sensors/" />
-  <mkdir dir="${system.services.dir}" />
-  <mkdir dir="${system.sensors.dir}" />
-  
-  <!-- Define all project names here. -->
 
-  <!-- Now we override the following environment variables to point into this build. -->
-  <property name="sensorbase.system.name" value="hackystat-sensorbase-uh" />
-  <property name="env.HACKYSTAT_SENSORBASE_HOME" location="${system.build.dir}/${sensorbase.system.name}" />
-  <property name="utilities.system.name" value="hackystat-utilities" />
-  <property name="env.HACKYSTAT_UTILITIES_HOME" location="${system.build.dir}/${utilities.system.name}" />
-  <property name="sensorshell.system.name" value="hackystat-sensor-shell" />
-  <property name="env.HACKYSTAT_SENSORSHELL_HOME" location="${system.build.dir}/${sensorshell.system.name}" />
+
+  <!-- Define all project names here. -->
   <property name="dpd.system.name" value="hackystat-analysis-dailyprojectdata" />
-  <property name="env.HACKYSTAT_DAILYPROJECTDATA_HOME" location="${system.build.dir}/${dpd.system.name}" />
   <property name="telemetry.system.name" value="hackystat-analysis-telemetry" />
+  <property name="ant.system.name" value="hackystat-sensor-ant" />
+  <property name="sensorbase.system.name" value="hackystat-sensorbase-uh" />
+  <property name="eclipse.system.name" value="hackystat-sensor-eclipse" />
+  <property name="emacs.system.name" value="hackystat-sensor-emacs" />
+  <property name="stackyhack.system.name" value="hackystat-sensor-example" />
+  <property name="sensorshell.system.name" value="hackystat-sensor-shell" />
+  <property name="vim.system.name" value="hackystat-sensor-vim" />
+  <property name="xmldata.system.name" value="hackystat-sensor-xmldata" />
+  <property name="pv.system.name" value="hackystat-ui-projectviewer" />
+  <property name="sdb.system.name" value="hackystat-ui-sensordatabrowser" />
+  <property name="sdv.system.name" value="hackystat-ui-sensordataviewer" />
+  <property name="tv.system.name" value="hackystat-ui-telemetryviewer" />
+  <property name="utilities.system.name" value="hackystat-utilities" />
+
+  <!-- Now we override the following environment variables to point into this build for use doing global builds. -->
+  <property name="env.HACKYSTAT_SENSORBASE_HOME" location="${system.build.dir}/${sensorbase.system.name}" />
+  <property name="env.HACKYSTAT_UTILITIES_HOME" location="${system.build.dir}/${utilities.system.name}" />
+  <property name="env.HACKYSTAT_SENSORSHELL_HOME" location="${system.build.dir}/${sensorshell.system.name}" />
+  <property name="env.HACKYSTAT_DAILYPROJECTDATA_HOME" location="${system.build.dir}/${dpd.system.name}" />
   <property name="env.HACKYSTAT_TELEMETRY_HOME" location="${system.build.dir}/${telemetry.system.name}" />
   <!-- Disable Emma during integration build due to ExceptionInInitializer error on Windows platform. -->
   <property name="emma.disabled" value="true" />
@@ -63,32 +72,83 @@
   <available file="${env.SVNKIT_HOME}/svnkit.jar" type="file" property="svnkit.available" />
   <fail message="This package requires SVNKit to be downloaded and SVNKIT_HOME defined" unless="svnkit.available" />
 
-  <!-- read in svn.username and svn.password -->
+  <!-- read in svn.username and svn.password (not necessary for anonymous checkout. -->
   <property file="svn.properties" />
- 
+
   <import file="macros.build.xml" />
 
-  <target name="build.all" depends="clean,
-  	                                build.utilities, 
-  	                                build.sensorbase, 
-  	                                build.sensorshell,
-                                    build.dailyprojectdata,
-                                    build.telemetry,
-  	                                build.ant, 
-  	                                build.xmldata, 
-  	                                build.emacs, 
-                                    build.vim,
-                                    build.stackyhack,
-  	                                build.sensordataviewer, 
-  	                                build.sensordatabrowser,
-                                    build.telemetryviewer,
-                                    build.projectviewer,
-	                                build.eclipse" 
-    description="Cleans, then checks out and builds all modules.  Requires SVN commit access."/>
-  
+  <target name="build.all" 
+    depends="clean,
+             build.utilities,    
+             build.sensorbase,
+             build.sensorshell,
+             build.dailyprojectdata,
+             build.telemetry,
+  	     build.ant, 
+  	     build.xmldata, 
+  	     build.emacs, 
+             build.vim,
+             build.stackyhack,
+  	     build.sensordataviewer, 
+  	     build.sensordatabrowser,
+             build.telemetryviewer,
+             build.projectviewer,
+	     build.eclipse" 
+    description="Cleans, then checks out and builds all modules.  Requires SVN commit access." />
+
   <target name="checkout.anonymous" description="Anonymous check out/update of all projects from Google Project Hosting.">
-    <module.checkout.anonymous module.name="build.utilities"/>
+    <module.checkout.anonymous module.name="${utilities.system.name}" />
+    <module.checkout.anonymous module.name="${sensorbase.system.name}" />
+    <module.checkout.anonymous module.name="${sensorshell.system.name}" />
+    <module.checkout.anonymous module.name="${dpd.system.name}" />
+    <module.checkout.anonymous module.name="${telemetry.system.name}" />
+    <module.checkout.anonymous module.name="${ant.system.name}" />
+    <module.checkout.anonymous module.name="${xmldata.system.name}" />
+    <module.checkout.anonymous module.name="${emacs.system.name}" />
+    <module.checkout.anonymous module.name="${vim.system.name}" />
+    <module.checkout.anonymous module.name="${stackyhack.system.name}" />
+    <module.checkout.anonymous module.name="${sdv.system.name}" />
+    <module.checkout.anonymous module.name="${sdb.system.name}" />
+    <module.checkout.anonymous module.name="${tv.system.name}" />
+    <module.checkout.anonymous module.name="${pv.system.name}" />
+    <module.checkout.anonymous module.name="${eclipse.system.name}" />
   </target>
+  
+  <target name="checkout" description="Check out/update of all projects from Google Project Hosting. Requires project membership.">
+     <module.checkout module.name="${utilities.system.name}" svn.username="${svn.username}" svn.password="${svn.password}"  />
+     <module.checkout module.name="${sensorbase.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+     <module.checkout module.name="${sensorshell.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+     <module.checkout module.name="${dpd.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+     <module.checkout module.name="${telemetry.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+     <module.checkout module.name="${ant.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+     <module.checkout module.name="${xmldata.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+     <module.checkout module.name="${emacs.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+     <module.checkout module.name="${vim.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+     <module.checkout module.name="${stackyhack.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+     <module.checkout module.name="${sdv.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+     <module.checkout module.name="${sdb.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+     <module.checkout module.name="${tv.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+     <module.checkout module.name="${pv.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+     <module.checkout module.name="${eclipse.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+   </target>
+  
+  <target name="checkout-wiki" description="Check out/update of all projects from Google Project Hosting. Requires project membership.">
+      <module.checkout.wiki module.name="${utilities.system.name}" svn.username="${svn.username}" svn.password="${svn.password}"  />
+      <module.checkout.wiki module.name="${sensorbase.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+      <module.checkout.wiki module.name="${sensorshell.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+      <module.checkout.wiki module.name="${dpd.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+      <module.checkout.wiki module.name="${telemetry.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+      <module.checkout.wiki module.name="${ant.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+      <module.checkout.wiki module.name="${xmldata.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+      <module.checkout.wiki module.name="${emacs.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+      <module.checkout.wiki module.name="${vim.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+      <module.checkout.wiki module.name="${stackyhack.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+      <module.checkout.wiki module.name="${sdv.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+      <module.checkout.wiki module.name="${sdb.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+      <module.checkout.wiki module.name="${tv.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+      <module.checkout.wiki module.name="${pv.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+      <module.checkout.wiki module.name="${eclipse.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+    </target>
 
   <target name="build.sensorbase">
     <buildModule module.name="${sensorbase.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
@@ -215,7 +275,7 @@
     <copyServiceBin module.name="${sysstat.system.name}" bin.name="pingmail.jar" />
   </target>
 
-  <target name="clean" description="Delete build/system directories.">
+  <target name="clean" description="Delete system directories.">
     <delete dir="${system.services.dir}" quiet="true" />
     <delete dir="${system.sensors.dir}" quiet="true" />
   </target>
