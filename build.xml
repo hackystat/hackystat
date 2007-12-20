@@ -2,6 +2,24 @@
   <description>
   The master build file for creating system-level releases of Hackystat.
   </description>
+  
+  <!--
+   Note: if you get the following certificate issue, just type 'p' at the command line:
+    svnCheckout:
+         [java] Error validating server certificate for 'https://hackystat-sensorbase-uh.googlecode.com:443':
+         [java]  - The certificate is not issued by a trusted authority. Use the
+         [java]    fingerprint to validate the certificate manually!
+         [java]  - The certificate hostname does not match.
+         [java] Certificate information:
+         [java]  - Subject: CN=*.googlecode.com, O=Google Inc, L=Mountain View, ST=California, C=US
+         [java]  - Valid: from Fri Jun 23 06:05:41 HST 2006 until Sat Jun 21 01:45:36 HST 2008
+         [java]  - Issuer: EMAILADDRESS=premium-server@thawte.com, CN=Thawte Premium Server CA, OU=Certification Services Division, O=Thawte Consulting cc, L=Cape Town, ST=Western Cape, C=ZA
+         [java]  - Fingerprint: 89:87:5e:ca:0b:03:d2:83:db:7b:3f:20:5d:d0:76:c7:76:6b:cb:b2
+    p
+         [java] svn: '/Users/johnson/svn-google/hackystat/build/sensorbase' is already a working copy for a different URL
+         [java] (R)eject, accept (t)emporarily or accept (p)ermanently? 
+         [java] Java Result: 1
+  -->
 
   <!-- Get today's version number. -->
   <property name="majorVersionNumber" value="8" />
@@ -17,10 +35,12 @@
 
   <!-- Define build system subdirectories -->
   <property name="system.build.dir" location="${basedir}/build" />
-  <property name="system.services.dir" location="${basedir}/build/system/services/" />
-  <property name="system.sensors.dir" location="${basedir}/build/system/sensors/" />
+  <property name="system.services.dir" location="${system.build.dir}/system/services/" />
+  <property name="system.sensors.dir" location="${system.build.dir}/system/sensors/" />
   <mkdir dir="${system.services.dir}" />
   <mkdir dir="${system.sensors.dir}" />
+  
+  <!-- Define all project names here. -->
 
   <!-- Now we override the following environment variables to point into this build. -->
   <property name="sensorbase.system.name" value="hackystat-sensorbase-uh" />
@@ -63,7 +83,12 @@
   	                                build.sensordatabrowser,
                                     build.telemetryviewer,
                                     build.projectviewer,
-	                                build.eclipse" />
+	                                build.eclipse" 
+    description="Cleans, then checks out and builds all modules.  Requires SVN commit access."/>
+  
+  <target name="checkout.anonymous" description="Anonymous check out/update of all projects from Google Project Hosting.">
+    <module.checkout.anonymous module.name="build.utilities"/>
+  </target>
 
   <target name="build.sensorbase">
     <buildModule module.name="${sensorbase.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
