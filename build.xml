@@ -120,6 +120,7 @@
   
   <target name="commit" description="Commit all changes from all projects from Google Project Hosting. Requires project membership.">
     <fail message="Must supply -Dsvn.message={message}" unless="svn.message"/>
+    <svn.commit svn.module="${pv.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
     <svn.commit svn.module="${utilities.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
     <svn.commit svn.module="${sensorbase.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
     <svn.commit svn.module="${sensorshell.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
@@ -133,13 +134,13 @@
     <svn.commit svn.module="${sdv.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
     <svn.commit svn.module="${sdb.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
     <svn.commit svn.module="${tv.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
-    <svn.commit svn.module="${pv.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
     <svn.commit svn.module="${eclipse.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
     <svn.commit svn.module="${systemstatus.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
   </target>
    
   
   <target name="checkout" description="Check out/update of all projects from Google Project Hosting. Requires project membership.">
+    <module.checkout module.name="${pv.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
      <module.checkout module.name="${utilities.system.name}" svn.username="${svn.username}" svn.password="${svn.password}"  />
      <module.checkout module.name="${sensorbase.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
      <module.checkout module.name="${sensorshell.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
@@ -153,7 +154,6 @@
      <module.checkout module.name="${sdv.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
      <module.checkout module.name="${sdb.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
      <module.checkout module.name="${tv.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-     <module.checkout module.name="${pv.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.checkout module.name="${eclipse.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.checkout module.name="${systemstatus.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
    </target>
