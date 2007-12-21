@@ -116,7 +116,21 @@
   
   <target name="commit" description="Commit all changes from all projects from Google Project Hosting. Requires project membership.">
     <fail message="Must supply -Dsvn.message={message}" unless="svn.message"/>
-    <svn.commit svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
+    <svn.commit svn.module="${utilities.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
+    <svn.commit svn.module="${sensorbase.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
+    <svn.commit svn.module="${sensorshell.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
+    <svn.commit svn.module="${dpd.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
+    <svn.commit svn.module="${telemetry.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
+    <svn.commit svn.module="${ant.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
+    <svn.commit svn.module="${xmldata.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
+    <svn.commit svn.module="${emacs.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
+    <svn.commit svn.module="${vim.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
+    <svn.commit svn.module="${stackyhack.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
+    <svn.commit svn.module="${sdv.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
+    <svn.commit svn.module="${sdb.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
+    <svn.commit svn.module="${tv.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
+    <svn.commit svn.module="${pv.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
+    <svn.commit svn.module="${eclipse.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
   </target>
    
   

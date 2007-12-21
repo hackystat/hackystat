@@ -44,6 +44,7 @@
     <attribute name="svn.message"/>
     <attribute name="svn.username"/>
     <attribute name="svn.password"/>
+    <attribute name="svn.module"/>
        <sequential>
            <java classname="org.tmatesoft.svn.cli.SVN" fork="true" failonerror="true">
              <arg value="commit"/>
@@ -53,6 +54,7 @@
              <arg value="@{svn.username}"/>
              <arg value="--password"/>
              <arg value="@{svn.password}"/>
+             <arg value="@{svn.module}"/>
              <classpath>
                <pathelement location="${env.SVNKIT_HOME}/ganymed.jar" />
                <pathelement location="${env.SVNKIT_HOME}/svnkit.jar" />
