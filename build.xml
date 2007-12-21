@@ -74,7 +74,7 @@
   <available file="${env.SVNKIT_HOME}/svnkit.jar" type="file" property="svnkit.available" />
   <fail message="This package requires SVNKit to be downloaded and SVNKIT_HOME defined" unless="svnkit.available" />
 
-  <!-- read in svn.username and svn.password (not necessary for anonymous checkout. -->
+  <!-- read in svn.username and svn.password (not necessary for anonymous checkout). -->
   <property file="svn.properties" />
 
   <import file="macros.build.xml" />
@@ -86,16 +86,16 @@
              build.sensorshell,
              build.dailyprojectdata,
              build.telemetry,
-  	     build.ant, 
-  	     build.xmldata, 
-  	     build.emacs, 
+  	         build.ant, 
+  	         build.xmldata, 
+  	         build.emacs, 
              build.vim,
              build.stackyhack,
-  	     build.sensordataviewer, 
-  	     build.sensordatabrowser,
+  	         build.sensordataviewer, 
+  	         build.sensordatabrowser,
              build.telemetryviewer,
              build.projectviewer,
-	     build.eclipse,
+	         build.eclipse,
              build.systemstatus" 
     description="Cleans, then checks out and builds all modules.  Requires SVN commit access." />
 
@@ -140,7 +140,8 @@
    
   
   <target name="checkout" description="Check out/update of all projects from Google Project Hosting. Requires project membership.">
-    <module.checkout module.name="${pv.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+     <fail message="Must define svn.properties file with username and password." unless="svn.username"/>
+     <module.checkout module.name="${pv.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
      <module.checkout module.name="${utilities.system.name}" svn.username="${svn.username}" svn.password="${svn.password}"  />
      <module.checkout module.name="${sensorbase.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
      <module.checkout module.name="${sensorshell.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
@@ -159,6 +160,7 @@
    </target>
   
   <target name="checkout-wiki" description="Check out/update of all projects from Google Project Hosting. Requires project membership.">
+      <fail message="Must define svn.properties file with username and password." unless="svn.username"/>
       <module.checkout.wiki module.name="${utilities.system.name}" svn.username="${svn.username}" svn.password="${svn.password}"  />
       <module.checkout.wiki module.name="${sensorbase.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
       <module.checkout.wiki module.name="${sensorshell.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
@@ -252,7 +254,7 @@
   <target name="build.projectviewer">
     <buildModule module.name="${pv.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <copyServiceDist module.name="${pv.system.name}" />
-    <copyServiceBin module.name="${pv.system.name}" bin.name="build/hackystat-ui-projectviewer.war" />
+    <copyServiceBin module.name="${pv.system.name}" bin.name="build/projectviewer.war" />
   </target>
 
   <target name="build.telemetryviewer">
