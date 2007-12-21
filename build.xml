@@ -254,7 +254,7 @@
   <target name="build.projectviewer">
     <buildModule module.name="${pv.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <copyServiceDist module.name="${pv.system.name}" />
-    <copyServiceBin module.name="${pv.system.name}" bin.name="build/projectviewer.war" />
+    <copyServiceBin module.name="${pv.system.name}" bin.name="projectviewer.war" />
   </target>
 
   <target name="build.telemetryviewer">
