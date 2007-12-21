@@ -114,6 +114,12 @@
     <module.checkout.anonymous module.name="${eclipse.system.name}" />
   </target>
   
+  <target name="commit" description="Commit all changes from all projects from Google Project Hosting. Requires project membership.">
+    <fail message="Must supply -Dsvn.message={message}" unless="svn.message"/>
+    <svn.commit svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
+  </target>
+   
+  
   <target name="checkout" description="Check out/update of all projects from Google Project Hosting. Requires project membership.">
      <module.checkout module.name="${utilities.system.name}" svn.username="${svn.username}" svn.password="${svn.password}"  />
      <module.checkout module.name="${sensorbase.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />

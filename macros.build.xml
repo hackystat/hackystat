@@ -40,6 +40,28 @@
        </sequential>
      </macrodef> 
   
+  <macrodef name="svn.commit">
+    <attribute name="svn.message"/>
+    <attribute name="svn.username"/>
+    <attribute name="svn.password"/>
+       <sequential>
+           <java classname="org.tmatesoft.svn.cli.SVN" fork="true" failonerror="true">
+             <arg value="commit"/>
+             <arg value="--message"/>
+             <arg value="'@{svn.message}'"/>
+             <arg value="--username"/>
+             <arg value="@{svn.username}"/>
+             <arg value="--password"/>
+             <arg value="@{svn.password}"/>
+             <classpath>
+               <pathelement location="${env.SVNKIT_HOME}/ganymed.jar" />
+               <pathelement location="${env.SVNKIT_HOME}/svnkit.jar" />
+               <pathelement location="${env.SVNKIT_HOME}/svnkit-cli.jar" />
+             </classpath>
+           </java>
+       </sequential>
+     </macrodef> 
+  
   <macrodef name="module.checkout.anonymous">
       <attribute name="module.name"/>
       <sequential>
