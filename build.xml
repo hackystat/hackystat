@@ -250,10 +250,9 @@
   </target>
 
   <target name="build.projectviewer">
-    <property name="pviewer.system.name" value="hackystat-ui-projectviewer" />
-    <buildModule module.name="${pviewer.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
-    <copyServiceDist module.name="${pviewer.system.name}" />
-    <copyServiceBin module.name="${pviewer.system.name}" bin.name="build/hackystat-ui-projectviewer.war" />
+    <buildModule module.name="${pv.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <copyServiceDist module.name="${pv.system.name}" />
+    <copyServiceBin module.name="${pv.system.name}" bin.name="build/hackystat-ui-projectviewer.war" />
   </target>
 
   <target name="build.telemetryviewer">
