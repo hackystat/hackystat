@@ -161,5 +161,12 @@
      	   todir="${system.sensors.dir}/bin/@{module.name}@{bin.subdir}"/>
    </sequential>
   </macrodef>	
+  
+  <macrodef name="jarModule">
+    <attribute name="module.name"/>
+    <sequential>
+      <ant dir="${system.build.dir}/@{module.name}" antfile="jar.build.xml" />
+    </sequential>
+  </macrodef>
 
   </project>

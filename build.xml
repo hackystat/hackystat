@@ -56,6 +56,7 @@
   <property name="tv.system.name" value="hackystat-ui-telemetryviewer" />
   <property name="utilities.system.name" value="hackystat-utilities" />
   <property name="systemstatus.system.name" value="hackystat-ui-systemstatus" />
+  <property name="simdata.system.name" value="hackystat-sensorbase-simdata" />
 
 
   <!-- Now we override the following environment variables to point into this build for use doing global builds. -->
@@ -96,7 +97,8 @@
              build.telemetryviewer,
              build.projectviewer,
 	         build.eclipse,
-             build.systemstatus" 
+             build.systemstatus
+             build.simdata" 
     description="Cleans, then checks out and builds all modules.  Requires SVN commit access." />
 
   <target name="checkout.anonymous" description="Anonymous check out/update of all projects from Google Project Hosting.">
@@ -116,6 +118,7 @@
     <module.checkout.anonymous module.name="${pv.system.name}" />
     <module.checkout.anonymous module.name="${eclipse.system.name}" />
     <module.checkout.anonymous module.name="${systemstatus.system.name}" />
+    <module.checkout.anonymous module.name="${simdata.system.name}" />
   </target>
   
   <target name="commit" description="Commit all changes from all projects from Google Project Hosting. Requires project membership.">
@@ -136,6 +139,7 @@
     <svn.commit svn.module="${tv.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
     <svn.commit svn.module="${eclipse.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
     <svn.commit svn.module="${systemstatus.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
+    <svn.commit svn.module="${simdata.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
   </target>
    
   
@@ -155,8 +159,9 @@
      <module.checkout module.name="${sdv.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
      <module.checkout module.name="${sdb.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
      <module.checkout module.name="${tv.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-    <module.checkout module.name="${eclipse.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-    <module.checkout module.name="${systemstatus.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+     <module.checkout module.name="${eclipse.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+     <module.checkout module.name="${systemstatus.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+     <module.checkout module.name="${simdata.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
    </target>
   
   <target name="checkout-wiki" description="Check out/update of all projects from Google Project Hosting. Requires project membership.">
@@ -177,6 +182,7 @@
       <module.checkout.wiki module.name="${pv.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
       <module.checkout.wiki module.name="${eclipse.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
       <module.checkout.wiki module.name="${systemstatus.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
+      <module.checkout.wiki module.name="${simdata.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
     </target>
 
   <target name="build.sensorbase">
@@ -277,6 +283,7 @@
     <copyServiceBin module.name="${telemetry.system.name}" bin.name="telemetry.jar" />
     <copyServiceBin module.name="${telemetry.system.name}" bin.name="telemetry.lib.jar" />
     <copyServiceBin module.name="${telemetry.system.name}" bin.name="sample.telemetry.properties" />
+    <copyServiceBinDir module.name="${telemetry.system.name}" dir.name="definitions" />
   </target>
 
   <target name="build.stackyhack">
@@ -290,12 +297,26 @@
     <copyServiceDist module.name="${systemstatus.system.name}" />
     <copyServiceBin module.name="${systemstatus.system.name}" bin.name="pingmail.jar" />
   </target>
+  
+  <target name="build.simdata">
+     <buildModule module.name="${simdata.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+     <copyServiceDist module.name="${simdata.system.name}" />
+     <copyServiceBin module.name="${simdata.system.name}" bin.name="simdata.jar" />
+     <copyServiceBinDir module.name="${simdata.system.name}" dir.name="definitions" />
+   </target>
 
   <target name="clean" description="Delete system directories.">
     <delete dir="${system.services.dir}" quiet="true" />
     <delete dir="${system.sensors.dir}" quiet="true" />
   </target>
-
+  
+  <target name="jar" description="Create jar files for services in correct order.">
+    <jarModule module.name="hackystat-utilities"/>
+    <jarModule module.name="hackystat-sensorbase-uh"/>
+    <jarModule module.name="hackystat-analysis-dailyprojectdata"/>
+    <jarModule module.name="hackystat-analysis-telemetry"/>
+    <jarModule module.name="hackystat-sensorbase-simdata"/>
+  </target>
 </project>
 
 
