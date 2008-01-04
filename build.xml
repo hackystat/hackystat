@@ -97,7 +97,7 @@
              build.telemetryviewer,
              build.projectviewer,
 	         build.eclipse,
-             build.systemstatus
+             build.systemstatus,
              build.simdata" 
     description="Cleans, then checks out and builds all modules.  Requires SVN commit access." />
 
