@@ -23,9 +23,9 @@
 
   <!-- Get today's version number. -->
   <property name="majorVersionNumber" value="8" />
-  <property name="minorVersionNumber" value="0" />
+  <property name="minorVersionNumber" value="1" />
   <tstamp>
-    <format property="DAYSTAMP" pattern="Mdd" />
+    <format property="DAYSTAMP" pattern="MMdd" />
     <format property="RELEASEDATE" pattern="MMMM dd yyyy" />
     <format property="ECLIPSEDATE" pattern="yyyyMMdd" />
   </tstamp>
@@ -40,23 +40,25 @@
 
 
   <!-- Define all project names here. -->
-  <property name="dpd.system.name" value="hackystat-analysis-dailyprojectdata" />
-  <property name="telemetry.system.name" value="hackystat-analysis-telemetry" />
   <property name="ant.system.name" value="hackystat-sensor-ant" />
-  <property name="sensorbase.system.name" value="hackystat-sensorbase-uh" />
+  <property name="dpd.system.name" value="hackystat-analysis-dailyprojectdata" />
   <property name="eclipse.system.name" value="hackystat-sensor-eclipse" />
+  <property name="hackystat.system.name" value="hackystat" />
   <property name="emacs.system.name" value="hackystat-sensor-emacs" />
-  <property name="stackyhack.system.name" value="hackystat-sensor-example" />
-  <property name="sensorshell.system.name" value="hackystat-sensor-shell" />
-  <property name="vim.system.name" value="hackystat-sensor-vim" />
-  <property name="xmldata.system.name" value="hackystat-sensor-xmldata" />
   <property name="pv.system.name" value="hackystat-ui-projectviewer2" />
   <property name="sdb.system.name" value="hackystat-ui-sensordatabrowser" />
   <property name="sdv.system.name" value="hackystat-ui-sensordataviewer" />
+  <property name="sensorbase.system.name" value="hackystat-sensorbase-uh" />
+  <property name="sensorshell.system.name" value="hackystat-sensor-shell" />
+  <property name="simdata.system.name" value="hackystat-sensorbase-simdata" />
+  <property name="stackyhack.system.name" value="hackystat-sensor-example" />
+  <property name="systemstatus.system.name" value="hackystat-ui-systemstatus" />
+  <property name="telemetry.system.name" value="hackystat-analysis-telemetry" />
   <property name="tv.system.name" value="hackystat-ui-telemetryviewer" />
   <property name="utilities.system.name" value="hackystat-utilities" />
-  <property name="systemstatus.system.name" value="hackystat-ui-systemstatus" />
-  <property name="simdata.system.name" value="hackystat-sensorbase-simdata" />
+  <property name="vim.system.name" value="hackystat-sensor-vim" />
+  <property name="xmldata.system.name" value="hackystat-sensor-xmldata" />
+
 
 
   <!-- Now we override the following environment variables to point into this build for use doing global builds. -->
@@ -80,8 +82,7 @@
 
   <import file="macros.build.xml" />
 
-  <target name="build.all" 
-    depends="clean,
+  <target name="build.all" depends="clean,
              build.utilities,    
              build.sensorbase,
              build.sensorshell,
@@ -98,92 +99,140 @@
              build.projectviewer,
 	         build.eclipse,
              build.systemstatus,
-             build.simdata" 
-    description="Cleans, then checks out and builds all modules.  Requires SVN commit access." />
+             build.simdata" description="Cleans, then checks out and builds all modules.  Requires SVN commit access." />
 
   <target name="checkout.anonymous" description="Anonymous check out/update of all projects from Google Project Hosting.">
-    <module.checkout.anonymous module.name="${utilities.system.name}" />
+    <module.checkout.anonymous module.name="${ant.system.name}" />
+    <module.checkout.anonymous module.name="${dpd.system.name}" />
+    <module.checkout.anonymous module.name="${eclipse.system.name}" />
+    <module.checkout.anonymous module.name="${emacs.system.name}" />
+    <module.checkout.anonymous module.name="${pv.system.name}" />
+    <module.checkout.anonymous module.name="${sdb.system.name}" />
+    <module.checkout.anonymous module.name="${sdv.system.name}" />
     <module.checkout.anonymous module.name="${sensorbase.system.name}" />
     <module.checkout.anonymous module.name="${sensorshell.system.name}" />
-    <module.checkout.anonymous module.name="${dpd.system.name}" />
-    <module.checkout.anonymous module.name="${telemetry.system.name}" />
-    <module.checkout.anonymous module.name="${ant.system.name}" />
-    <module.checkout.anonymous module.name="${xmldata.system.name}" />
-    <module.checkout.anonymous module.name="${emacs.system.name}" />
-    <module.checkout.anonymous module.name="${vim.system.name}" />
-    <module.checkout.anonymous module.name="${stackyhack.system.name}" />
-    <module.checkout.anonymous module.name="${sdv.system.name}" />
-    <module.checkout.anonymous module.name="${sdb.system.name}" />
-    <module.checkout.anonymous module.name="${tv.system.name}" />
-    <module.checkout.anonymous module.name="${pv.system.name}" />
-    <module.checkout.anonymous module.name="${eclipse.system.name}" />
-    <module.checkout.anonymous module.name="${systemstatus.system.name}" />
     <module.checkout.anonymous module.name="${simdata.system.name}" />
+    <module.checkout.anonymous module.name="${stackyhack.system.name}" />
+    <module.checkout.anonymous module.name="${systemstatus.system.name}" />
+    <module.checkout.anonymous module.name="${telemetry.system.name}" />
+    <module.checkout.anonymous module.name="${tv.system.name}" />
+    <module.checkout.anonymous module.name="${utilities.system.name}" />
+    <module.checkout.anonymous module.name="${vim.system.name}" />
+    <module.checkout.anonymous module.name="${xmldata.system.name}" />
   </target>
-  
+
   <target name="commit" description="Commit all changes from all projects from Google Project Hosting. Requires project membership.">
-    <fail message="Must supply -Dsvn.message={message}" unless="svn.message"/>
-    <svn.commit svn.module="${pv.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
-    <svn.commit svn.module="${utilities.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
-    <svn.commit svn.module="${sensorbase.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
-    <svn.commit svn.module="${sensorshell.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
-    <svn.commit svn.module="${dpd.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
-    <svn.commit svn.module="${telemetry.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
-    <svn.commit svn.module="${ant.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
-    <svn.commit svn.module="${xmldata.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
-    <svn.commit svn.module="${emacs.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
-    <svn.commit svn.module="${vim.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
-    <svn.commit svn.module="${stackyhack.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
-    <svn.commit svn.module="${sdv.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
-    <svn.commit svn.module="${sdb.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
-    <svn.commit svn.module="${tv.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
-    <svn.commit svn.module="${eclipse.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
-    <svn.commit svn.module="${systemstatus.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
-    <svn.commit svn.module="${simdata.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}"  />
+    <fail message="Must supply -Dsvn.message={message}" unless="svn.message" />
+    <svn.commit svn.module="${ant.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="${dpd.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="${eclipse.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="${emacs.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="${pv.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="${sdb.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="${sdv.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="${sensorbase.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="${sensorshell.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="${simdata.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="${stackyhack.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="${systemstatus.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="${telemetry.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="${tv.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="${utilities.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="${vim.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="${xmldata.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
   </target>
-   
-  
+
+
   <target name="checkout" description="Check out/update of all projects from Google Project Hosting. Requires project membership.">
-     <fail message="Must define svn.properties file with username and password." unless="svn.username"/>
-     <module.checkout module.name="${pv.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-     <module.checkout module.name="${utilities.system.name}" svn.username="${svn.username}" svn.password="${svn.password}"  />
-     <module.checkout module.name="${sensorbase.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-     <module.checkout module.name="${sensorshell.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-     <module.checkout module.name="${dpd.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-     <module.checkout module.name="${telemetry.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-     <module.checkout module.name="${ant.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-     <module.checkout module.name="${xmldata.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-     <module.checkout module.name="${emacs.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-     <module.checkout module.name="${vim.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-     <module.checkout module.name="${stackyhack.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-     <module.checkout module.name="${sdv.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-     <module.checkout module.name="${sdb.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-     <module.checkout module.name="${tv.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-     <module.checkout module.name="${eclipse.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-     <module.checkout module.name="${systemstatus.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-     <module.checkout module.name="${simdata.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-   </target>
-  
+    <fail message="Must define svn.properties file with username and password." unless="svn.username" />
+    <module.checkout module.name="${ant.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout module.name="${dpd.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout module.name="${eclipse.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout module.name="${emacs.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout module.name="${pv.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout module.name="${sdb.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout module.name="${sdv.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout module.name="${sensorbase.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout module.name="${sensorshell.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout module.name="${simdata.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout module.name="${stackyhack.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout module.name="${systemstatus.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout module.name="${telemetry.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout module.name="${tv.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout module.name="${utilities.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout module.name="${vim.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout module.name="${xmldata.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+  </target>
+
   <target name="checkout-wiki" description="Check out/update of all projects from Google Project Hosting. Requires project membership.">
-      <fail message="Must define svn.properties file with username and password." unless="svn.username"/>
-      <module.checkout.wiki module.name="${utilities.system.name}" svn.username="${svn.username}" svn.password="${svn.password}"  />
-      <module.checkout.wiki module.name="${sensorbase.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-      <module.checkout.wiki module.name="${sensorshell.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-      <module.checkout.wiki module.name="${dpd.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-      <module.checkout.wiki module.name="${telemetry.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-      <module.checkout.wiki module.name="${ant.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-      <module.checkout.wiki module.name="${xmldata.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-      <module.checkout.wiki module.name="${emacs.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-      <module.checkout.wiki module.name="${vim.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-      <module.checkout.wiki module.name="${stackyhack.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-      <module.checkout.wiki module.name="${sdv.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-      <module.checkout.wiki module.name="${sdb.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-      <module.checkout.wiki module.name="${tv.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-      <module.checkout.wiki module.name="${pv.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-      <module.checkout.wiki module.name="${eclipse.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-      <module.checkout.wiki module.name="${systemstatus.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-      <module.checkout.wiki module.name="${simdata.system.name}"  svn.username="${svn.username}" svn.password="${svn.password}" />
-    </target>
+    <fail message="Must define svn.properties file with username and password." unless="svn.username" />
+    <module.checkout.wiki module.name="${ant.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout.wiki module.name="${dpd.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout.wiki module.name="${eclipse.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout.wiki module.name="${emacs.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout.wiki module.name="${pv.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout.wiki module.name="${sdb.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout.wiki module.name="${sdv.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout.wiki module.name="${sensorbase.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout.wiki module.name="${sensorshell.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout.wiki module.name="${simdata.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout.wiki module.name="${stackyhack.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout.wiki module.name="${systemstatus.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout.wiki module.name="${telemetry.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout.wiki module.name="${tv.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout.wiki module.name="${utilities.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout.wiki module.name="${vim.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout.wiki module.name="${xmldata.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+
+  </target>
+
+  <target name="commit-wiki" description="Commit all changes to wikis from all projects from Google Project Hosting. Requires project membership.">
+    <fail message="Must supply -Dsvn.message={message}" unless="svn.message" />
+    <svn.commit svn.module="wiki-${ant.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="wiki-${dpd.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="wiki-${eclipse.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="wiki-${emacs.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="wiki-${pv.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="wiki-${sdb.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="wiki-${sdv.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="wiki-${sensorbase.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="wiki-${sensorshell.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="wiki-${simdata.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="wiki-${stackyhack.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="wiki-${systemstatus.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="wiki-${telemetry.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="wiki-${tv.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="wiki-${utilities.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="wiki-${vim.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="wiki-${xmldata.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+  </target>
+
+  <target name="javadoc" description="Generates JavaDocs for all Java-based projects.">
+    <module.javadoc module.name="${ant.system.name}" />
+    <!--
+    <module.javadoc module.name="${dpd.system.name}" />
+    <module.javadoc module.name="${eclipse.system.name}" />
+    <module.javadoc module.name="${emacs.system.name}" />
+    <module.javadoc module.name="${pv.system.name}" />
+    <module.javadoc module.name="${sdb.system.name}" />
+    <module.javadoc module.name="${sdv.system.name}" />
+    <module.javadoc module.name="${sensorbase.system.name}" />
+    <module.javadoc module.name="${sensorshell.system.name}" />
+    <module.javadoc module.name="${simdata.system.name}" />
+    <module.javadoc module.name="${stackyhack.system.name}" />
+    <module.javadoc module.name="${systemstatus.system.name}" />
+    <module.javadoc module.name="${telemetry.system.name}" />
+    <module.javadoc module.name="${tv.system.name}" />
+    <module.javadoc module.name="${utilities.system.name}" />
+    <module.javadoc module.name="${vim.system.name}" />
+    <module.javadoc module.name="${xmldata.system.name}" />
+    -->
+  </target>
+
+  <target name="import-javadoc" description="Import JavaDocs to SVN.">
+    <svn.import.javadoc module.name="${ant.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+  </target>
+
 
   <target name="build.sensorbase">
     <buildModule module.name="${sensorbase.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
@@ -297,25 +346,25 @@
     <copyServiceDist module.name="${systemstatus.system.name}" />
     <copyServiceBin module.name="${systemstatus.system.name}" bin.name="pingmail.jar" />
   </target>
-  
+
   <target name="build.simdata">
-     <buildModule module.name="${simdata.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
-     <copyServiceDist module.name="${simdata.system.name}" />
-     <copyServiceBin module.name="${simdata.system.name}" bin.name="simdata.jar" />
-     <copyServiceBinDir module.name="${simdata.system.name}" dir.name="definitions" />
-   </target>
+    <buildModule module.name="${simdata.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <copyServiceDist module.name="${simdata.system.name}" />
+    <copyServiceBin module.name="${simdata.system.name}" bin.name="simdata.jar" />
+    <copyServiceBinDir module.name="${simdata.system.name}" dir.name="definitions" />
+  </target>
 
   <target name="clean" description="Delete system directories.">
     <delete dir="${system.services.dir}" quiet="true" />
     <delete dir="${system.sensors.dir}" quiet="true" />
   </target>
-  
+
   <target name="jar" description="Create jar files for services in correct order.">
-    <jarModule module.name="hackystat-utilities"/>
-    <jarModule module.name="hackystat-sensorbase-uh"/>
-    <jarModule module.name="hackystat-analysis-dailyprojectdata"/>
-    <jarModule module.name="hackystat-analysis-telemetry"/>
-    <jarModule module.name="hackystat-sensorbase-simdata"/>
+    <jarModule module.name="hackystat-utilities" />
+    <jarModule module.name="hackystat-sensorbase-uh" />
+    <jarModule module.name="hackystat-analysis-dailyprojectdata" />
+    <jarModule module.name="hackystat-analysis-telemetry" />
+    <jarModule module.name="hackystat-sensorbase-simdata" />
   </target>
 </project>
 

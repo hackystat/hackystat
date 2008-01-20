@@ -1,0 +1,102 @@
+<project name="system.build.javadoc" default="javadoc">
+  <description>
+  Tasks for generating and managing JavaDocs for Hackystat modules. This involves the following:
+  
+  ant -f javadoc.build.xml javadoc
+    Creates JavaDocs for all packages in the local top-level javadoc/ directory.
+  
+  ant -f javadoc.build.xml import-javadoc 
+    When a JavaDoc is generated initially, import it to the top-level javadoc/ in SVN.
+  
+  ant -f javadoc.build.xml checkout-javadoc
+    Once JavaDocs have been imported, use this to check them out into the local top-level javadoc dir.
+  
+  ant -f javadoc.build.xml commit-javadoc
+    Once JavaDocs have been created, imported, and checked out, use this to commit updates.
+  </description>
+
+  <import file="build.xml" />
+
+  <target name="javadoc" description="Generates JavaDocs for all Java-based projects.">
+    <module.javadoc module.name="${ant.system.name}" />
+    <module.javadoc module.name="${dpd.system.name}" />
+    <module.javadoc module.name="${eclipse.system.name}" />
+    <!-- Emacs does not have JavaDocs. -->
+    <module.javadoc module.name="${pv.system.name}" />
+    <module.javadoc module.name="${sdb.system.name}" />
+    <module.javadoc module.name="${sdv.system.name}" />
+    <module.javadoc module.name="${sensorbase.system.name}" />
+    <module.javadoc module.name="${sensorshell.system.name}" />
+    <module.javadoc module.name="${simdata.system.name}" />
+    <module.javadoc module.name="${stackyhack.system.name}" />
+    <module.javadoc module.name="${systemstatus.system.name}" />
+    <module.javadoc module.name="${telemetry.system.name}" />
+    <module.javadoc module.name="${tv.system.name}" />
+    <module.javadoc module.name="${utilities.system.name}" />
+    <!-- Vim does not have javadocs. -->
+    <module.javadoc module.name="${xmldata.system.name}" />
+  </target>
+
+  <target name="import-javadoc" description="Import initial build of JavaDocs to SVN.">
+    <!--  Already done these. 
+    <svn.import.javadoc module.name="${ant.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.import.javadoc module.name="${dpd.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.import.javadoc module.name="${eclipse.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.import.javadoc module.name="${pv.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.import.javadoc module.name="${sdb.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.import.javadoc module.name="${sdv.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.import.javadoc module.name="${sensorbase.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.import.javadoc module.name="${sensorshell.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.import.javadoc module.name="${simdata.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.import.javadoc module.name="${stackyhack.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.import.javadoc module.name="${systemstatus.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.import.javadoc module.name="${telemetry.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.import.javadoc module.name="${tv.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.import.javadoc module.name="${utilities.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.import.javadoc module.name="${xmldata.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    -->
+  </target>
+
+  <target name="checkout-javadoc" description="Initial checkout of JavaDocs to SVN.">
+    <module.checkout.javadoc module.name="${ant.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout.javadoc module.name="${dpd.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout.javadoc module.name="${eclipse.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout.javadoc module.name="${pv.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout.javadoc module.name="${sdb.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout.javadoc module.name="${sdv.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout.javadoc module.name="${sensorbase.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout.javadoc module.name="${sensorshell.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout.javadoc module.name="${simdata.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout.javadoc module.name="${stackyhack.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout.javadoc module.name="${systemstatus.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout.javadoc module.name="${telemetry.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout.javadoc module.name="${tv.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout.javadoc module.name="${utilities.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout.javadoc module.name="${xmldata.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+  </target>
+
+  <target name="commit-javadoc" description="Adds, then commits updated JavaDocs to SVN.">
+    <module.commit.javadoc module.name="${ant.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.commit.javadoc module.name="${dpd.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.commit.javadoc module.name="${eclipse.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.commit.javadoc module.name="${pv.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.commit.javadoc module.name="${sdb.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.commit.javadoc module.name="${sdv.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.commit.javadoc module.name="${sensorbase.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.commit.javadoc module.name="${sensorshell.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.commit.javadoc module.name="${simdata.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.commit.javadoc module.name="${stackyhack.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.commit.javadoc module.name="${systemstatus.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.commit.javadoc module.name="${telemetry.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.commit.javadoc module.name="${tv.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.commit.javadoc module.name="${utilities.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.commit.javadoc module.name="${xmldata.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+  </target>
+
+
+</project>
+
+
+
+
+
