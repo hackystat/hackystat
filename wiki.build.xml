@@ -42,7 +42,9 @@
     <svn.commit svn.module="wiki-${sensorshell.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <svn.commit svn.module="wiki-${simdata.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <svn.commit svn.module="wiki-${stackyhack.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
-    <!-- <svn.commit svn.module="wiki-${systemstatus.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" /> -->
+    <!-- 
+      <svn.commit svn.module="wiki-${systemstatus.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" /> 
+    -->
     <svn.commit svn.module="wiki-${telemetry.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <svn.commit svn.module="wiki-${tv.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <svn.commit svn.module="wiki-${utilities.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
