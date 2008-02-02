@@ -1,4 +1,4 @@
-<project name="dist" default="dist">
+<project name="integration.dist" default="dist">
   <description>
   Provides the target for building a distribution of all of the Hackystat services.
   </description>

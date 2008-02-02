@@ -1,4 +1,4 @@
-<project name="macros" default="svn">
+<project name="integration.macros" default="svn">
 
   <macrodef name="svn.checkout">
     <attribute name="svn.url" />

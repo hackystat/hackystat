@@ -1,0 +1,82 @@
+<project name="integration.hudson" default="daily.build.instrumented">
+  <description>
+  A set of tasks for doing integration/daily builds of Hackystat.
+  </description>
+    
+  <!-- Overwrite the system build directory for hudson-related stuff. -->
+  <property name="system.build.dir" location="${basedir}/build/hudson/hackystat-integration"/>
+  <mkdir dir="${system.build.dir}"/>
+
+  <import file="build.xml"/>
+  <import file="macros.build.xml"/>
+  <import file="dist.build.xml"/>
+  <import file="hackystat.build.xml"/>
+  
+  
+  <target name="daily.build.instrumented" 
+          depends="daily.build.checkout, 
+                   daily.build.qa,
+                   integration.checkstyle.sensor"
+          description="Checks out, builds, and sends hackystat data on all modules. ">
+  </target>
+  
+  <target name="daily.build.qa" description="Runs the QA targets over all systems, generates data for sensors, builds their jars.">
+    <ant dir="${system.build.dir}/${utilities.system.name}" antfile="hudson.build.xml" target="hudson.qa"/>
+    <ant dir="${system.build.dir}/${sensorbase.system.name}" antfile="hudson.build.xml" target="hudson.qa"/>
+  </target>  
+
+  <target name="daily.build.checkout" description="Anonymous check out/update of all projects from Google Project Hosting.">
+    <module.checkout.anonymous module.name="${utilities.system.name}" />
+    <module.checkout.anonymous module.name="${sensorbase.system.name}" />
+    <!--
+    <module.checkout.anonymous module.name="${sensorshell.system.name}" />
+    <module.checkout.anonymous module.name="${dpd.system.name}" />
+    <module.checkout.anonymous module.name="${telemetry.system.name}" />
+    <module.checkout.anonymous module.name="${ant.system.name}" />
+    <module.checkout.anonymous module.name="${xmldata.system.name}" />
+    <module.checkout.anonymous module.name="${emacs.system.name}" />
+    <module.checkout.anonymous module.name="${vim.system.name}" />
+    <module.checkout.anonymous module.name="${stackyhack.system.name}" />
+    <module.checkout.anonymous module.name="${sdv.system.name}" />
+    <module.checkout.anonymous module.name="${sdb.system.name}" />
+    <module.checkout.anonymous module.name="${tv.system.name}" />
+    <module.checkout.anonymous module.name="${pv.system.name}" />
+    <module.checkout.anonymous module.name="${eclipse.system.name}" />
+    <module.checkout.anonymous module.name="${systemstatus.system.name}" />
+    -->
+  </target>
+
+  <target name="clean" description="Delete system directories.">
+    <delete dir="${system.services.dir}" quiet="true" />
+    <delete dir="${system.sensors.dir}" quiet="true" />
+  </target>
+  
+  <target name="integration.checkstyle.sensor" description="Send hackystat data about this Checkstyle invocation.">
+     <fileset id="checkstyle.output.fileset" dir="${system.build.dir}" includes="**/checkstyle/checkstyle.xml" />
+     <hackystat.checkstyle checkstyle.output.fileset="checkstyle.output.fileset" verbose="${hackystat.verbose.mode}" />
+  </target>
+  
+  <target name="integration.junit.sensor" description="Send hackystat data about this JUnit invocation.">
+     <fileset id="junit.output.fileset" dir="${system.build.dir}" includes="**/junit/TEST-*.xml" />
+     <hackystat.junit src.dir="${src.dir}" junit.output.fileset="junit.output.fileset" verbose="${hackystat.verbose.mode}" />
+  </target>
+  
+  <target name="integration.findbugs.sensor" description="Send hackystat data about this FindBugs invocation.">
+     <fileset id="findbugs.output.fileset" dir="${system.build.dir}" includes="**/findbugs/findbugs.xml" />
+     <hackystat.findbugs findbugs.output.fileset="findbugs.output.fileset" verbose="${hackystat.verbose.mode}" />
+  </target>
+  
+  <target name="integration.pmd.sensor" description="Send hackystat data about this PMD invocation.">
+     <fileset id="pmd.output.fileset" dir="${system.build.dir}" includes="**/pmd/pmd.xml" />
+     <fileset id="pmd.src.fileset" dir="${system.build.dir}" includes="**/src/**/*.java" excludes="**/jaxb/**" />
+     <hackystat.pmd pmd.output.fileset="pmd.output.fileset" pmd.src.fileset="pmd.src.fileset" verbose="${hackystat.verbose.mode}"/>
+  </target> 
+
+
+
+</project>
+
+
+
+
+

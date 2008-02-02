@@ -1,4 +1,4 @@
-<project name="system.build" default="build.all">
+<project name="integration.build" default="build.all">
   <description>
   The master build file for creating system-level releases of Hackystat.
   </description>
