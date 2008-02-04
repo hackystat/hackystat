@@ -22,13 +22,16 @@
 
   <!-- Send JUnit test data to hackystat using the JUnit sensor. -->
   <macrodef name="hackystat.junit">
-    <attribute name="src.dir" />
+    <attribute name="junit.src.fileset" />
   	<attribute name="junit.output.fileset" />
     <attribute name="verbose" default="true" />
     <sequential>
       <check.antsensors />
-      <hacky-junit verbose="@{verbose}" sourcePath="@{src.dir}">
+      <hacky-junit verbose="@{verbose}">
       	<fileset refid="@{junit.output.fileset}" />
+        <srcPath>
+          <fileset refid="@{junit.src.fileset}" />
+        </srcPath>
       </hacky-junit>
     </sequential>
   </macrodef>
