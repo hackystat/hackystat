@@ -1,4 +1,4 @@
-<project name="integration.hudson" default="daily.build.instrumented">
+<project name="integration.hudson" default="hudson.daily">
   <description>
   A set of tasks for doing integration/daily builds of Hackystat.
   </description>
@@ -6,6 +6,8 @@
   <!-- Overwrite the system build directory for hudson-related stuff. -->
   <property name="system.integration.root" location="${basedir}/hudson" />
   <property name="system.build.dir" location="${system.integration.root}/hackystat-integration" />
+  <property name="system.sclc.dir" location="${system.build.dir}/hudson/sclc" />
+
   <mkdir dir="${system.build.dir}" />
 
   <import file="build.xml" />
@@ -14,69 +16,81 @@
   <import file="hackystat.build.xml" />
 
 
-  <target name="daily.build.instrumented" 
-          depends="daily.build.checkout, 
-                   daily.build.qa,
-                   integration.checkstyle.sensor" 
+  <target name="hudson.daily" 
+          depends="hudson.daily.checkout, 
+                   hudson.daily.build,
+                   hudson.checkstyle.sensor,
+                   hudson.junit.sensor,
+                   hudson.findbugs.sensor,
+                   hudson.pmd.sensor,
+                   hudson.sclc.sensor" 
     description="Checks out, builds, and sends hackystat data on all modules. ">
   </target>
 
-  <target name="daily.build.qa" description="Runs the QA targets over all systems, generates data for sensors, builds their jars.">
-    <ant dir="${system.build.dir}/${utilities.system.name}" antfile="hudson.build.xml" target="hudson.qa" />
-    <ant dir="${system.build.dir}/${sensorbase.system.name}" antfile="hudson.build.xml" target="hudson.qa" />
+  <target name="hudson.daily.build" description="Runs the hudson.daily targets over all systems, generates data for sensors, builds their jars.">
+    <ant dir="${system.build.dir}/${utilities.system.name}" antfile="hudson.build.xml" target="hudson.daily" />
+    <ant dir="${system.build.dir}/${sensorbase.system.name}" antfile="hudson.build.xml" target="hudson.daily" />
+    <ant dir="${system.build.dir}/${sensorshell.system.name}" antfile="hudson.build.xml" target="hudson.daily" />
+    <ant dir="${system.build.dir}/${ant.system.name}" antfile="hudson.build.xml" target="hudson.daily" />
+    <ant dir="${system.build.dir}/${dpd.system.name}" antfile="hudson.build.xml" target="hudson.daily" />
+    <ant dir="${system.build.dir}/${eclipse.system.name}" antfile="hudson.build.xml" target="hudson.daily" />
+    <ant dir="${system.build.dir}/${emacs.system.name}" antfile="hudson.build.xml" target="hudson.daily" />
+    <ant dir="${system.build.dir}/${pv.system.name}" antfile="hudson.build.xml" target="hudson.daily" />
+    <ant dir="${system.build.dir}/${sdb.system.name}" antfile="hudson.build.xml" target="hudson.daily" />
+    <ant dir="${system.build.dir}/${sdv.system.name}" antfile="hudson.build.xml" target="hudson.daily" />
+    <ant dir="${system.build.dir}/${simdata.system.name}" antfile="hudson.build.xml" target="hudson.daily" />
+    <ant dir="${system.build.dir}/${stackyhack.system.name}" antfile="hudson.build.xml" target="hudson.daily" />
+    <ant dir="${system.build.dir}/${systemstatus.system.name}" antfile="hudson.build.xml" target="hudson.daily" />
+    <ant dir="${system.build.dir}/${telemetry.system.name}" antfile="hudson.build.xml" target="hudson.daily" />
+    <ant dir="${system.build.dir}/${tv.system.name}" antfile="hudson.build.xml" target="hudson.daily" />
+    <ant dir="${system.build.dir}/${vim.system.name}" antfile="hudson.build.xml" target="hudson.daily" />
+    <ant dir="${system.build.dir}/${xmldata.system.name}" antfile="hudson.build.xml" target="hudson.daily" />
   </target>
 
-  <target name="daily.build.checkout" description="Anonymous check out/update of all projects from Google Project Hosting.">
-    <module.checkout.anonymous module.name="${utilities.system.name}" />
-    <module.checkout.anonymous module.name="${sensorbase.system.name}" />
-    <!--
-    <module.checkout.anonymous module.name="${sensorshell.system.name}" />
-    <module.checkout.anonymous module.name="${dpd.system.name}" />
-    <module.checkout.anonymous module.name="${telemetry.system.name}" />
+  <target name="hudson.daily.checkout" description="Anonymous check out/update of all projects from Google Project Hosting.">
     <module.checkout.anonymous module.name="${ant.system.name}" />
-    <module.checkout.anonymous module.name="${xmldata.system.name}" />
-    <module.checkout.anonymous module.name="${emacs.system.name}" />
-    <module.checkout.anonymous module.name="${vim.system.name}" />
-    <module.checkout.anonymous module.name="${stackyhack.system.name}" />
-    <module.checkout.anonymous module.name="${sdv.system.name}" />
-    <module.checkout.anonymous module.name="${sdb.system.name}" />
-    <module.checkout.anonymous module.name="${tv.system.name}" />
-    <module.checkout.anonymous module.name="${pv.system.name}" />
+    <module.checkout.anonymous module.name="${dpd.system.name}" />
     <module.checkout.anonymous module.name="${eclipse.system.name}" />
+    <module.checkout.anonymous module.name="${emacs.system.name}" />
+    <module.checkout.anonymous module.name="${pv.system.name}" />
+    <module.checkout.anonymous module.name="${sdb.system.name}" />
+    <module.checkout.anonymous module.name="${sdv.system.name}" />
+    <module.checkout.anonymous module.name="${sensorbase.system.name}" />
+    <module.checkout.anonymous module.name="${sensorshell.system.name}" />
+    <module.checkout.anonymous module.name="${simdata.system.name}" />
+    <module.checkout.anonymous module.name="${stackyhack.system.name}" />
     <module.checkout.anonymous module.name="${systemstatus.system.name}" />
-    -->
+    <module.checkout.anonymous module.name="${telemetry.system.name}" />
+    <module.checkout.anonymous module.name="${tv.system.name}" />
+    <module.checkout.anonymous module.name="${utilities.system.name}" />
+    <module.checkout.anonymous module.name="${vim.system.name}" />
+    <module.checkout.anonymous module.name="${xmldata.system.name}" />
   </target>
 
-  <target name="integration.clean" description="Delete system directories.">
-    <ant dir="${system.build.dir}/${utilities.system.name}" antfile="build.xml" target="clean" />
-    <ant dir="${system.build.dir}/${sensorbase.system.name}" antfile="build.xml" target="clean" />
-  </target>
-
-  <target name="integration.checkstyle.sensor" description="Send hackystat data about this Checkstyle invocation.">
+  <target name="hudson.checkstyle.sensor" description="Send hackystat data about this Checkstyle invocation.">
     <fileset id="checkstyle.output.fileset" dir="${system.build.dir}" includes="**/checkstyle/checkstyle.xml" />
     <hackystat.checkstyle checkstyle.output.fileset="checkstyle.output.fileset" verbose="${hackystat.verbose.mode}" />
   </target>
 
-  <target name="integration.junit.sensor" description="Send hackystat data about this JUnit invocation.">
+  <target name="hudson.junit.sensor" description="Send hackystat data about this JUnit invocation.">
     <fileset id="junit.output.fileset" dir="${system.build.dir}" includes="**/junit/TEST-*.xml" />
     <fileset id="junit.src.fileset" dir="${system.build.dir}" includes="**/src/**/*.java" excludes="**/jaxb/**" />
     <hackystat.junit junit.src.fileset="junit.src.fileset" junit.output.fileset="junit.output.fileset" verbose="${hackystat.verbose.mode}" />
   </target>
 
-  <target name="integration.findbugs.sensor" description="Send hackystat data about this FindBugs invocation.">
+  <target name="hudson.findbugs.sensor" description="Send hackystat data about this FindBugs invocation.">
     <fileset id="findbugs.output.fileset" dir="${system.build.dir}" includes="**/findbugs/findbugs.xml" />
     <hackystat.findbugs findbugs.output.fileset="findbugs.output.fileset" verbose="${hackystat.verbose.mode}" />
   </target>
 
-  <target name="integration.pmd.sensor" description="Send hackystat data about this PMD invocation.">
+  <target name="hudson.pmd.sensor" description="Send hackystat data about this PMD invocation.">
     <fileset id="pmd.output.fileset" dir="${system.build.dir}" includes="**/pmd/pmd.xml" />
     <fileset id="pmd.src.fileset" dir="${system.build.dir}" includes="**/src/**/*.java" excludes="**/jaxb/**" />
     <hackystat.pmd pmd.output.fileset="pmd.output.fileset" pmd.src.fileset="pmd.src.fileset" verbose="${hackystat.verbose.mode}" />
   </target>
 
-  <property name="system.sclc.dir" location="${system.build.dir}/hudson/sclc" />
   
-  <target name="integration.sclc.tool" description="Compute size data on the source code using SCLC.">
+  <target name="hudson.sclc.sensor" description="Compute size data on the source code using SCLC, then send.">
     <!-- Check for the SCLC_HOME environment variable, failing the build if it can't be found. -->
     <available file="${env.SCLC_HOME}/src/sclc" property="sclc.available" />
     <fail unless="sclc.available" message="Error: SCLC_HOME not set or file 'sclc' not found, indicating SCLC is not installed." />
@@ -85,9 +99,7 @@
     <exec executable="perl" dir="${basedir}">
       <arg line="${env.SCLC_HOME}/src/sclc -excludedir '\S*[\\\|/]build[\\\|/]\S*' -default_exclude -ignore -xml_output ${system.sclc.dir}/size.xml -recurse ${system.integration.root}" />
     </exec>
-  </target>
-
-  <target name="integration.sclc.sensor" description="Send hackystat data about this SCLC invocation.">
+    
     <xslt in="${system.sclc.dir}/size.xml" out="${system.sclc.dir}/transform-size.xml" style="${system.build.dir}/hackystat-sensorbase-uh/lib/sclc/sclc.xsl" />
     <hackystat.sclc sclc.file="${system.sclc.dir}/transform-size.xml" />
   </target>
