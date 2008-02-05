@@ -9,15 +9,14 @@
   <property name="system.sclc.dir" location="${system.build.dir}/hudson/sclc" />
 
   <mkdir dir="${system.build.dir}" />
-
+  
   <import file="build.xml" />
   <import file="macros.build.xml" />
   <import file="dist.build.xml" />
   <import file="hackystat.build.xml" />
 
-
   <target name="hudson.daily" 
-          depends="hudson.daily.checkout, 
+          depends="hudson.daily.checkout,
                    hudson.daily.build,
                    hudson.checkstyle.sensor,
                    hudson.junit.sensor,
@@ -38,10 +37,10 @@
     <ant dir="${system.build.dir}/${pv.system.name}" antfile="hudson.build.xml" target="hudson.daily" />
     <ant dir="${system.build.dir}/${sdb.system.name}" antfile="hudson.build.xml" target="hudson.daily" />
     <ant dir="${system.build.dir}/${sdv.system.name}" antfile="hudson.build.xml" target="hudson.daily" />
+    <ant dir="${system.build.dir}/${telemetry.system.name}" antfile="hudson.build.xml" target="hudson.daily" />
     <ant dir="${system.build.dir}/${simdata.system.name}" antfile="hudson.build.xml" target="hudson.daily" />
     <ant dir="${system.build.dir}/${stackyhack.system.name}" antfile="hudson.build.xml" target="hudson.daily" />
     <ant dir="${system.build.dir}/${systemstatus.system.name}" antfile="hudson.build.xml" target="hudson.daily" />
-    <ant dir="${system.build.dir}/${telemetry.system.name}" antfile="hudson.build.xml" target="hudson.daily" />
     <ant dir="${system.build.dir}/${tv.system.name}" antfile="hudson.build.xml" target="hudson.daily" />
     <ant dir="${system.build.dir}/${vim.system.name}" antfile="hudson.build.xml" target="hudson.daily" />
     <ant dir="${system.build.dir}/${xmldata.system.name}" antfile="hudson.build.xml" target="hudson.daily" />
@@ -66,6 +65,8 @@
     <module.checkout.anonymous module.name="${vim.system.name}" />
     <module.checkout.anonymous module.name="${xmldata.system.name}" />
   </target>
+  
+  <target name="hudson.daily.dist" description="Creates a distribution." depends="build.all,dist"/>
 
   <target name="hudson.checkstyle.sensor" description="Send hackystat data about this Checkstyle invocation.">
     <fileset id="checkstyle.output.fileset" dir="${system.build.dir}" includes="**/checkstyle/checkstyle.xml" />
@@ -99,7 +100,6 @@
     <exec executable="perl" dir="${basedir}">
       <arg line="${env.SCLC_HOME}/src/sclc -excludedir '\S*[\\\|/]build[\\\|/]\S*' -default_exclude -ignore -xml_output ${system.sclc.dir}/size.xml -recurse ${system.integration.root}" />
     </exec>
-    
     <xslt in="${system.sclc.dir}/size.xml" out="${system.sclc.dir}/transform-size.xml" style="${system.build.dir}/hackystat-sensorbase-uh/lib/sclc/sclc.xsl" />
     <hackystat.sclc sclc.file="${system.sclc.dir}/transform-size.xml" />
   </target>

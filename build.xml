@@ -25,7 +25,7 @@
   <property name="majorVersionNumber" value="8" />
   <property name="minorVersionNumber" value="1" />
   <tstamp>
-    <format property="DAYSTAMP" pattern="MMdd" />
+    <format property="DAYSTAMP" pattern="Mdd" />
     <format property="RELEASEDATE" pattern="MMMM dd yyyy" />
     <format property="ECLIPSEDATE" pattern="yyyyMMdd" />
   </tstamp>
@@ -88,16 +88,16 @@
              build.sensorshell,
              build.dailyprojectdata,
              build.telemetry,
-  	         build.ant, 
-  	         build.xmldata, 
-  	         build.emacs, 
+  	     build.ant, 
+  	     build.xmldata, 
+  	     build.emacs, 
              build.vim,
              build.stackyhack,
-  	         build.sensordataviewer, 
-  	         build.sensordatabrowser,
+  	     build.sensordataviewer, 
+  	     build.sensordatabrowser,
              build.telemetryviewer,
              build.projectviewer,
-	         build.eclipse,
+	     build.eclipse,
              build.systemstatus,
              build.simdata" description="Cleans, then checks out and builds all modules.  Requires SVN commit access." />
 
