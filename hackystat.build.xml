@@ -86,7 +86,7 @@
 
       <!-- Invoke XmlData by executing the jar file and passing in command line args. -->
       <java jar="${env.HACKYSTAT_XMLDATA_HOME}/xmldata-cli.jar" fork="true">
-        <arg line="-uniqueTimestamps -file @{sclc.file}" />
+        <arg line="-setRuntime -uniqueTimestamps -file @{sclc.file}" />
       </java>
     </sequential>
   </macrodef>
