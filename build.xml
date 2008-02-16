@@ -264,6 +264,7 @@
     <copyServiceBin module.name="${telemetry.system.name}" bin.name="telemetry.lib.jar" />
     <copyServiceBin module.name="${telemetry.system.name}" bin.name="sample.telemetry.properties" />
     <copyServiceBinDir module.name="${telemetry.system.name}" dir.name="definitions" />
+    <copyServiceBinDir module.name="${telemetry.system.name}" dir.name="prefetch" />
   </target>
 
   <target name="build.stackyhack">
