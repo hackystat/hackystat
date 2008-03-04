@@ -294,6 +294,7 @@
   <target name="jar" description="Create jar files for services in correct order.">
     <jarModule module.name="hackystat-utilities" />
     <jarModule module.name="hackystat-sensorbase-uh" />
+    <jarModule module.name="hackystat-sensor-shell" />
     <jarModule module.name="hackystat-analysis-dailyprojectdata" />
     <jarModule module.name="hackystat-analysis-telemetry" />
     <jarModule module.name="hackystat-sensorbase-simdata" />
