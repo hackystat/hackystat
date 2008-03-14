@@ -39,7 +39,7 @@
   <property name="system.sensors.dir" location="${system.build.dir}/system/sensors/" />
 
 
-  <!-- Define all project names here. -->
+  <!-- Define all project names here. Current total: 18 (including unbrella Hackystat itself.)-->
   <property name="ant.system.name" value="hackystat-sensor-ant" />
   <property name="dpd.system.name" value="hackystat-analysis-dailyprojectdata" />
   <property name="eclipse.system.name" value="hackystat-sensor-eclipse" />
@@ -68,7 +68,6 @@
   <property name="env.HACKYSTAT_DAILYPROJECTDATA_HOME" location="${system.build.dir}/${dpd.system.name}" />
   <property name="env.HACKYSTAT_TELEMETRY_HOME" location="${system.build.dir}/${telemetry.system.name}" />
   <!-- Disable Emma during integration build due to ExceptionInInitializer error on Windows platform. -->
-  <property name="emma.disabled" value="true" />
   <property name="hackystat.enable" value="false"/>
 
   <!-- Now get the other environment variables (for JUnit, Checkstyle, etc.) -->
@@ -295,6 +294,7 @@
     <jarModule module.name="hackystat-utilities" />
     <jarModule module.name="hackystat-sensorbase-uh" />
     <jarModule module.name="hackystat-sensor-shell" />
+    <jarModule module.name="hackystat-sensor-ant" />
     <jarModule module.name="hackystat-analysis-dailyprojectdata" />
     <jarModule module.name="hackystat-analysis-telemetry" />
     <jarModule module.name="hackystat-sensorbase-simdata" />

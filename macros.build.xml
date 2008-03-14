@@ -63,49 +63,49 @@
       </java>
     </sequential>
   </macrodef>
-  
+
   <macrodef name="module.commit.javadoc">
-     <attribute name="svn.username" />
-     <attribute name="svn.password" />
-     <attribute name="module.name" />
-     <sequential>
-       <echo message="Committing @{module.name}"/>
-       <!-- First we add any new files. -->
-       <java classname="org.tmatesoft.svn.cli.SVN" fork="true" failonerror="true">
-         <arg value="add" />
-         <arg value="--auto-props" />
-         <arg value="--message" />
-         <arg value="'Adding all new files.'" />
-         <arg value="--username" />
-         <arg value="@{svn.username}" />
-         <arg value="--password" />
-         <arg value="@{svn.password}" />
-         <arg value="${basedir}/javadoc/@{module.name}" />
-         <classpath>
-           <pathelement location="${env.SVNKIT_HOME}/ganymed.jar" />
-           <pathelement location="${env.SVNKIT_HOME}/svnkit.jar" />
-           <pathelement location="${env.SVNKIT_HOME}/svnkit-cli.jar" />
-         </classpath>
-       </java>
-       
-       <!-- Now we commit the changes. -->
-       <java classname="org.tmatesoft.svn.cli.SVN" fork="true" failonerror="true">
-              <arg value="commit" />
-              <arg value="--message" />
-              <arg value="'Committing updated version of JavaDocs.'" />
-              <arg value="--username" />
-              <arg value="@{svn.username}" />
-              <arg value="--password" />
-              <arg value="@{svn.password}" />
-              <arg value="${basedir}/javadoc/@{module.name}" />
-              <classpath>
-                <pathelement location="${env.SVNKIT_HOME}/ganymed.jar" />
-                <pathelement location="${env.SVNKIT_HOME}/svnkit.jar" />
-                <pathelement location="${env.SVNKIT_HOME}/svnkit-cli.jar" />
-              </classpath>
-            </java>
-     </sequential>
-   </macrodef>
+    <attribute name="svn.username" />
+    <attribute name="svn.password" />
+    <attribute name="module.name" />
+    <sequential>
+      <echo message="Committing @{module.name}" />
+      <!-- First we add any new files. -->
+      <java classname="org.tmatesoft.svn.cli.SVN" fork="true" failonerror="true">
+        <arg value="add" />
+        <arg value="--auto-props" />
+        <arg value="--message" />
+        <arg value="'Adding all new files.'" />
+        <arg value="--username" />
+        <arg value="@{svn.username}" />
+        <arg value="--password" />
+        <arg value="@{svn.password}" />
+        <arg value="${basedir}/javadoc/@{module.name}" />
+        <classpath>
+          <pathelement location="${env.SVNKIT_HOME}/ganymed.jar" />
+          <pathelement location="${env.SVNKIT_HOME}/svnkit.jar" />
+          <pathelement location="${env.SVNKIT_HOME}/svnkit-cli.jar" />
+        </classpath>
+      </java>
+
+      <!-- Now we commit the changes. -->
+      <java classname="org.tmatesoft.svn.cli.SVN" fork="true" failonerror="true">
+        <arg value="commit" />
+        <arg value="--message" />
+        <arg value="'Committing updated version of JavaDocs.'" />
+        <arg value="--username" />
+        <arg value="@{svn.username}" />
+        <arg value="--password" />
+        <arg value="@{svn.password}" />
+        <arg value="${basedir}/javadoc/@{module.name}" />
+        <classpath>
+          <pathelement location="${env.SVNKIT_HOME}/ganymed.jar" />
+          <pathelement location="${env.SVNKIT_HOME}/svnkit.jar" />
+          <pathelement location="${env.SVNKIT_HOME}/svnkit-cli.jar" />
+        </classpath>
+      </java>
+    </sequential>
+  </macrodef>
 
   <macrodef name="svn.import.javadoc">
     <attribute name="svn.username" />
@@ -135,7 +135,7 @@
   <macrodef name="module.checkout.anonymous">
     <attribute name="module.name" />
     <sequential>
-      <echo message="Checking out @{module.name}"/>
+      <echo message="Checking out @{module.name}" />
       <mkdir dir="${system.build.dir}/@{module.name}" />
       <svn.checkout.anonymous svn.url="http://@{module.name}.googlecode.com/svn/trunk/" local.workspace="${system.build.dir}/@{module.name}" />
     </sequential>
@@ -146,7 +146,7 @@
     <attribute name="svn.password" />
     <attribute name="module.name" />
     <sequential>
-      <echo message="Checkout @{module.name}"/>
+      <echo message="Checkout @{module.name}" />
       <mkdir dir="${system.build.dir}/@{module.name}" />
       <svn.checkout svn.url="https://@{module.name}.googlecode.com/svn/trunk/" local.workspace="${system.build.dir}/@{module.name}" username="@{svn.username}" password="@{svn.password}" />
     </sequential>
@@ -157,22 +157,22 @@
     <attribute name="svn.password" />
     <attribute name="module.name" />
     <sequential>
-      <echo message="Checking out @{module.name}"/>
+      <echo message="Checking out @{module.name}" />
       <mkdir dir="${system.build.dir}/wiki-@{module.name}" />
       <svn.checkout svn.url="https://@{module.name}.googlecode.com/svn/wiki/" local.workspace="${system.build.dir}/wiki-@{module.name}" username="@{svn.username}" password="@{svn.password}" />
     </sequential>
   </macrodef>
-  
+
   <macrodef name="module.checkout.javadoc">
-     <attribute name="svn.username" />
-     <attribute name="svn.password" />
-     <attribute name="module.name" />
-     <sequential>
-       <echo message="Checking out @{module.name}"/>
-       <mkdir dir="${system.build.dir}/javadoc/@{module.name}" />
-       <svn.checkout svn.url="https://@{module.name}.googlecode.com/svn/javadoc/" local.workspace="${system.build.dir}/javadoc/@{module.name}" username="@{svn.username}" password="@{svn.password}" />
-     </sequential>
-   </macrodef>
+    <attribute name="svn.username" />
+    <attribute name="svn.password" />
+    <attribute name="module.name" />
+    <sequential>
+      <echo message="Checking out @{module.name}" />
+      <mkdir dir="${system.build.dir}/javadoc/@{module.name}" />
+      <svn.checkout svn.url="https://@{module.name}.googlecode.com/svn/javadoc/" local.workspace="${system.build.dir}/javadoc/@{module.name}" username="@{svn.username}" password="@{svn.password}" />
+    </sequential>
+  </macrodef>
 
 
   <macrodef name="buildModule">
@@ -247,6 +247,32 @@
     <attribute name="module.name" />
     <sequential>
       <ant dir="${system.build.dir}/@{module.name}" antfile="jar.build.xml" />
+    </sequential>
+  </macrodef>
+
+  <macrodef name="runHudsonTask">
+    <attribute name="task.name" />
+    <sequential>
+      <!-- Current total: 17 -->
+      <ant dir="${system.build.dir}/${utilities.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
+      <!--
+      <ant dir="${system.build.dir}/${sensorbase.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
+      <ant dir="${system.build.dir}/${sensorshell.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
+      <ant dir="${system.build.dir}/${ant.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
+      <ant dir="${system.build.dir}/${dpd.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
+      <ant dir="${system.build.dir}/${eclipse.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
+      <ant dir="${system.build.dir}/${emacs.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
+      <ant dir="${system.build.dir}/${pv.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
+      <ant dir="${system.build.dir}/${sdb.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
+      <ant dir="${system.build.dir}/${sdv.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
+      <ant dir="${system.build.dir}/${telemetry.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
+      <ant dir="${system.build.dir}/${simdata.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
+      <ant dir="${system.build.dir}/${stackyhack.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
+      <ant dir="${system.build.dir}/${systemstatus.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
+      <ant dir="${system.build.dir}/${tv.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
+      <ant dir="${system.build.dir}/${vim.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
+      <ant dir="${system.build.dir}/${xmldata.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
+      -->
     </sequential>
   </macrodef>
 
