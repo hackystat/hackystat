@@ -53,15 +53,15 @@
     <!-- 
     <module.checkout.anonymous module.name="${ant.system.name}" />
     <module.checkout.anonymous module.name="${dpd.system.name}" />
-    -->
     <module.checkout.anonymous module.name="${eclipse.system.name}" />
-    <!--
     <module.checkout.anonymous module.name="${emacs.system.name}" />
     <module.checkout.anonymous module.name="${pv.system.name}" />
     <module.checkout.anonymous module.name="${sdb.system.name}" />
     <module.checkout.anonymous module.name="${sdv.system.name}" />
     <module.checkout.anonymous module.name="${sensorbase.system.name}" />
+    -->
     <module.checkout.anonymous module.name="${sensorshell.system.name}" />
+    <!--
     <module.checkout.anonymous module.name="${simdata.system.name}" />
     <module.checkout.anonymous module.name="${stackyhack.system.name}" />
     <module.checkout.anonymous module.name="${systemstatus.system.name}" />
