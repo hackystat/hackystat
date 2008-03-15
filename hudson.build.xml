@@ -7,8 +7,6 @@
   <property name="system.integration.root" location="${basedir}/hudson" />
   <property name="system.build.dir" location="${system.integration.root}/hackystat-integration" />
   <property name="system.sclc.dir" location="${system.build.dir}/hudson/sclc" />
-  <property name="emma.disabled" value="false" />
-
 
   <mkdir dir="${system.build.dir}" />
 
@@ -20,6 +18,19 @@
   <target name="hudson.daily.build"  depends="hudson.daily.checkout" description="Checks out and builds all modules. ">
     <runHudsonTask task.name="hudson.daily.build" />
   </target>
+  
+  <target name="hudson.daily.jar"  depends="hudson.daily.checkout" description="Checks out and builds all modules. ">
+    <ant dir="${system.build.dir}/${utilities.system.name}" antfile="jar.build.xml"  />
+    <ant dir="${system.build.dir}/${sensorbase.system.name}" antfile="jar.build.xml"  />
+    <ant dir="${system.build.dir}/${sensorshell.system.name}" antfile="jar.build.xml"  />
+    <ant dir="${system.build.dir}/${dpd.system.name}" antfile="jar.build.xml"  />
+    <ant dir="${system.build.dir}/${telemetry.system.name}" antfile="jar.build.xml"  />
+    <ant dir="${system.build.dir}/${ant.system.name}" antfile="jar.build.xml"  />
+    <ant dir="${system.build.dir}/${xmldata.system.name}" antfile="jar.build.xml"  />     
+   </target>
+  
+  <target name="hudson.daily.sensors"  
+     depends="hudson.daily.junit, hudson.daily.javancss, hudson.daily.emma"  description="Sensors."/>
   
   <target name="hudson.daily.junit"  depends="hudson.daily.checkout" description="JUnit plus sensor. ">
     <runHudsonTask task.name="hudson.daily.junit" />
@@ -41,10 +52,9 @@
 
   <target name="hudson.daily.checkout" description="Anonymous check out/update of all projects from Google Project Hosting.">
     <!-- Current total: 17 -->
-    <module.checkout.anonymous module.name="${utilities.system.name}" />
-    <!--
     <module.checkout.anonymous module.name="${ant.system.name}" />
     <module.checkout.anonymous module.name="${dpd.system.name}" />
+    <!--
     <module.checkout.anonymous module.name="${eclipse.system.name}" />
     <module.checkout.anonymous module.name="${emacs.system.name}" />
     <module.checkout.anonymous module.name="${pv.system.name}" />
@@ -57,6 +67,7 @@
     <module.checkout.anonymous module.name="${systemstatus.system.name}" />
     <module.checkout.anonymous module.name="${telemetry.system.name}" />
     <module.checkout.anonymous module.name="${tv.system.name}" />
+    <module.checkout.anonymous module.name="${utilities.system.name}" />
     <module.checkout.anonymous module.name="${vim.system.name}" />
     <module.checkout.anonymous module.name="${xmldata.system.name}" />
     -->
