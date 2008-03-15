@@ -48,14 +48,14 @@
   </target>
   
 
-
-
   <target name="hudson.daily.checkout" description="Anonymous check out/update of all projects from Google Project Hosting.">
     <!-- Current total: 17 -->
+    <!-- 
     <module.checkout.anonymous module.name="${ant.system.name}" />
     <module.checkout.anonymous module.name="${dpd.system.name}" />
-    <!--
+    -->
     <module.checkout.anonymous module.name="${eclipse.system.name}" />
+    <!--
     <module.checkout.anonymous module.name="${emacs.system.name}" />
     <module.checkout.anonymous module.name="${pv.system.name}" />
     <module.checkout.anonymous module.name="${sdb.system.name}" />
