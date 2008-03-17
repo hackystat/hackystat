@@ -263,13 +263,13 @@
       <ant dir="${system.build.dir}/${sdb.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
       <ant dir="${system.build.dir}/${sdv.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
       <ant dir="${system.build.dir}/${sensorbase.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
-      -->
       <ant dir="${system.build.dir}/${sensorshell.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
-      <!--
       <ant dir="${system.build.dir}/${simdata.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
       <ant dir="${system.build.dir}/${stackyhack.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
       <ant dir="${system.build.dir}/${systemstatus.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
+      -->
       <ant dir="${system.build.dir}/${telemetry.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
+      <!--
       <ant dir="${system.build.dir}/${tv.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
       <ant dir="${system.build.dir}/${utilities.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
       <ant dir="${system.build.dir}/${vim.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
