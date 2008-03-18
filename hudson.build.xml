@@ -50,7 +50,6 @@
 
   <target name="hudson.daily.checkout" description="Anonymous check out/update of all projects from Google Project Hosting.">
     <!-- Current total: 17 -->
-    <!--
     <module.checkout.anonymous module.name="${ant.system.name}" />
     <module.checkout.anonymous module.name="${dpd.system.name}" />
     <module.checkout.anonymous module.name="${eclipse.system.name}" />
@@ -63,14 +62,11 @@
     <module.checkout.anonymous module.name="${simdata.system.name}" />
     <module.checkout.anonymous module.name="${stackyhack.system.name}" />
     <module.checkout.anonymous module.name="${systemstatus.system.name}" />
-    -->
     <module.checkout.anonymous module.name="${telemetry.system.name}" />
-    <!--
     <module.checkout.anonymous module.name="${tv.system.name}" />
     <module.checkout.anonymous module.name="${utilities.system.name}" />
     <module.checkout.anonymous module.name="${vim.system.name}" />
     <module.checkout.anonymous module.name="${xmldata.system.name}" />
-    -->
   </target>
 
   <target name="hudson.daily.dist" description="Creates a distribution." depends="build.all,dist" />
