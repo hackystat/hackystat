@@ -34,7 +34,8 @@
               hudson.daily.jar, 
               hudson.daily.javancss, 
               hudson.daily.junit, 
-              hudson.daily.emma"  
+              hudson.daily.emma,
+              hudson.daily.sclc"  
     description="Checks out the code, makes jar files, then runs tools and sensors."/>
   
   <target name="hudson.daily.junit"  description="JUnit plus sensor. ">
@@ -111,7 +112,7 @@
    </target>
 
 
-  <target name="hudson.sclc.sensor" description="Compute size data on the source code using SCLC, then send.">
+  <target name="hudson.daily.sclc" description="Compute size data on the source code using SCLC, then send.">
     <!-- Check for the SCLC_HOME environment variable, failing the build if it can't be found. -->
     <available file="${env.SCLC_HOME}/src/sclc" property="sclc.available" />
     <fail unless="sclc.available" message="Error: SCLC_HOME not set or file 'sclc' not found, indicating SCLC is not installed." />
