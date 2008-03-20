@@ -15,11 +15,11 @@
   <import file="dist.build.xml" />
   <import file="hackystat.build.xml" />
 
-  <target name="hudson.daily.build"  depends="hudson.daily.checkout" description="Checks out and builds all modules. ">
+  <target name="hudson.daily.build" description="Checks out and builds all modules. ">
     <runHudsonTask task.name="hudson.daily.build" />
   </target>
   
-  <target name="hudson.daily.jar"  depends="hudson.daily.checkout" description="Checks out and builds all modules. ">
+  <target name="hudson.daily.jar"  description="Checks out and builds all modules. ">
     <ant dir="${system.build.dir}/${utilities.system.name}" antfile="jar.build.xml"  />
     <ant dir="${system.build.dir}/${sensorbase.system.name}" antfile="jar.build.xml"  />
     <ant dir="${system.build.dir}/${sensorshell.system.name}" antfile="jar.build.xml"  />
@@ -30,19 +30,24 @@
    </target>
   
   <target name="hudson.daily.sensors"  
-     depends="hudson.daily.junit, hudson.daily.javancss, hudson.daily.emma"  description="Sensors."/>
+     depends="hudson.daily.checkout, 
+              hudson.daily.jar, 
+              hudson.daily.javancss, 
+              hudson.daily.junit, 
+              hudson.daily.emma"  
+    description="Checks out the code, makes jar files, then runs tools and sensors."/>
   
-  <target name="hudson.daily.junit"  depends="hudson.daily.checkout" description="JUnit plus sensor. ">
+  <target name="hudson.daily.junit"  description="JUnit plus sensor. ">
     <runHudsonTask task.name="hudson.daily.junit" />
     <antcall target="hudson.junit.sensor"/>
   </target>
   
-  <target name="hudson.daily.javancss"  depends="hudson.daily.checkout" description="JavaNCSS plus sensor. ">
+  <target name="hudson.daily.javancss"  description="JavaNCSS plus sensor. ">
     <runHudsonTask task.name="hudson.daily.javancss" />
     <antcall target="hudson.javancss.sensor"/>
   </target>
     
-  <target name="hudson.daily.emma"  depends="hudson.daily.checkout" description="Emma plus sensor. ">
+  <target name="hudson.daily.emma" description="Emma plus sensor. ">
     <runHudsonTask task.name="hudson.daily.emma" />
     <antcall target="hudson.emma.sensor"/>
   </target>
