@@ -203,6 +203,7 @@
     <buildModule module.name="${xmldata.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <copySensorDist module.name="${xmldata.system.name}" />
     <copySensorBin module.name="${xmldata.system.name}" bin.name="xmldata-cli.jar" />
+    <copySensorBinDir module.name="${xmldata.system.name}" dir.name="xml" />
   </target>
 
   <target name="build.emacs">

@@ -223,6 +223,17 @@
       </copy>
     </sequential>
   </macrodef>
+  
+  <macrodef name="copySensorBinDir">
+     <attribute name="module.name" />
+     <attribute name="dir.name" />
+     <sequential>
+       <mkdir dir="${system.sensors.dir}/bin/@{module.name}/@{dir.name}" />
+       <copy todir="${system.sensors.dir}/bin/@{module.name}/@{dir.name}">
+         <fileset dir="${system.build.dir}/@{module.name}/@{dir.name}" />
+       </copy>
+     </sequential>
+   </macrodef>
 
   <macrodef name="copySensorDist">
     <attribute name="module.name" />
