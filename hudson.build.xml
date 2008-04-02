@@ -31,10 +31,9 @@
   
   <target name="hudson.daily.sensors"  
      depends="hudson.daily.checkout,
-              <!-- hudson.daily.dependencyfinder, -->
               hudson.daily.jar, 
-              hudson.daily.javancss, 
               hudson.daily.junit, 
+              hudson.daily.javancss, 
               hudson.daily.emma,
               hudson.daily.sclc"  
     description="Checks out the code, makes jar files, then runs tools and sensors."/>
