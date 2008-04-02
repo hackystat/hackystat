@@ -11,7 +11,7 @@
     </sequential>
   </macrodef>
 
-  <!-- Send Checkstyle data to hackystat using the Checkstyle sensor. -->
+  <!-- Send Code Issue to hackystat using the Checkstyle sensor. -->
   <macrodef name="hackystat.checkstyle">
     <attribute name="checkstyle.datafiles.fileset" />
     <attribute name="verbose" default="false" />
@@ -23,7 +23,7 @@
     </sequential>
   </macrodef>
 
-  <!-- Send JUnit test data to hackystat using the JUnit sensor. -->
+  <!-- Send test data to hackystat using the JUnit sensor. -->
   <macrodef name="hackystat.junit">
     <attribute name="junit.datafiles.fileset" />
     <attribute name="junit.sourcefiles.fileset" />
@@ -37,7 +37,7 @@
     </sequential>
   </macrodef>
   
-  <!-- Send JavaNCSS data to hackystat using the JavaNCSS sensor. -->
+  <!-- Send complexity to hackystat using the JavaNCSS sensor. -->
    <macrodef name="hackystat.javancss">
      <attribute name="javancss.datafiles.fileset" />
      <attribute name="javancss.sourcefiles.fileset" />
@@ -51,7 +51,7 @@
      </sequential>
    </macrodef>
        
-  <!-- Send Emma coverage data to hackystat using the Emma sensor. -->
+  <!-- Send coverage data to hackystat using the Emma sensor. -->
   <macrodef name="hackystat.emma">
     <attribute name="emma.sourcefiles.fileset" />
     <attribute name="emma.datafiles.fileset" />
@@ -65,7 +65,7 @@
     </sequential>
   </macrodef>
 
-  <!-- Send PMD coverage data to hackystat using the PMD sensor. -->
+  <!-- Send code issue data to hackystat using the PMD sensor. -->
   <macrodef name="hackystat.pmd">
     <attribute name="pmd.datafiles.fileset" />
     <attribute name="pmd.sourcefiles.fileset" />
@@ -79,7 +79,7 @@
     </sequential>
   </macrodef>
 
-  <!-- Send findbugs coverage data to hackystat using the findbugs sensor. -->
+  <!-- Send code issue data to hackystat using the findbugs sensor. -->
   <macrodef name="hackystat.findbugs">
     <attribute name="findbugs.datafiles.fileset" />
     <attribute name="findbugs.sourcefiles.fileset" />
@@ -92,8 +92,22 @@
       </hacky-findbugs>
     </sequential>
   </macrodef>
+  
+  <!-- Send coupling data to hackystat using the dependencyfinder sensor. -->
+   <macrodef name="hackystat.dependencyfinder">
+     <attribute name="dependencyfinder.datafiles.fileset" />
+     <attribute name="dependencyfinder.sourcefiles.fileset" />
+     <attribute name="verbose" default="false" />
+     <sequential>
+       <check.antsensors />
+       <hacky-dependencyfinder verbose="@{verbose}">
+         <datafiles><fileset refid="@{dependencyfinder.datafiles.fileset}" /></datafiles>
+         <sourcefiles><fileset refid="@{dependencyfinder.sourcefiles.fileset}" /></sourcefiles>
+       </hacky-dependencyfinder>
+     </sequential>
+   </macrodef>
 
-  <!-- Send sclc data to hackystat using the SCLC sensor. -->
+  <!-- Send size data to hackystat using the SCLC sensor. -->
   <macrodef name="hackystat.sclc">
     <attribute name="sclc.file" />
     <sequential>

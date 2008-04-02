@@ -53,6 +53,11 @@
     <antcall target="hudson.emma.sensor"/>
   </target>
   
+  <target name="hudson.daily.dependencyfinder" description="DependencyFinder plus sensor. ">
+    <runTask task.name="dependencyfinder.tool" build.file.name="dependencyfinder.build.xml"/>
+    <antcall target="hudson.dependencyfinder.sensor"/>
+   </target>
+  
 
   <target name="hudson.daily.checkout" description="Anonymous check out/update of all projects from Google Project Hosting.">
     <!-- Current total: 17 -->
@@ -99,6 +104,12 @@
     <hackystat.pmd pmd.datafiles.fileset="pmd.datafiles" pmd.sourcefiles.fileset="pmd.sourcefiles" verbose="${hackystat.verbose.mode}" />
   </target>
 
+  <target name="hudson.dependencyfinder.sensor" description="Send hackystat data about this DependencyFinder invocation.">
+    <fileset id="dependencyfinder.sourcefiles" dir="${system.build.dir}" includes="**/src/**/*.java" excludes="**/jaxb/**"/>
+    <fileset id="dependencyfinder.datafiles" dir="${system.build.dir}" includes="**/dependencyfinder/class2class.xml" />
+    <hackystat.dependencyfinder dependencyfinder.datafiles.fileset="dependencyfinder.datafiles" dependencyfinder.sourcefiles.fileset="dependencyfinder.sourcefiles" verbose="${hackystat.verbose.mode}" />
+   </target>
+  
   <target name="hudson.javancss.sensor" description="Send hackystat data about this JavaNCSS invocation.">
     <fileset id="javancss.datafiles" dir="${system.build.dir}" includes="**/javancss/javancss.xml" />
     <fileset id="javancss.sourcefiles" dir="${system.build.dir}" includes="**/src/**/*.java" excludes="**/jaxb/**" />
