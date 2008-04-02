@@ -30,7 +30,8 @@
    </target>
   
   <target name="hudson.daily.sensors"  
-     depends="hudson.daily.checkout, 
+     depends="hudson.daily.checkout,
+              hudson.daily.dependencyfinder,
               hudson.daily.jar, 
               hudson.daily.javancss, 
               hudson.daily.junit, 
