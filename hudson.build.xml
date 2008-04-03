@@ -48,6 +48,7 @@
               hudson.daily.jar, 
               hudson.daily.junit, 
               hudson.daily.javancss, 
+              hudson.daily.dependencyfinder,
               hudson.daily.emma,
               hudson.daily.sclc"  
     description="Checks out the code, makes jar files, then runs tools and sensors."/>
