@@ -20,12 +20,26 @@
   </target>
   
   <target name="hudson.daily.jar"  description="Checks out and builds all modules. ">
+    
+    <ant dir="${system.build.dir}/${utilities.system.name}" target="clean"  />
     <ant dir="${system.build.dir}/${utilities.system.name}" antfile="jar.build.xml"  />
+
+    <ant dir="${system.build.dir}/${sensorbase.system.name}" target="clean"  />
     <ant dir="${system.build.dir}/${sensorbase.system.name}" antfile="jar.build.xml"  />
+    
+    <ant dir="${system.build.dir}/${sensorshell.system.name}" target="clean"  />
     <ant dir="${system.build.dir}/${sensorshell.system.name}" antfile="jar.build.xml"  />
+
+    <ant dir="${system.build.dir}/${dpd.system.name}" target="clean"  />
     <ant dir="${system.build.dir}/${dpd.system.name}" antfile="jar.build.xml"  />
+    
+    <ant dir="${system.build.dir}/${telemetry.system.name}" target="clean"  />
     <ant dir="${system.build.dir}/${telemetry.system.name}" antfile="jar.build.xml"  />
+
+    <ant dir="${system.build.dir}/${ant.system.name}" target="clean"  />
     <ant dir="${system.build.dir}/${ant.system.name}" antfile="jar.build.xml"  />
+
+    <ant dir="${system.build.dir}/${xmldata.system.name}" target="clean"  />     
     <ant dir="${system.build.dir}/${xmldata.system.name}" antfile="jar.build.xml"  />     
    </target>
   
