@@ -7,13 +7,17 @@
   <property name="system.integration.root" location="${basedir}/hudson" />
   <property name="system.build.dir" location="${system.integration.root}/hackystat-integration" />
   <property name="system.sclc.dir" location="${system.build.dir}/hudson/sclc" />
+  <property name="system.javadoc.dir" location="${system.build.dir}/hudson/javadoc" />
+  
 
   <mkdir dir="${system.build.dir}" />
+  <mkdir dir="${system.javadoc.dir}" />
 
   <import file="build.xml" />
   <import file="macros.build.xml" />
   <import file="dist.build.xml" />
   <import file="hackystat.build.xml" />
+  <import file="javadoc.build.xml" />
 
   <target name="hudson.daily.build" description="Checks out and builds all modules. ">
     <runHudsonTask task.name="hudson.daily.build" />
@@ -150,6 +154,17 @@
     <xslt in="${system.sclc.dir}/size.xml" out="${system.sclc.dir}/transform-size.xml" style="${system.build.dir}/hackystat-sensorbase-uh/lib/sclc/sclc.xsl" />
     <hackystat.sclc sclc.file="${system.sclc.dir}/transform-size.xml" />
   </target>
+  
+  
+  <target name="hudson.daily.javadoc" description="Regenerate JavaDocs and publish.">
+    <module.checkout.anonymous module.name="${ant.system.name}" />
+    <module.checkout.javadoc module.name="${ant.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.javadoc module.name="${ant.system.name}" />
+    <module.commit.javadoc module.name="${ant.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+  </target>
+    
+    
+    
 
 </project>
 

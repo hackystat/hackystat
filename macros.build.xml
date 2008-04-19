@@ -74,13 +74,14 @@
       <java classname="org.tmatesoft.svn.cli.SVN" fork="true" failonerror="true">
         <arg value="add" />
         <arg value="--auto-props" />
+        <arg value="--force" />
         <arg value="--message" />
         <arg value="'Adding all new files.'" />
         <arg value="--username" />
         <arg value="@{svn.username}" />
         <arg value="--password" />
         <arg value="@{svn.password}" />
-        <arg value="${basedir}/javadoc/@{module.name}" />
+        <arg value="${system.build.dir}/javadoc/@{module.name}" />
         <classpath>
           <pathelement location="${env.SVNKIT_HOME}/ganymed.jar" />
           <pathelement location="${env.SVNKIT_HOME}/svnkit.jar" />
@@ -97,7 +98,7 @@
         <arg value="@{svn.username}" />
         <arg value="--password" />
         <arg value="@{svn.password}" />
-        <arg value="${basedir}/javadoc/@{module.name}" />
+        <arg value="${system.build.dir}/javadoc/@{module.name}" />
         <classpath>
           <pathelement location="${env.SVNKIT_HOME}/ganymed.jar" />
           <pathelement location="${env.SVNKIT_HOME}/svnkit.jar" />
@@ -189,7 +190,7 @@
     <attribute name="module.name" />
     <sequential>
       <ant dir="${system.build.dir}/@{module.name}" antfile="javadoc.build.xml">
-        <property name="javadoc.dir" location="${basedir}/javadoc/@{module.name}" />
+        <property name="javadoc.dir" location="${system.build.dir}/javadoc/@{module.name}" />
       </ant>
     </sequential>
   </macrodef>
