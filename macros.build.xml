@@ -63,6 +63,18 @@
       </java>
     </sequential>
   </macrodef>
+  
+  <macrodef name="module.javadoc.daily">
+     <attribute name="svn.username" />
+     <attribute name="svn.password" />
+     <attribute name="module.name" />
+     <sequential>
+       <module.checkout.anonymous module.name="@{module.name}" />
+       <module.checkout.javadoc module.name="@{module.name}" svn.username="@{svn.username}" svn.password="@{svn.password}" />
+       <module.javadoc module.name="@{module.name}" />
+       <module.commit.javadoc module.name="@{module.name}" svn.username="@{svn.username}" svn.password="@{svn.password}" />
+     </sequential>
+   </macrodef>
 
   <macrodef name="module.commit.javadoc">
     <attribute name="svn.username" />

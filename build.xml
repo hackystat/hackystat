@@ -46,6 +46,7 @@
   <property name="hackystat.system.name" value="hackystat" />
   <property name="emacs.system.name" value="hackystat-sensor-emacs" />
   <property name="pv.system.name" value="hackystat-ui-projectviewer2" />
+  <property name="pb.system.name" value="hackystat-ui-wicket" />
   <property name="sdb.system.name" value="hackystat-ui-sensordatabrowser" />
   <property name="sdv.system.name" value="hackystat-ui-sensordataviewer" />
   <property name="sensorbase.system.name" value="hackystat-sensorbase-uh" />
@@ -88,16 +89,17 @@
              build.sensorshell,
              build.dailyprojectdata,
              build.telemetry,
-  	     build.ant, 
-  	     build.xmldata, 
-  	     build.emacs, 
+             build.projectbrowser,
+  	         build.ant, 
+  	         build.xmldata, 
+  	         build.emacs, 
              build.vim,
              build.stackyhack,
-  	     build.sensordataviewer, 
-  	     build.sensordatabrowser,
+  	         build.sensordataviewer, 
+  	         build.sensordatabrowser,
              build.telemetryviewer,
              build.projectviewer,
-	     build.eclipse,
+	         build.eclipse,
              build.systemstatus,
              build.simdata" description="Cleans, then checks out and builds all modules.  Requires SVN commit access." />
 
@@ -106,6 +108,7 @@
     <module.checkout.anonymous module.name="${dpd.system.name}" />
     <module.checkout.anonymous module.name="${eclipse.system.name}" />
     <module.checkout.anonymous module.name="${emacs.system.name}" />
+    <module.checkout.anonymous module.name="${pb.system.name}" />
     <module.checkout.anonymous module.name="${pv.system.name}" />
     <module.checkout.anonymous module.name="${sdb.system.name}" />
     <module.checkout.anonymous module.name="${sdv.system.name}" />
@@ -128,6 +131,7 @@
     <svn.commit svn.module="${eclipse.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <svn.commit svn.module="${emacs.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <svn.commit svn.module="${pv.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="${pb.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <svn.commit svn.module="${sdb.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <svn.commit svn.module="${sdv.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <svn.commit svn.module="${sensorbase.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
@@ -145,6 +149,7 @@
 
   <target name="checkout" description="Check out/update of all projects from Google Project Hosting. Requires project membership.">
     <fail message="Must define svn.properties file with username and password." unless="svn.username" />
+    <module.checkout module.name="${pb.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.checkout module.name="${ant.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.checkout module.name="${dpd.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.checkout module.name="${eclipse.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
@@ -248,6 +253,13 @@
     <copyServiceDist module.name="${tv.system.name}" />
     <copyServiceBin module.name="${tv.system.name}" bin.name="telemetryviewer.war" />
   </target>
+  
+  <target name="build.projectbrowser">
+     <buildModule module.name="${pb.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+     <copyServiceDist module.name="${pb.system.name}" />
+    <copyServiceBin module.name="${pb.system.name}" bin.name="projectbrowser.jar" />
+    <copyServiceBin module.name="${pb.system.name}" bin.name="sample.projectbrowser.properties" />
+   </target>
 
   <target name="build.dailyprojectdata">
     <buildModule module.name="${dpd.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />

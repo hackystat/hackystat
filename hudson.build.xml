@@ -157,10 +157,28 @@
   
   
   <target name="hudson.daily.javadoc" description="Regenerate JavaDocs and publish.">
+    <!--
     <module.checkout.anonymous module.name="${ant.system.name}" />
     <module.checkout.javadoc module.name="${ant.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.javadoc module.name="${ant.system.name}" />
     <module.commit.javadoc module.name="${ant.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    =-->
+    <module.javadoc.daily module.name="${utilities.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.javadoc.daily module.name="${sensorbase.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.javadoc.daily module.name="${sensorshell.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.javadoc.daily module.name="${dpd.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.javadoc.daily module.name="${telemetry.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+
+    <module.javadoc.daily module.name="${ant.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.javadoc.daily module.name="${eclipse.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.javadoc.daily module.name="${pv.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.javadoc.daily module.name="${sdb.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.javadoc.daily module.name="${sdv.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.javadoc.daily module.name="${simdata.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.javadoc.daily module.name="${systemstatus.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.javadoc.daily module.name="${tv.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.javadoc.daily module.name="${xmldata.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    
   </target>
     
     
