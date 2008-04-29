@@ -1,23 +1,32 @@
 <project name="system.build.javadoc" default="javadoc">
   <description>
-  Tasks for generating and managing JavaDocs for Hackystat modules. This involves the following:
-  
-  ant -f javadoc.build.xml javadoc
-    Creates JavaDocs for all packages in the local top-level javadoc/ directory.
-  
-  ant -f javadoc.build.xml import-javadoc 
-    When a JavaDoc is generated initially, import it to the top-level javadoc/ in SVN.
-  
-  ant -f javadoc.build.xml checkout-javadoc
-    Once JavaDocs have been imported, use this to check them out into the local top-level javadoc dir.
-  
-  ant -f javadoc.build.xml commit-javadoc
-    Once JavaDocs have been created, imported, and checked out, use this to commit updates.
+  Tasks for generating and managing JavaDocs for Hackystat modules. There are two use cases:
+    
+  1. Refresh existing javadocs. This involves:
+      - ant checkout                               #get most recent sources
+      - ant -f javadoc.build.xml checkout-javadoc  #get most recent javadoc
+      - ant -f javadoc.build.xml javadoc           #build updated javadocs
+      - ant -f javadoc.build.xml commit-javadoc    #commit changes.
+    
+  2. Add a new project javadoc.  This involves:
+    - ant checkout                               #get most recent sources
+    - ant -f javadoc.build.xml checkout-javadoc  #get most recent javadocs from SVN
+    [Edit the tasks below to include the new project.] 
+    - ant -f javadoc.build.xml javadoc           #build updated javadocs, including new project.
+    - ant -f javadoc.build.xml import-javadoc    #import the new javadoc to SVN.
+    [Delete the javadoc/[newproject] directory that was just imported. Edit the import-javadoc task]
+    - ant -f javadoc.build.xml checkout-javadoc  #get the new javadoc from SVN.
+    - ant -f javadoc.build.xml commit-javadoc    #commit changes.
+
+    
+  Use the hackystat-projects directory (since the javadoc directory is there already).
+
   </description>
 
   <import file="build.xml" />
 
   <target name="javadoc" description="Generates JavaDocs for all Java-based projects.">
+    <module.javadoc module.name="${pb.system.name}" />
     <module.javadoc module.name="${ant.system.name}" />
     <module.javadoc module.name="${dpd.system.name}" />
     <module.javadoc module.name="${eclipse.system.name}" />
@@ -39,6 +48,7 @@
 
   <target name="import-javadoc" description="Import initial build of JavaDocs to SVN.">
     <!--  Already done these. 
+    <svn.import.javadoc module.name="${pb.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <svn.import.javadoc module.name="${ant.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <svn.import.javadoc module.name="${dpd.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <svn.import.javadoc module.name="${eclipse.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
@@ -58,6 +68,7 @@
   </target>
 
   <target name="checkout-javadoc" description="Initial checkout of JavaDocs to SVN.">
+    <module.checkout.javadoc module.name="${pb.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.checkout.javadoc module.name="${ant.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.checkout.javadoc module.name="${dpd.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.checkout.javadoc module.name="${eclipse.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
@@ -76,6 +87,7 @@
   </target>
 
   <target name="commit-javadoc" description="Adds, then commits updated JavaDocs to SVN.">
+    <module.commit.javadoc module.name="${pb.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.commit.javadoc module.name="${ant.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.commit.javadoc module.name="${dpd.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.commit.javadoc module.name="${eclipse.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
