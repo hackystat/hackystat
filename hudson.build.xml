@@ -84,6 +84,7 @@
     <module.checkout.anonymous module.name="${dpd.system.name}" />
     <module.checkout.anonymous module.name="${eclipse.system.name}" />
     <module.checkout.anonymous module.name="${emacs.system.name}" />
+    <module.checkout.anonymous module.name="${pb.system.name}" />
     <module.checkout.anonymous module.name="${pv.system.name}" />
     <module.checkout.anonymous module.name="${sdb.system.name}" />
     <module.checkout.anonymous module.name="${sdv.system.name}" />
@@ -171,6 +172,7 @@
 
     <module.javadoc.daily module.name="${ant.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.javadoc.daily module.name="${eclipse.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.javadoc.daily module.name="${pb.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.javadoc.daily module.name="${pv.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.javadoc.daily module.name="${sdb.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.javadoc.daily module.name="${sdv.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
