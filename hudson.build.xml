@@ -19,7 +19,7 @@
   <import file="hackystat.build.xml" />
   <import file="javadoc.build.xml" />
 
-  <target name="hudson.daily.build" description="Checks out and builds all modules. ">
+  <target name="hudson.daily.build" depends="hudson.daily.checkout" description="Checks out and builds all modules. ">
     <runHudsonTask task.name="hudson.daily.build" />
   </target>
   
