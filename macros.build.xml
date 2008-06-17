@@ -186,7 +186,17 @@
       <svn.checkout svn.url="https://@{module.name}.googlecode.com/svn/javadoc/" local.workspace="${system.build.dir}/javadoc/@{module.name}" username="@{svn.username}" password="@{svn.password}" />
     </sequential>
   </macrodef>
-
+  
+  <macrodef name="module.refresh.javadoc">
+    <attribute name="svn.username" />
+    <attribute name="svn.password" />
+    <attribute name="module.name" />
+    <sequential>
+      <module.checkout.javadoc module.name="@{module.name}" svn.username="@{svn.username}" svn.password="@{svn.password}" />
+      <module.javadoc module.name="@{module.name}" />
+      <module.commit.javadoc module.name="@{module.name}" svn.username="@{svn.username}" svn.password="@{svn.password}" />  
+    </sequential>
+  </macrodef>
 
   <macrodef name="buildModule">
     <attribute name="svn.username" />

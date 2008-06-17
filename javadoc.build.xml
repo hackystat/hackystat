@@ -8,6 +8,12 @@
       - ant -f javadoc.build.xml javadoc           #build updated javadocs
       - ant -f javadoc.build.xml commit-javadoc    #commit changes.
     
+     Better: You can do this for all projects with: 
+      - ant -f javadoc.build.xml refresh.javadoc.all
+     Or individually for a single project with something like:
+      - ant -f javadoc.build.xml refresh.javadoc.ant
+    
+    
   2. Add a new project javadoc.  This involves:
     - ant checkout                               #get most recent sources
     - ant -f javadoc.build.xml checkout-javadoc  #get most recent javadocs from SVN
@@ -24,6 +30,21 @@
   </description>
 
   <import file="build.xml" />
+  
+  <target name="refresh.javadoc.all" 
+    depends="refresh.javadoc.pb,
+             refresh.javadoc.ant,
+             refresh.javadoc.dpd,
+             refresh.javadoc.eclipse,
+             refresh.javadoc.sensorbase,
+             refresh.javadoc.sensorshell,
+             refresh.javadoc.simdata,
+             refresh.javadoc.stackyhack,
+             refresh.javadoc.systemstatus,
+             refresh.javadoc.telemetry,
+             refresh.javadoc.utilities,
+             refresh.javadoc.xmldata">
+  </target>
 
   <target name="javadoc" description="Generates JavaDocs for all Java-based projects.">
     <module.javadoc module.name="${pb.system.name}" />
@@ -112,6 +133,53 @@
   </target>
   
   
+  <target name="refresh.javadoc.pb" description="Checks out javadoc, then runs it, then commits changes.">
+    <module.refresh.javadoc module.name="${pb.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+  </target>
+  
+  <target name="refresh.javadoc.ant" description="Checks out javadoc, then runs it, then commits changes.">
+    <module.refresh.javadoc module.name="${ant.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+  </target>
+  
+  <target name="refresh.javadoc.dpd" description="Checks out javadoc, then runs it, then commits changes.">
+    <module.refresh.javadoc module.name="${dpd.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+  </target>
+  
+  <target name="refresh.javadoc.eclipse" description="Checks out javadoc, then runs it, then commits changes.">
+    <module.refresh.javadoc module.name="${eclipse.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+  </target>
+  
+  <target name="refresh.javadoc.sensorbase" description="Checks out javadoc, then runs it, then commits changes.">
+    <module.refresh.javadoc module.name="${sensorbase.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+  </target>
+  
+  <target name="refresh.javadoc.sensorshell" description="Checks out javadoc, then runs it, then commits changes.">
+    <module.refresh.javadoc module.name="${sensorshell.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+  </target>
+  
+  <target name="refresh.javadoc.simdata" description="Checks out javadoc, then runs it, then commits changes.">
+    <module.refresh.javadoc module.name="${simdata.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+  </target>
+  
+  <target name="refresh.javadoc.stackyhack" description="Checks out javadoc, then runs it, then commits changes.">
+    <module.refresh.javadoc module.name="${stackyhack.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+  </target>
+
+  <target name="refresh.javadoc.systemstatus" description="Checks out javadoc, then runs it, then commits changes.">
+    <module.refresh.javadoc module.name="${systemstatus.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+  </target>
+  
+  <target name="refresh.javadoc.telemetry" description="Checks out javadoc, then runs it, then commits changes.">
+    <module.refresh.javadoc module.name="${telemetry.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+  </target>
+  
+  <target name="refresh.javadoc.utilities" description="Checks out javadoc, then runs it, then commits changes.">
+    <module.refresh.javadoc module.name="${utilities.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+  </target>
+  
+  <target name="refresh.javadoc.xmldata" description="Checks out javadoc, then runs it, then commits changes.">
+    <module.refresh.javadoc module.name="${xmldata.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+  </target>
   
 </project>
 
