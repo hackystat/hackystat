@@ -337,5 +337,22 @@
        <ant dir="${system.build.dir}/${xmldata.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
      </sequential>
    </macrodef>
+  
+  <macrodef name="svn2008">
+     <attribute name="project" />
+      <sequential>
+        <hacky-svn  
+          repositoryName="Hackystat"
+          repositoryUrl="http://@{project}.googlecode.com/svn/trunk"
+          fileNamePrefix="/hackystat-integration/@{project}"
+          fromDate="2008-01-01"
+          toDate="2008-07-12"
+          defaultHackystatAccount="${env.HACKYSTAT_SVN_DEFAULT_ACCOUNT}"
+          defaultHackystatPassword="${env.HACKYSTAT_SVN_DEFAULT_PASSWORD}" 
+          defaultHackystatSensorbase="http://dasha.ics.hawaii.edu:9876/sensorbase"
+          verbose="true" 
+        />
+      </sequential>
+    </macrodef>
 
 </project>

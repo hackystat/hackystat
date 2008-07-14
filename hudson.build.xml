@@ -57,6 +57,11 @@
               hudson.daily.sclc"  
     description="Checks out the code, makes jar files, then runs tools and sensors."/>
   
+  <target name="hudson.daily.svn">
+    <ant dir="${system.build.dir}/${sensorshell.system.name}" antfile="hudson.build.xml" target="hudson.daily.svn" />
+  </target>
+    
+  
   <target name="hudson.daily.junit"  description="JUnit plus sensor. ">
     <runHudsonTask task.name="hudson.daily.junit" />
     <antcall target="hudson.junit.sensor"/>
@@ -206,22 +211,6 @@
      <svn2008 project="hackystat-utilities"/>
     </target>
    
-   <macrodef name="svn2008">
-     <attribute name="project" />
-      <sequential>
-        <hacky-svn  
-          repositoryName="Hackystat"
-          repositoryUrl="http://@{project}.googlecode.com/svn/trunk"
-          fileNamePrefix="/hackystat-integration/@{project}"
-          fromDate="2008-01-01"
-          toDate="2008-07-12"
-          defaultHackystatAccount="${env.HACKYSTAT_SVN_DEFAULT_ACCOUNT}"
-          defaultHackystatPassword="${env.HACKYSTAT_SVN_DEFAULT_PASSWORD}" 
-          defaultHackystatSensorbase="http://dasha.ics.hawaii.edu:9876/sensorbase"
-          verbose="true" 
-        />
-      </sequential>
-    </macrodef>
 
 </project>
 
