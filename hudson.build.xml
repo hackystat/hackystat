@@ -58,7 +58,7 @@
     description="Checks out the code, makes jar files, then runs tools and sensors."/>
   
   <target name="hudson.daily.svn">
-    <ant dir="${system.build.dir}/${sensorshell.system.name}" antfile="hudson.build.xml" target="hudson.daily.svn" />
+    <svn.module module="hackystat-sensor-shell"/>
   </target>
     
   

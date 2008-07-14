@@ -354,5 +354,20 @@
         />
       </sequential>
     </macrodef>
+  
+  <macrodef name="svn.module">
+      <attribute name="module" />
+       <sequential>
+         <hacky-svn  
+           repositoryName="Hackystat"
+           repositoryUrl="http://@{module}.googlecode.com/svn/trunk"
+           fileNamePrefix="/hackystat-integration/@{module}"
+           defaultHackystatAccount="${env.HACKYSTAT_SVN_DEFAULT_ACCOUNT}"
+           defaultHackystatPassword="${env.HACKYSTAT_SVN_DEFAULT_PASSWORD}" 
+           defaultHackystatSensorbase="http://dasha.ics.hawaii.edu:9876/sensorbase"
+           verbose="true" 
+         />
+       </sequential>
+     </macrodef>
 
 </project>
