@@ -58,7 +58,19 @@
     description="Checks out the code, makes jar files, then runs tools and sensors."/>
   
   <target name="hudson.daily.svn">
+    <svn.module module="hackystat-analysis-dailyprojectdata"/>
+    <svn.module module="hackystat-analysis-telemetry"/>
+    <svn.module module="hackystat-sensor-ant"/>
+    <svn.module module="hackystat-sensor-emacs"/>
+    <svn.module module="hackystat-sensor-eclipse"/>
+    <svn.module module="hackystat-sensor-example"/>
     <svn.module module="hackystat-sensor-shell"/>
+    <svn.module module="hackystat-sensor-vim"/>
+    <svn.module module="hackystat-sensor-xmldata"/>
+    <svn.module module="hackystat-sensorbase-simdata"/>
+    <svn.module module="hackystat-sensorbase-uh"/>
+    <svn.module module="hackystat-ui-wicket"/>
+    <svn.module module="hackystat-utilities"/>
   </target>
     
   
