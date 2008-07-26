@@ -58,6 +58,7 @@
     description="Checks out the code, makes jar files, then runs tools and sensors."/>
   
   <target name="hudson.daily.svn">
+    <svn.module module="hackystat"/>
     <svn.module module="hackystat-analysis-dailyprojectdata"/>
     <svn.module module="hackystat-analysis-telemetry"/>
     <svn.module module="hackystat-sensor-ant"/>
@@ -70,6 +71,10 @@
     <svn.module module="hackystat-sensorbase-simdata"/>
     <svn.module module="hackystat-sensorbase-uh"/>
     <svn.module module="hackystat-ui-wicket"/>
+    <svn.module module="hackystat-ui-wicket" dir="branches/senin-trajectory"/>
+    <svn.module module="hackystat-ui-wicket" dir="branches/issue-30"/>
+    <svn.module module="hackystat-ui-wicket" dir="branches/issue-15"/>
+    <svn.module module="hackystat-ui-trajectory"/>
     <svn.module module="hackystat-utilities"/>
   </target>
     

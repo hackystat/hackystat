@@ -357,6 +357,8 @@
   
   <macrodef name="svn.module">
       <attribute name="module" />
+      <attribute name="dir" default="trunk"/>
+    
        <sequential>
          <property environment="env"/>
          <available file="${env.HACKYSTAT_ANTSENSORS_HOME}/antsensors.jar" type="file" property="hackystat.antsensors.available"/>
@@ -365,7 +367,7 @@
 
          <hacky-svn  
            repositoryName="Hackystat"
-           repositoryUrl="http://@{module}.googlecode.com/svn/trunk"
+           repositoryUrl="http://@{module}.googlecode.com/svn/@{dir}"
            fileNamePrefix="/hackystat-integration/@{module}"
            defaultHackystatAccount="${env.HACKYSTAT_SVN_DEFAULT_ACCOUNT}"
            defaultHackystatPassword="${env.HACKYSTAT_SVN_DEFAULT_PASSWORD}" 
