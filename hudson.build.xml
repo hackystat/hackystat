@@ -19,7 +19,7 @@
   <import file="hackystat.build.xml" />
   <import file="javadoc.build.xml" />
 
-  <target name="hudson.daily.build"  description="Checks out and builds all modules. ">
+  <target name="hudson.daily.build" depends="hudson.daily.checkout" description="Checks out and builds all modules. ">
     <runHudsonTask task.name="hudson.daily.build" />
   </target>
   
@@ -72,8 +72,10 @@
     <svn.module module="hackystat-sensorbase-uh"/>
     <svn.module module="hackystat-ui-wicket"/>
     <svn.module module="hackystat-ui-wicket" dir="branches/senin-trajectory"/>
+    <!--
     <svn.module module="hackystat-ui-wicket" dir="branches/issue-30"/>
     <svn.module module="hackystat-ui-wicket" dir="branches/issue-15"/>
+    -->
     <svn.module module="hackystat-ui-trajectory"/>
     <svn.module module="hackystat-utilities"/>
   </target>
@@ -101,22 +103,24 @@
   
 
   <target name="hudson.daily.checkout" description="Anonymous check out/update of all projects from Google Project Hosting.">
-    <!-- Current total: 17 -->
+    <!-- Current total: 18 -->
     <module.checkout.anonymous module.name="${ant.system.name}" />
     <module.checkout.anonymous module.name="${dpd.system.name}" />
     <module.checkout.anonymous module.name="${eclipse.system.name}" />
     <module.checkout.anonymous module.name="${emacs.system.name}" />
     <module.checkout.anonymous module.name="${pb.system.name}" />
+    <!--
     <module.checkout.anonymous module.name="${pv.system.name}" />
     <module.checkout.anonymous module.name="${sdb.system.name}" />
     <module.checkout.anonymous module.name="${sdv.system.name}" />
+    <module.checkout.anonymous module.name="${tv.system.name}" />
+    -->
     <module.checkout.anonymous module.name="${sensorbase.system.name}" />
     <module.checkout.anonymous module.name="${sensorshell.system.name}" />
     <module.checkout.anonymous module.name="${simdata.system.name}" />
     <module.checkout.anonymous module.name="${stackyhack.system.name}" />
     <module.checkout.anonymous module.name="${systemstatus.system.name}" />
     <module.checkout.anonymous module.name="${telemetry.system.name}" />
-    <module.checkout.anonymous module.name="${tv.system.name}" />
     <module.checkout.anonymous module.name="${utilities.system.name}" />
     <module.checkout.anonymous module.name="${vim.system.name}" />
     <module.checkout.anonymous module.name="${xmldata.system.name}" />
@@ -185,7 +189,7 @@
     <module.checkout.javadoc module.name="${ant.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.javadoc module.name="${ant.system.name}" />
     <module.commit.javadoc module.name="${ant.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
-    =-->
+    -->
     <module.javadoc.daily module.name="${utilities.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.javadoc.daily module.name="${sensorbase.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.javadoc.daily module.name="${sensorshell.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
