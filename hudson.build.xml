@@ -50,11 +50,11 @@
   <target name="hudson.daily.sensors"  
      depends="hudson.daily.checkout,
               hudson.daily.jar, 
-              hudson.daily.junit, 
-              hudson.daily.javancss, 
-              hudson.daily.dependencyfinder,
-              hudson.daily.emma,
-              hudson.daily.sclc"  
+              hudson.daily.junit.sensor, 
+              hudson.daily.javancss.sensor, 
+              hudson.daily.dependencyfinder.sensor,
+              hudson.daily.emma.sensor,
+              hudson.daily.sclc.sensor"  
     description="Checks out the code, makes jar files, then runs tools and sensors."/>
   
   <target name="hudson.daily.svn">
@@ -81,22 +81,22 @@
   </target>
     
   
-  <target name="hudson.daily.junit"  description="JUnit plus sensor. ">
+  <target name="hudson.daily.junit.sensor"  description="JUnit plus sensor. ">
     <runHudsonTask task.name="hudson.daily.junit" />
     <antcall target="hudson.junit.sensor"/>
   </target>
   
-  <target name="hudson.daily.javancss"  description="JavaNCSS plus sensor. ">
+  <target name="hudson.daily.javancss.sensor"  description="JavaNCSS plus sensor. ">
     <runHudsonTask task.name="hudson.daily.javancss" />
     <antcall target="hudson.javancss.sensor"/>
   </target>
     
-  <target name="hudson.daily.emma" description="Emma plus sensor. ">
+  <target name="hudson.daily.emma.sensor" description="Emma plus sensor. ">
     <runHudsonTask task.name="hudson.daily.emma" />
     <antcall target="hudson.emma.sensor"/>
   </target>
   
-  <target name="hudson.daily.dependencyfinder" description="DependencyFinder plus sensor. ">
+  <target name="hudson.daily.dependencyfinder.sensor" description="DependencyFinder plus sensor. ">
     <runTask task.name="dependencyfinder.tool" build.file.name="dependencyfinder.build.xml"/>
     <antcall target="hudson.dependencyfinder.sensor"/>
    </target>
@@ -169,7 +169,7 @@
    </target>
 
 
-  <target name="hudson.daily.sclc" description="Compute size data on the source code using SCLC, then send.">
+  <target name="hudson.daily.sclc.sensor" description="Compute size data on the source code using SCLC, then send.">
     <!-- Check for the SCLC_HOME environment variable, failing the build if it can't be found. -->
     <available file="${env.SCLC_HOME}/src/sclc" property="sclc.available" />
     <fail unless="sclc.available" message="Error: SCLC_HOME not set or file 'sclc' not found, indicating SCLC is not installed." />
