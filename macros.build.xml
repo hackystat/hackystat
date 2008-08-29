@@ -300,6 +300,7 @@
     <attribute name="task.name" />
     <sequential>
       <!-- Current total: 17 -->
+      <ant dir="${system.build.dir}/${pb.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
       <ant dir="${system.build.dir}/${utilities.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
       <ant dir="${system.build.dir}/${sensorbase.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
       <ant dir="${system.build.dir}/${dpd.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
@@ -308,7 +309,6 @@
       <ant dir="${system.build.dir}/${ant.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
       <ant dir="${system.build.dir}/${eclipse.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
       <ant dir="${system.build.dir}/${emacs.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
-      <ant dir="${system.build.dir}/${pb.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
       <!--
       <ant dir="${system.build.dir}/${pv.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
       <ant dir="${system.build.dir}/${sdb.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
