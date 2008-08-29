@@ -300,7 +300,7 @@
     <attribute name="task.name" />
     <sequential>
       <!-- Current total: 17 -->
-      <ant inheritAll= "false" dir="${system.build.dir}/${pb.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
+      <ant inheritRefs= "true" dir="${system.build.dir}/${pb.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
       <ant dir="${system.build.dir}/${utilities.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
       <ant dir="${system.build.dir}/${sensorbase.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
       <ant dir="${system.build.dir}/${dpd.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
