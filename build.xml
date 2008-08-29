@@ -255,7 +255,7 @@
   </target>
   
   <target name="build.projectbrowser">
-     <buildModule module.name="${pb.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+     <buildModuleNoJUnit module.name="${pb.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
      <copyServiceDist module.name="${pb.system.name}" />
     <copyServiceBin module.name="${pb.system.name}" bin.name="projectbrowser.jar" />
     <copyServiceBin module.name="${pb.system.name}" bin.name="sample.projectbrowser.properties" />

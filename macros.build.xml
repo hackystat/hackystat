@@ -207,6 +207,18 @@
       <ant dir="${system.build.dir}/@{module.name}" antfile="dist.build.xml" />
     </sequential>
   </macrodef>
+  
+  <macrodef name="buildModuleNoJUnit">
+      <attribute name="svn.username" />
+      <attribute name="svn.password" />
+      <attribute name="module.name" />
+      <sequential>
+        <ant dir="${system.build.dir}/@{module.name}" antfile="checkstyle.build.xml" />
+        <ant dir="${system.build.dir}/@{module.name}" antfile="pmd.build.xml" />
+        <ant dir="${system.build.dir}/@{module.name}" antfile="findbugs.build.xml" />
+        <ant dir="${system.build.dir}/@{module.name}" antfile="dist.build.xml" />
+      </sequential>
+    </macrodef>
 
   <macrodef name="module.javadoc">
     <attribute name="module.name" />
