@@ -23,7 +23,7 @@
 
   <!-- Get today's version number. -->
   <property name="majorVersionNumber" value="8" />
-  <property name="minorVersionNumber" value="1" />
+  <property name="minorVersionNumber" value="2" />
   <tstamp>
     <format property="DAYSTAMP" pattern="Mdd" />
     <format property="RELEASEDATE" pattern="MMMM dd yyyy" />
