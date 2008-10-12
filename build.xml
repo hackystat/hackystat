@@ -50,6 +50,7 @@
   <property name="sdb.system.name" value="hackystat-ui-sensordatabrowser" />
   <property name="sdv.system.name" value="hackystat-ui-sensordataviewer" />
   <property name="sensorbase.system.name" value="hackystat-sensorbase-uh" />
+  <property name="postgres.system.name" value="hackystat-sensorbase-postgres" />
   <property name="sensorshell.system.name" value="hackystat-sensor-shell" />
   <property name="simdata.system.name" value="hackystat-sensorbase-simdata" />
   <property name="stackyhack.system.name" value="hackystat-sensor-example" />
@@ -83,9 +84,10 @@
 
   <import file="macros.build.xml" />
 
-  <target name="build.all" depends="clean,
+  <target name="build.all" depends="
              build.utilities,    
              build.sensorbase,
+             build.postgres,
              build.sensorshell,
              build.dailyprojectdata,
              build.telemetry,
@@ -105,6 +107,7 @@
     <module.checkout.anonymous module.name="${eclipse.system.name}" />
     <module.checkout.anonymous module.name="${emacs.system.name}" />
     <module.checkout.anonymous module.name="${pb.system.name}" />
+    <module.checkout.anonymous module.name="${postgres.system.name}" />
     <module.checkout.anonymous module.name="${sensorbase.system.name}" />
     <module.checkout.anonymous module.name="${sensorshell.system.name}" />
     <module.checkout.anonymous module.name="${simdata.system.name}" />
@@ -123,6 +126,7 @@
     <svn.commit svn.module="${eclipse.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <svn.commit svn.module="${emacs.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <svn.commit svn.module="${pb.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="${postgres.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <svn.commit svn.module="${sensorbase.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <svn.commit svn.module="${sensorshell.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <svn.commit svn.module="${simdata.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
@@ -137,11 +141,12 @@
 
   <target name="checkout" description="Check out/update of all projects from Google Project Hosting. Requires project membership.">
     <fail message="Must define svn.properties file with username and password." unless="svn.username" />
-    <module.checkout module.name="${pb.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.checkout module.name="${ant.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.checkout module.name="${dpd.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.checkout module.name="${eclipse.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.checkout module.name="${emacs.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout module.name="${pb.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout module.name="${postgres.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.checkout module.name="${sensorbase.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.checkout module.name="${sensorshell.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.checkout module.name="${simdata.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
@@ -161,7 +166,17 @@
     <copyServiceBin module.name="${sensorbase.system.name}" bin.name="sensorbaseclient.jar" />
     <copyServiceBinDir module.name="${sensorbase.system.name}" dir.name="xml" />
     <copyServiceBin module.name="${sensorbase.system.name}" bin.name="sample.sensorbase.properties" />
+    <copyServiceBin module.name="${sensorbase.system.name}" bin.name="startup.sensorbase.bat" />
+    <copyServiceBin module.name="${sensorbase.system.name}" bin.name="startup.sensorbase.command" />
   </target>
+  
+  <target name="build.postgres">
+     <buildModuleNoJUnit module.name="${postgres.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+     <copyServiceDist module.name="${postgres.system.name}" />
+     <copyServiceBin module.name="${postgres.system.name}" bin.name="sensorbase-postgres.jar" />
+     <copyServiceBin module.name="${postgres.system.name}" bin.name="sample.sensorbase.properties" />
+     <copyServiceBin module.name="${postgres.system.name}" bin.name="postgres_hackystat_schema.sql" />
+   </target>
 
   <target name="build.utilities">
     <buildModule module.name="${utilities.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
@@ -243,6 +258,9 @@
      <copyServiceDist module.name="${pb.system.name}" />
     <copyServiceBin module.name="${pb.system.name}" bin.name="projectbrowser.jar" />
     <copyServiceBin module.name="${pb.system.name}" bin.name="sample.projectbrowser.properties" />
+    <copyServiceBin module.name="${pb.system.name}" bin.name="startup.projectbrowser.bat" />
+    <copyServiceBin module.name="${pb.system.name}" bin.name="startup.projectbrowser.command" />
+    <copyServiceBinDir module.name="${pb.system.name}" dir.name="xml" />
    </target>
 
   <target name="build.dailyprojectdata">
@@ -251,6 +269,8 @@
     <copyServiceBin module.name="${dpd.system.name}" bin.name="dailyprojectdata.jar" />
     <copyServiceBin module.name="${dpd.system.name}" bin.name="dailyprojectdata.lib.jar" />
     <copyServiceBin module.name="${dpd.system.name}" bin.name="sample.dailyprojectdata.properties" />
+    <copyServiceBin module.name="${dpd.system.name}" bin.name="startup.dpd.bat" />
+    <copyServiceBin module.name="${dpd.system.name}" bin.name="startup.dpd.command" />
   </target>
 
   <target name="build.telemetry">
@@ -261,6 +281,8 @@
     <copyServiceBin module.name="${telemetry.system.name}" bin.name="sample.telemetry.properties" />
     <copyServiceBinDir module.name="${telemetry.system.name}" dir.name="definitions" />
     <copyServiceBinDir module.name="${telemetry.system.name}" dir.name="prefetch" />
+    <copyServiceBin module.name="${telemetry.system.name}" bin.name="startup.telemetry.bat" />
+    <copyServiceBin module.name="${telemetry.system.name}" bin.name="startup.telemetry.command" />
   </target>
 
   <target name="build.stackyhack">
