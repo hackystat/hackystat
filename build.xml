@@ -85,6 +85,7 @@
   <import file="macros.build.xml" />
 
   <target name="build.all" depends="
+             clean,
              build.utilities,    
              build.sensorbase,
              build.postgres,
@@ -260,7 +261,6 @@
     <copyServiceBin module.name="${pb.system.name}" bin.name="sample.projectbrowser.properties" />
     <copyServiceBin module.name="${pb.system.name}" bin.name="startup.projectbrowser.bat" />
     <copyServiceBin module.name="${pb.system.name}" bin.name="startup.projectbrowser.command" />
-    <copyServiceBinDir module.name="${pb.system.name}" dir.name="xml" />
    </target>
 
   <target name="build.dailyprojectdata">

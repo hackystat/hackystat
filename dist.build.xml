@@ -10,41 +10,27 @@
     <property name="dist.dir" location="${system.build.dir}/system" />
     <property name="dist.tmp.dir" location="${basedir}/dist-tmp" />
 
-    <!-- There are four distributions:
+    <!-- There are two distributions:
       hackystat-<version>-sensors-bin.zip
-      hackystat-<version>-sensors-src.zip
       hackystat-<version>-services-bin.zip
-      hackystat-<version>-services-src.zip
     -->
     <property name="sensors.bin.dir" location="${dist.tmp.dir}/hackystat-${version}-sensors-bin/hackystat-${version}-sensors-bin" />
-    <property name="sensors.src.dir" location="${dist.tmp.dir}/hackystat-${version}-sensors-src/hackystat-${version}-sensors-src" />
     <property name="services.bin.dir" location="${dist.tmp.dir}/hackystat-${version}-services-bin/hackystat-${version}-services-bin" />
-    <property name="services.src.dir" location="${dist.tmp.dir}/hackystat-${version}-services-src/hackystat-${version}-services-src" />
 
     <mkdir dir="${sensors.bin.dir}" />
-    <mkdir dir="${sensors.src.dir}" />
-    <mkdir dir="${services.src.dir}" />
     <mkdir dir="${services.bin.dir}" />
 
     <!-- Copy sensors and services bin and src to the tmp dir. -->
     <copy todir="${sensors.bin.dir}">
       <fileset dir="${dist.dir}/sensors/bin" />
     </copy>
-    <copy todir="${sensors.src.dir}">
-      <fileset dir="${dist.dir}/sensors/dist" />
-    </copy>
     <copy todir="${services.bin.dir}">
       <fileset dir="${dist.dir}/services/bin" />
-    </copy>
-    <copy todir="${services.src.dir}">
-      <fileset dir="${dist.dir}/services/dist" />
     </copy>
 
     <!-- Create the zip files, and then delete the tmp dir. -->
     <zip zipfile="${basedir}/hackystat-${version}-sensors-bin.zip" basedir="${dist.tmp.dir}/hackystat-${version}-sensors-bin" />
-    <zip zipfile="${basedir}/hackystat-${version}-sensors-src.zip" basedir="${dist.tmp.dir}/hackystat-${version}-sensors-src" />
     <zip zipfile="${basedir}/hackystat-${version}-services-bin.zip" basedir="${dist.tmp.dir}/hackystat-${version}-services-bin" />
-    <zip zipfile="${basedir}/hackystat-${version}-services-src.zip" basedir="${dist.tmp.dir}/hackystat-${version}-services-src" />
 
     <delete dir="${dist.tmp.dir}" />
   </target>
@@ -71,6 +57,14 @@
        filename="${basedir}/hackystat-${version}-services-src.zip" targetfilename="hackystat-${version}-services-src.zip" summary="Hackystat Services Src Distribution ${RELEASEDATE}" />
      -->
     <echo message="Finished upload. You may want to set these files to be FEATURED." />
+  </target>
+  
+  <target name="upload-dasha" description="Upload distributions to bertha.">
+    <fail message="Run with -Dpwd=(password)" unless="pwd"/>
+    <echo message="Starting copy of services."/>
+    <scp file="${basedir}/hackystat-${version}-services-bin.zip" todir="johnson@dasha.ics.hawaii.edu:~/Sites/public_html/hackystat" password="${pwd}"/>
+    <echo message="Starting copy of sensors."/>
+    <scp file="${basedir}/hackystat-${version}-sensors-bin.zip" todir="johnson@dasha.ics.hawaii.edu:~/Sites/public_html/hackystat" password="${pwd}"/>
   </target>
 
 
