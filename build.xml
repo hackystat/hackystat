@@ -310,13 +310,13 @@
   </target>
 
   <target name="jar" description="Create jar files for services in correct order.">
-    <jarModule module.name="hackystat-utilities" />
-    <jarModule module.name="hackystat-sensorbase-uh" />
-    <jarModule module.name="hackystat-sensor-shell" />
-    <jarModule module.name="hackystat-sensor-ant" />
-    <jarModule module.name="hackystat-analysis-dailyprojectdata" />
-    <jarModule module.name="hackystat-analysis-telemetry" />
-    <jarModule module.name="hackystat-sensorbase-simdata" />
+    <cleanAndJarModule module.name="hackystat-utilities" />
+    <cleanAndJarModule module.name="hackystat-sensorbase-uh" />
+    <cleanAndJarModule module.name="hackystat-sensor-shell" />
+    <cleanAndJarModule module.name="hackystat-sensor-ant" />
+    <cleanAndJarModule module.name="hackystat-analysis-dailyprojectdata" />
+    <cleanAndJarModule module.name="hackystat-analysis-telemetry" />
+    <cleanAndJarModule module.name="hackystat-sensorbase-simdata" />
   </target>
 </project>
 

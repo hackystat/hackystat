@@ -295,6 +295,14 @@
       <ant dir="${system.build.dir}/@{module.name}" antfile="jar.build.xml" />
     </sequential>
   </macrodef>
+  
+  <macrodef name="cleanAndJarModule">
+     <attribute name="module.name" />
+     <sequential>
+       <ant dir="${system.build.dir}/@{module.name}" antfile="build.xml" target="clean" />
+       <ant dir="${system.build.dir}/@{module.name}" antfile="jar.build.xml" />
+     </sequential>
+   </macrodef>
 
   <macrodef name="runHudsonTask">
     <attribute name="task.name" />
