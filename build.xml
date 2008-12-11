@@ -56,6 +56,7 @@
   <property name="stackyhack.system.name" value="hackystat-sensor-example" />
   <property name="systemstatus.system.name" value="hackystat-ui-systemstatus" />
   <property name="telemetry.system.name" value="hackystat-analysis-telemetry" />
+  <property name="tickertape.system.name" value="hackystat-ui-tickertape" />
   <property name="tv.system.name" value="hackystat-ui-telemetryviewer" />
   <property name="utilities.system.name" value="hackystat-utilities" />
   <property name="vim.system.name" value="hackystat-sensor-vim" />
@@ -93,6 +94,7 @@
              build.dailyprojectdata,
              build.telemetry,
              build.projectbrowser,
+             build.tickertape,
   	         build.ant, 
   	         build.xmldata, 
   	         build.emacs, 
@@ -100,7 +102,8 @@
              build.stackyhack,
 	         build.eclipse,
              build.systemstatus,
-             build.simdata" description="Cleans, then checks out and builds all modules.  Requires SVN commit access." />
+             build.simdata" 
+    description="Cleans, then checks out and builds all modules.  Requires SVN commit access." />
 
   <target name="checkout.anonymous" description="Anonymous check out/update of all projects from Google Project Hosting.">
     <module.checkout.anonymous module.name="${ant.system.name}" />
@@ -115,6 +118,7 @@
     <module.checkout.anonymous module.name="${stackyhack.system.name}" />
     <module.checkout.anonymous module.name="${systemstatus.system.name}" />
     <module.checkout.anonymous module.name="${telemetry.system.name}" />
+    <module.checkout.anonymous module.name="${tickertape.system.name}" />
     <module.checkout.anonymous module.name="${utilities.system.name}" />
     <module.checkout.anonymous module.name="${vim.system.name}" />
     <module.checkout.anonymous module.name="${xmldata.system.name}" />
@@ -134,6 +138,7 @@
     <svn.commit svn.module="${stackyhack.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <svn.commit svn.module="${systemstatus.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <svn.commit svn.module="${telemetry.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <svn.commit svn.module="${tickertape.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <svn.commit svn.module="${utilities.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <svn.commit svn.module="${vim.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <svn.commit svn.module="${xmldata.system.name}" svn.message="${svn.message}" svn.username="${svn.username}" svn.password="${svn.password}" />
@@ -154,6 +159,7 @@
     <module.checkout module.name="${stackyhack.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.checkout module.name="${systemstatus.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.checkout module.name="${telemetry.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <module.checkout module.name="${tickertape.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.checkout module.name="${utilities.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.checkout module.name="${vim.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <module.checkout module.name="${xmldata.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
@@ -186,6 +192,7 @@
     <copyServiceBin module.name="${utilities.system.name}" bin.name="tstamp.lib.jar" />
     <copyServiceBin module.name="${utilities.system.name}" bin.name="uricache.lib.jar" />
     <copyServiceBin module.name="${utilities.system.name}" bin.name="hackystatlogger.lib.jar" />
+    <copyServiceBin module.name="${utilities.system.name}" bin.name="validate.email.lib.jar" />
     <copyServiceBin module.name="${utilities.system.name}" bin.name="time.lib.jar" />
     <copyServiceBin module.name="${utilities.system.name}" bin.name="hackystatuserhome.lib.jar" />
   </target>
@@ -302,6 +309,15 @@
     <copyServiceDist module.name="${simdata.system.name}" />
     <copyServiceBin module.name="${simdata.system.name}" bin.name="simdata.jar" />
     <copyServiceBinDir module.name="${simdata.system.name}" dir.name="definitions" />
+  </target>
+  
+  <target name="build.tickertape">
+    <buildModule module.name="${tickertape.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <copyServiceDist module.name="${tickertape.system.name}" />
+    <copyServiceBin module.name="${tickertape.system.name}" bin.name="tickertape.jar" />
+    <copyServiceBin module.name="${tickertape.system.name}" bin.name="startup.tickertape.bat" />
+    <copyServiceBin module.name="${tickertape.system.name}" bin.name="startup.tickertape.command" />
+    <copyServiceBin module.name="${tickertape.system.name}" bin.name="sample.tickertape.xml" />
   </target>
 
   <target name="clean" description="Delete system directories.">
