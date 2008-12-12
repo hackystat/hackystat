@@ -378,10 +378,33 @@
       </sequential>
     </macrodef>
   
-  <macrodef name="svn.module">
+  <macrodef name="svn.module.tickertape">
       <attribute name="module" />
       <attribute name="dir" default="trunk"/>
+      <attribute name="lastIntervalInMinutes" default="10"/>
     
+       <sequential>
+         <property environment="env"/>
+         <available file="${env.HACKYSTAT_ANTSENSORS_HOME}/antsensors.jar" type="file" property="hackystat.antsensors.available"/>
+         <fail message="${env.HACKYSTAT_ANTSENSORS_HOME}/antsensors.jar could not be found." unless="hackystat.antsensors.available"/>   
+         <taskdef resource="antlib.xml" classpath="${env.HACKYSTAT_ANTSENSORS_HOME}/antsensors.jar"/>
+
+         <hacky-svn  
+           repositoryName="Hackystat"
+           repositoryUrl="http://@{module}.googlecode.com/svn/@{dir}"
+           fileNamePrefix="/hackystat-integration/@{module}"
+           lastIntervalInMinutes="@{lastIntervalInMinutes}"
+           defaultHackystatAccount="${env.HACKYSTAT_SVN_DEFAULT_ACCOUNT}"
+           defaultHackystatPassword="${env.HACKYSTAT_SVN_DEFAULT_PASSWORD}" 
+           defaultHackystatSensorbase="http://dasha.ics.hawaii.edu:9876/sensorbase"
+           verbose="true" 
+         />
+       </sequential>
+     </macrodef>
+  
+  <macrodef name="svn.module.daily">
+      <attribute name="module" />
+      <attribute name="dir" default="trunk"/>
        <sequential>
          <property environment="env"/>
          <available file="${env.HACKYSTAT_ANTSENSORS_HOME}/antsensors.jar" type="file" property="hackystat.antsensors.available"/>

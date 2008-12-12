@@ -58,26 +58,43 @@
     description="Checks out the code, makes jar files, then runs tools and sensors."/>
   
   <target name="hudson.daily.svn">
-    <svn.module module="hackystat"/>
-    <svn.module module="hackystat-analysis-dailyprojectdata"/>
-    <svn.module module="hackystat-analysis-telemetry"/>
-    <svn.module module="hackystat-sensor-ant"/>
-    <svn.module module="hackystat-sensor-emacs"/>
-    <svn.module module="hackystat-sensor-eclipse"/>
-    <svn.module module="hackystat-sensor-example"/>
-    <svn.module module="hackystat-sensor-shell"/>
-    <svn.module module="hackystat-sensor-vim"/>
-    <svn.module module="hackystat-sensor-xmldata"/>
-    <svn.module module="hackystat-sensorbase-simdata"/>
-    <svn.module module="hackystat-sensorbase-uh"/>
-    <svn.module module="hackystat-ui-wicket"/>
-    <svn.module module="hackystat-ui-wicket" dir="branches/senin-trajectory"/>
-    <!--
-    <svn.module module="hackystat-ui-wicket" dir="branches/issue-30"/>
-    <svn.module module="hackystat-ui-wicket" dir="branches/issue-15"/>
-    -->
-    <svn.module module="hackystat-ui-trajectory"/>
-    <svn.module module="hackystat-utilities"/>
+    <svn.module.daily module="hackystat"/>
+    <svn.module.daily module="hackystat-analysis-dailyprojectdata"/>
+    <svn.module.daily module="hackystat-analysis-telemetry"/>
+    <svn.module.daily module="hackystat-sensor-ant"/>
+    <svn.module.daily module="hackystat-sensor-emacs"/>
+    <svn.module.daily module="hackystat-sensor-eclipse"/>
+    <svn.module.daily module="hackystat-sensor-example"/>
+    <svn.module.daily module="hackystat-sensor-shell"/>
+    <svn.module.daily module="hackystat-sensor-vim"/>
+    <svn.module.daily module="hackystat-sensor-xmldata"/>
+    <svn.module.daily module="hackystat-sensorbase-simdata"/>
+    <svn.module.daily module="hackystat-sensorbase-uh"/>
+    <svn.module.daily module="hackystat-ui-wicket"/>
+    <svn.module.daily module="hackystat-ui-wicket" dir="branches/senin-trajectory"/>
+    <svn.module.daily module="hackystat-ui-trajectory"/>
+    <svn.module.daily module="hackystat-ui-tickertape"/>
+    <svn.module.daily module="hackystat-utilities"/>
+  </target>
+  
+  <target name="hudson.tickertape.svn">
+    <svn.module.tickertape module="hackystat"/>
+    <svn.module.tickertape module="hackystat-analysis-dailyprojectdata"/>
+    <svn.module.tickertape module="hackystat-analysis-telemetry"/>
+    <svn.module.tickertape module="hackystat-sensor-ant"/>
+    <svn.module.tickertape module="hackystat-sensor-emacs"/>
+    <svn.module.tickertape module="hackystat-sensor-eclipse"/>
+    <svn.module.tickertape module="hackystat-sensor-example"/>
+    <svn.module.tickertape module="hackystat-sensor-shell"/>
+    <svn.module.tickertape module="hackystat-sensor-vim"/>
+    <svn.module.tickertape module="hackystat-sensor-xmldata"/>
+    <svn.module.tickertape module="hackystat-sensorbase-simdata"/>
+    <svn.module.tickertape module="hackystat-sensorbase-uh"/>
+    <svn.module.tickertape module="hackystat-ui-wicket"/>
+    <svn.module.tickertape module="hackystat-ui-wicket" dir="branches/senin-trajectory"/>
+    <svn.module.tickertape module="hackystat-ui-trajectory"/>
+    <svn.module.tickertape module="hackystat-ui-tickertape"/>
+    <svn.module.tickertape module="hackystat-utilities"/>
   </target>
     
   
