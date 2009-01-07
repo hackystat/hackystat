@@ -91,7 +91,6 @@
     <svn.module.tickertape module="hackystat-sensorbase-simdata"/>
     <svn.module.tickertape module="hackystat-sensorbase-uh"/>
     <svn.module.tickertape module="hackystat-ui-wicket"/>
-    <svn.module.tickertape module="hackystat-ui-wicket" dir="branches/senin-trajectory"/>
     <svn.module.tickertape module="hackystat-ui-trajectory"/>
     <svn.module.tickertape module="hackystat-ui-tickertape"/>
     <svn.module.tickertape module="hackystat-utilities"/>
