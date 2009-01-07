@@ -4,7 +4,7 @@
   </description>
 
   <!--
-   Note: if you get the following certificate issue, just type 'p' at the command line:
+   Note: if you get the following certificate issue, just type 'p' a few times at the command line:
     svnCheckout:
          [java] Error validating server certificate for 'https://hackystat-sensorbase-uh.googlecode.com:443':
          [java]  - The certificate is not issued by a trusted authority. Use the
