@@ -87,8 +87,7 @@
         <arg value="add" />
         <arg value="--auto-props" />
         <arg value="--force" />
-        <arg value="--message" />
-        <arg value="'Adding all new files.'" />
+        
         <arg value="--username" />
         <arg value="@{svn.username}" />
         <arg value="--password" />

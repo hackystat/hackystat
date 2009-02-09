@@ -1,6 +1,9 @@
 <project name="system.build.javadoc" default="javadoc">
   <description>
-  Tasks for generating and managing JavaDocs for Hackystat modules. There are two use cases:
+  Tasks for generating and managing JavaDocs for Hackystat modules. 
+  Use the hackystat-projects directory (since the javadoc directory is there already).
+    
+  There are two use cases:
     
   1. Refresh existing javadocs. This involves:
       - ant checkout                               #get most recent sources
@@ -25,7 +28,6 @@
     - ant -f javadoc.build.xml commit-javadoc    #commit changes.
 
     
-  Use the hackystat-projects directory (since the javadoc directory is there already).
 
   </description>
 
