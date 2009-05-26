@@ -1,0 +1,7 @@
+<!-- Used in findbugs.build.xml to exclude false positives. -->
+<FindBugsFilter>
+  <!-- Match all occurrences of these bugcodes. -->
+  <Match classregex=".*" >
+   <BugCode name="J2EE" />
+  </Match>
+</FindBugsFilter>
