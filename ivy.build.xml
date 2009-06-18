@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<project name="ivy" default="install.ivy"  xmlns:ivy="antlib:org.apache.ivy.ant" xmlns="antlib:org.apache.tools.ant">
+<project name="hackystat.ivy" default="install.ivy"  xmlns:ivy="antlib:org.apache.ivy.ant" xmlns="antlib:org.apache.tools.ant">
   <description>
   Supports downloading of the ivy jar file. 
   This file cannot import build.xml for bootstrapping reasons.
+  Avoid setting properties in this file since they will be global to all subbuilds.  
   </description> 
     
   <property name="ivy.version" value="2.1.0-rc1"/>
   
   <!-- Provide Ivy version and installation details. -->
-  <property name="lib.dir" location="${basedir}/lib"/>
-  <property name="ivy.install.dir" location="${lib.dir}/ivy"/>
-  <property name="ivy.jar.file" value="ivy.jar"/>
   <path id="ivy.lib.path">
-    <fileset dir="${ivy.install.dir}" includes="*.jar"/>
+    <fileset dir="${basedir}/lib/ivy" includes="*.jar"/>
   </path>
   
   <target name="clean-cache" description="Cleans the ivy cache">
@@ -20,9 +18,9 @@
   </target>
   
   <target name="install.ivy" description="Downloads Ivy into lib directory.">
-    <mkdir dir="${ivy.install.dir}"/>
+    <mkdir dir="${basedir}/lib/ivy"/>
     <get src="http://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.version}/ivy-${ivy.version}.jar"
-         dest="${ivy.install.dir}/${ivy.jar.file}" usetimestamp="true"/>
+         dest="${basedir}/lib/ivy/ivy.jar" usetimestamp="true"/>
   </target>
   
 </project>

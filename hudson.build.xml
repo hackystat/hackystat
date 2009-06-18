@@ -5,9 +5,9 @@
   
   <!-- Run this inline to ensure that Ivy is installed whenever Hudson is invoked. -->
    <import file="ivy.build.xml"/>
-   <mkdir dir="${ivy.install.dir}"/>
+   <mkdir dir="${basedir}/lib/ivy"/>
    <get src="http://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.version}/ivy-${ivy.version}.jar"
-          dest="${ivy.install.dir}/${ivy.jar.file}" usetimestamp="true"/>
+          dest="${basedir}/lib/ivy/ivy.jar" usetimestamp="true"/>
 
 
   <!-- Overwrite the system build directory for hudson-related stuff. -->
