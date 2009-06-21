@@ -30,6 +30,11 @@
     <runHudsonTask task.name="hudson.daily.build" />
   </target>
   
+  <target name="hudson.ivy" description="Ensures ivy and library versions are up to date.">
+    <ant dir="${system.build.dir}/${utilities.system.name}" antfile="ivy.build.xml"  />
+    <ant dir="${system.build.dir}/${sensorbase.system.name}" antfile="ivy.build.xml"  />
+  </target>    
+  
   <target name="hudson.daily.jar"  description="Checks out and builds all modules. ">
     
     <ant dir="${system.build.dir}/${utilities.system.name}" target="clean"  />
@@ -56,6 +61,7 @@
   
   <target name="hudson.daily.sensors"  
      depends="hudson.daily.checkout,
+              hudson.ivy,
               hudson.daily.jar, 
               hudson.daily.junit.sensor, 
               hudson.daily.javancss.sensor, 
