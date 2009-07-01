@@ -158,7 +158,7 @@
     <attribute name="svn.password" />
     <attribute name="module.name" />
     <sequential>
-      <echo message="Checkout @{module.name}" />
+      <echo message="Checkout @{module.name} into ${system.build.dir}/@{module.name}" />
       <mkdir dir="${system.build.dir}/@{module.name}" />
       <svn.checkout svn.url="https://@{module.name}.googlecode.com/svn/trunk/" local.workspace="${system.build.dir}/@{module.name}" username="@{svn.username}" password="@{svn.password}" />
     </sequential>
