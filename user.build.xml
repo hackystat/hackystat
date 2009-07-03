@@ -1,0 +1,130 @@
+<project name="build" default="update-all" xmlns:ivy="antlib:org.apache.ivy.ant">
+  <description>
+    Provides targets for Hackystat project checkouts, commits, and builds. 
+    Invoke with "ant install" to install Ivy and related files. 
+  </description>
+
+ <target name="update-all" depends="check-install"/>
+  
+ <target name="svn.checkout.hackystat-utilities" depends="check-install">
+  <svn.checkout module.name="hackystat-utilities" />
+ </target>
+
+
+
+
+
+
+
+
+  <!-- 
+      Ivy download targets and locations. 
+   -->
+  <property name="lib.dir" location="${basedir}/lib"/>
+  <property name="ivy.jar.path" location="${user.home}/.ivy2/ivyjar/" />
+  <property name="library.versions.path" location="${user.home}/.hackystat/library.versions.properties" />
+  <available file="${ivy.jar.path}/ivy.jar" property="ivy.jar.available" />
+  <available file="${library.versions.path}" property="library.versions.available" />
+  <available file="${basedir}/ivysettings.xml" property="ivysettings.available" />
+  <available file="${lib.dir}/svnkit/svnkit.jar" property="svnkit.available" />
+
+  <target name="install" description="Downloads library version numbers, then downloads Ivy and ivysettings.xml">
+    <antcall target="install.library.versions.properties" />
+    <property file="${library.versions.path}" />
+    <antcall target="install.ivy" />
+    <antcall target="install.ivysettings.xml" />
+    <antcall target="install.svnkit" />
+  </target>
+  
+  <target name="install.ivy" description="Downloads Ivy into lib directory.">
+    <mkdir dir="${ivy.jar.path}" />
+    <get src="http://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.version}/ivy-${ivy.version}.jar" dest="${ivy.jar.path}/ivy.jar" usetimestamp="true" />
+  </target>
+
+  <target name="install.library.versions.properties" description="Downloads library.versions.properties into .hackystat directory.">
+    <mkdir dir="${user.home}/.hackystat" />
+    <get src="http://hackystat.googlecode.com/svn/trunk/configfiles/library.versions.properties" dest="${library.versions.path}" usetimestamp="true" />
+  </target>
+
+  <target name="install.ivysettings.xml" description="Downloads ivysettings.xml into .hackystat/ivy directory.">
+    <get src="http://hackystat.googlecode.com/svn/trunk/configfiles/ivysettings.xml" dest="${basedir}/ivysettings.xml" usetimestamp="true" />
+  </target>
+   
+  <target name="install.svnkit" description="Downloads SVNKit into lib dir.">
+   <ivy:retrieve organisation="com.svnkit" module="svnkit" revision="${svnkit.version}" pattern="${lib.dir}/svnkit/[artifact].[ext]" sync="true" inline="true" conf="default,cli" log="download-only" transitive="false" type="jar" />
+  </target> 
+
+  <path id="svnkit.path">
+     <fileset dir="${lib.dir}/svnkit">
+       <include name="*.jar"/>
+     </fileset>
+   </path>
+  
+  <target name="check-install" description="Fails build if Ivy installation is not OK.">
+    <fail message="Error: ivysettings.xml not found. Please invoke 'ant install'." unless="ivysettings.available"/>
+    <fail message="Error: ivy.jar not found. Please invoke 'ant install'." unless="ivy.jar.available"/>
+    <fail message="Error: library.versions.properties not found. Please invoke 'ant install'." unless="library.versions.available"/>
+    <fail message="Error: svnkit not found. Please invoke 'ant install'." unless="svnkit.available"/>
+  </target>   
+
+  <!-- 
+      Macros and other utilities to simplify coding of SVN targets. 
+   -->
+  <available file="${basedir}/svn.properties" property="svn.properties.available" />
+
+  <target name="check-svn-properties" description="Fails build if svn.properties file is not available">
+    <fail message="Error: You have invoked an SVN operation requiring credentials but there is no svn.properties file with those credentials." unless="svn.properties.available"/>
+  </target>
+
+  <property file="${basedir}/svn.properties"/>
+
+  <macrodef name="svn.checkout">
+    <attribute name="module.name" />
+    <sequential>
+      <antcall target="check-svn-properties"/>
+      <java classname="org.tmatesoft.svn.cli.SVN" fork="true" failonerror="true">
+        <arg value="checkout" />
+        <arg value="https://@{module.name}.googlecode.com/svn/trunk/" />
+        <arg value="@{module.name}" />
+        <arg value="--username" />
+        <arg value="${svn.username}" />
+        <arg value="--password" />
+        <arg value="${svn.password}" />
+        <classpath refid="svnkit.path"/>
+      </java>
+    </sequential>
+  </macrodef>
+
+  <macrodef name="svn.checkout.anonymous">
+    <attribute name="svn.url" />
+    <attribute name="local.workspace" />
+    <sequential>
+      <java classname="org.tmatesoft.svn.cli.SVN" fork="true" failonerror="true">
+        <arg value="checkout" />
+        <arg value="@{svn.url}" />
+        <arg value="@{local.workspace}" />
+        <classpath refid="svnkit.path"/>
+       </java>
+    </sequential>
+  </macrodef>
+
+  <macrodef name="svn.commit">
+    <attribute name="svn.message" />
+    <attribute name="svn.module" />
+    <sequential>
+      <antcall target="check-svn-properties"/>
+      <java classname="org.tmatesoft.svn.cli.SVN" fork="true" failonerror="true">
+        <arg value="commit" />
+        <arg value="--message" />
+        <arg value="'@{svn.message}'" />
+        <arg value="--username" />
+        <arg value="${svn.username}" />
+        <arg value="--password" />
+        <arg value="${svn.password}" />
+        <arg value="@{svn.module}" />
+        <classpath refid="svnkit.path"/>
+      </java>
+    </sequential>
+  </macrodef>
+  
+ </project>
