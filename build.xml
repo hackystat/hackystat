@@ -281,6 +281,27 @@
   </target>
 
 
+  <!-- 
+    Rebuild entire system.
+    -->
+  <target name="build-all" description="Build (and perhaps publish) all hackystat projects in order.">
+    <ant antfile="hackystat-utilities/jar.build.xml" target="publish" inheritAll="false" />
+    <ant antfile="hackystat-sensorbase-uh/jar.build.xml" target="publish" inheritAll="false" />
+    <ant antfile="hackystat-sensorbase-postgres/jar.build.xml" target="publish" inheritAll="false" />
+    <ant antfile="hackystat-analysis-dailyprojectdata/jar.build.xml" target="publish" inheritAll="false" />
+    <ant antfile="hackystat-analysis-telemetry/jar.build.xml" target="publish" inheritAll="false" />
+    <ant antfile="hackystat-sensor-shell/jar.build.xml" target="publish" inheritAll="false" />
+    <ant antfile="hackystat-sensorbase-simdata/jar.build.xml" target="publish" inheritAll="false" />
+    <ant antfile="hackystat-sensor-ant/jar.build.xml" target="publish" inheritAll="false" />
+    <ant antfile="hackystat-sensor-xmldata/jar.build.xml" target="publish" inheritAll="false" />
+    <ant antfile="hackystat-sensor-vim/build.xml" target="compile" inheritAll="false" />
+    <!-- Cannot do this one except manually within directory. 
+    <ant antfile="hackystat-sensor-eclipse/build.xml" target="compile" inheritAll="false" />
+    -->
+    <ant antfile="hackystat-sensor-example/build.xml" target="compile" inheritAll="false" />
+    <ant antfile="hackystat-ui-wicket/jar.build.xml" target="publish" inheritAll="false" />
+    <ant antfile="hackystat-ui-tickertape/build.xml" target="compile" inheritAll="false" />
+   </target> 
 
   <!-- 
       Ivy download targets and locations. 
