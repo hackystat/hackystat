@@ -96,6 +96,97 @@
   </target>
 
   <!-- 
+     The checkout.anonymous.{module} targets, in alphabetical order.
+     Modules will also checkout all dependent modules. 
+   -->
+
+   <target name="checkout.anonymous.all" depends="check-install, 
+     checkout.anonymous.hackystat-analysis-dailyprojectdata, 
+     checkout.anonymous.hackystat-analysis-telemetry, 
+     checkout.anonymous.hackystat-sensor-ant,
+     checkout.anonymous.hackystat-sensor-eclipse,
+     checkout.anonymous.hackystat-sensor-emacs,
+     checkout.anonymous.hackystat-sensor-example,
+     checkout.anonymous.hackystat-sensor-shell,
+     checkout.anonymous.hackystat-sensor-vim,
+     checkout.anonymous.hackystat-sensor-xmldata,
+     checkout.anonymous.hackystat-sensorbase-postgres,
+     checkout.anonymous.hackystat-sensorbase-simdata,
+     checkout.anonymous.hackystat-sensorbase-uh,
+     checkout.anonymous.hackystat-ui-systemstatus,
+     checkout.anonymous.hackystat-ui-tickertape,
+     checkout.anonymous.hackystat-ui-wicket,
+     checkout.anonymous.hackystat-utilities" />
+
+   <target name="checkout.anonymous.hackystat-analysis-dailyprojectdata" depends="check-install,  checkout.anonymous.hackystat-sensorbase-uh">
+     <svn.checkout.anonymous module.name="hackystat-analysis-dailyprojectdata" />
+   </target>
+
+   <target name="checkout.anonymous.hackystat-analysis-telemetry" depends="check-install, checkout.anonymous.hackystat-analysis-dailyprojectdata">
+     <svn.checkout.anonymous module.name="hackystat-analysis-telemetry" />
+   </target>
+
+   <target name="checkout.anonymous.hackystat-developer-example" depends="check-install, checkout.anonymous.hackystat-analysis-telemetry">
+     <svn.checkout.anonymous module.name="hackystat-developer-example" />
+   </target>
+
+   <target name="checkout.anonymous.hackystat-sensor-ant" depends="check-install, checkout.anonymous.hackystat-sensor-shell">
+     <svn.checkout.anonymous module.name="hackystat-sensor-ant" />
+   </target>
+
+   <target name="checkout.anonymous.hackystat-sensor-eclipse" depends="check-install, checkout.anonymous.hackystat-sensor-shell">
+     <svn.checkout.anonymous module.name="hackystat-sensor-eclipse" />
+   </target>
+
+   <target name="checkout.anonymous.hackystat-sensor-emacs" depends="check-install, checkout.anonymous.hackystat-sensor-shell">
+     <svn.checkout.anonymous module.name="hackystat-sensor-emacs" />
+   </target>
+
+   <target name="checkout.anonymous.hackystat-sensor-example" depends="check-install, checkout.anonymous.hackystat-sensor-ant">
+     <svn.checkout.anonymous module.name="hackystat-sensor-example" />
+   </target>
+
+   <target name="checkout.anonymous.hackystat-sensor-shell" depends="check-install, checkout.anonymous.hackystat-sensorbase-uh">
+     <svn.checkout.anonymous module.name="hackystat-sensor-shell" />
+   </target>
+
+   <target name="checkout.anonymous.hackystat-sensor-vim" depends="check-install, checkout.anonymous.hackystat-sensor-shell">
+     <svn.checkout.anonymous module.name="hackystat-sensor-vim" />
+   </target>
+
+   <target name="checkout.anonymous.hackystat-sensor-xmldata" depends="check-install, checkout.anonymous.hackystat-sensor-shell">
+     <svn.checkout.anonymous module.name="hackystat-sensor-xmldata" />
+   </target>
+
+   <target name="checkout.anonymous.hackystat-sensorbase-postgres" depends="check-install, checkout.anonymous.hackystat-sensorbase-uh">
+     <svn.checkout.anonymous module.name="hackystat-sensorbase-postgres" />
+   </target>
+
+   <target name="checkout.anonymous.hackystat-sensorbase-simdata" depends="check-install, checkout.anonymous.hackystat-sensorbase-uh">
+     <svn.checkout.anonymous module.name="hackystat-sensorbase-simdata" />
+   </target>
+
+   <target name="checkout.anonymous.hackystat-sensorbase-uh" depends="check-install, checkout.anonymous.hackystat-utilities">
+     <svn.checkout.anonymous module.name="hackystat-sensorbase-uh" />
+   </target>
+
+   <target name="checkout.anonymous.hackystat-ui-systemstatus" depends="check-install, checkout.anonymous.hackystat-sensorbase-uh">
+     <svn.checkout.anonymous module.name="hackystat-ui-tickertape" />
+   </target>
+
+   <target name="checkout.anonymous.hackystat-ui-tickertape" depends="check-install, checkout.anonymous.hackystat-analysis-telemetry">
+     <svn.checkout.anonymous module.name="hackystat-ui-tickertape" />
+   </target>
+
+   <target name="checkout.anonymous.hackystat-ui-wicket" depends="check-install, checkout.anonymous.hackystat-analysis-telemetry, checkout.anonymous.hackystat-sensorbase-simdata">
+     <svn.checkout.anonymous module.name="hackystat-ui-wicket" />
+   </target>
+
+   <target name="checkout.anonymous.hackystat-utilities" depends="check-install">
+     <svn.checkout.anonymous module.name="hackystat-utilities" />
+   </target>
+
+  <!-- 
     The commit.{module} targets, in alphabetical order.
     Modules will also commit all dependent modules.
     You might want to run status.{module} first.  
@@ -385,13 +476,12 @@
   </macrodef>
 
   <macrodef name="svn.checkout.anonymous">
-    <attribute name="svn.url" />
-    <attribute name="local.workspace" />
+    <attribute name="module.name" />
     <sequential>
       <java classname="org.tmatesoft.svn.cli.SVN" fork="true" failonerror="true">
         <arg value="checkout" />
-        <arg value="@{svn.url}" />
-        <arg value="@{local.workspace}" />
+        <arg value="https://@{module.name}.googlecode.com/svn/trunk/" />
+        <arg value="@{module.name}" />
         <classpath refid="svnkit.path" />
       </java>
     </sequential>
