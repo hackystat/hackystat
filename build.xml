@@ -80,7 +80,7 @@
   </target>
 
   <target name="checkout.hackystat-ui-systemstatus" depends="check-install, check-svn-properties, checkout.hackystat-sensorbase-uh">
-    <svn.checkout module.name="hackystat-ui-tickertape" />
+    <svn.checkout module.name="hackystat-ui-systemstatus" />
   </target>
 
   <target name="checkout.hackystat-ui-tickertape" depends="check-install, check-svn-properties, checkout.hackystat-analysis-telemetry">
@@ -171,7 +171,7 @@
    </target>
 
    <target name="checkout.anonymous.hackystat-ui-systemstatus" depends="check-install, checkout.anonymous.hackystat-sensorbase-uh">
-     <svn.checkout.anonymous module.name="hackystat-ui-tickertape" />
+     <svn.checkout.anonymous module.name="hackystat-ui-systemstatus" />
    </target>
 
    <target name="checkout.anonymous.hackystat-ui-tickertape" depends="check-install, checkout.anonymous.hackystat-analysis-telemetry">
@@ -264,7 +264,7 @@
   </target>
 
   <target name="commit.hackystat-ui-systemstatus" depends="check-install, check-svn-properties, check-svn-message, commit.hackystat-sensorbase-uh">
-    <svn.commit module.name="hackystat-ui-tickertape" />
+    <svn.commit module.name="hackystat-ui-systemstatus" />
   </target>
 
   <target name="commit.hackystat-ui-tickertape" depends="check-install, check-svn-properties, check-svn-message, commit.hackystat-analysis-telemetry">
@@ -356,7 +356,7 @@
   </target>
 
   <target name="status.hackystat-ui-systemstatus" depends="check-install, status.hackystat-sensorbase-uh">
-    <svn.status module.name="hackystat-ui-tickertape" />
+    <svn.status module.name="hackystat-ui-systemstatus" />
   </target>
 
   <target name="status.hackystat-ui-tickertape" depends="check-install, status.hackystat-analysis-telemetry">
