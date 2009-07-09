@@ -14,11 +14,7 @@
         <arg value="@{username}" />
         <arg value="--password" />
         <arg value="@{password}" />
-        <classpath>
-          <pathelement location="${env.SVNKIT_HOME}/ganymed.jar" />
-          <pathelement location="${env.SVNKIT_HOME}/svnkit.jar" />
-          <pathelement location="${env.SVNKIT_HOME}/svnkit-cli.jar" />
-        </classpath>
+        <classpath refid="svnkit.path" />
       </java>
     </sequential>
   </macrodef>
@@ -31,11 +27,7 @@
         <arg value="checkout" />
         <arg value="@{svn.url}" />
         <arg value="@{local.workspace}" />
-        <classpath>
-          <pathelement location="${env.SVNKIT_HOME}/ganymed.jar" />
-          <pathelement location="${env.SVNKIT_HOME}/svnkit.jar" />
-          <pathelement location="${env.SVNKIT_HOME}/svnkit-cli.jar" />
-        </classpath>
+        <classpath refid="svnkit.path" />
       </java>
     </sequential>
   </macrodef>
@@ -55,11 +47,7 @@
         <arg value="--password" />
         <arg value="@{svn.password}" />
         <arg value="@{svn.module}" />
-        <classpath>
-          <pathelement location="${env.SVNKIT_HOME}/ganymed.jar" />
-          <pathelement location="${env.SVNKIT_HOME}/svnkit.jar" />
-          <pathelement location="${env.SVNKIT_HOME}/svnkit-cli.jar" />
-        </classpath>
+        <classpath refid="svnkit.path" />
       </java>
     </sequential>
   </macrodef>
@@ -93,11 +81,7 @@
         <arg value="--password" />
         <arg value="@{svn.password}" />
         <arg value="${system.build.dir}/javadoc/@{module.name}" />
-        <classpath>
-          <pathelement location="${env.SVNKIT_HOME}/ganymed.jar" />
-          <pathelement location="${env.SVNKIT_HOME}/svnkit.jar" />
-          <pathelement location="${env.SVNKIT_HOME}/svnkit-cli.jar" />
-        </classpath>
+        <classpath refid="svnkit.path" />
       </java>
 
       <!-- Now we commit the changes. -->
@@ -110,11 +94,7 @@
         <arg value="--password" />
         <arg value="@{svn.password}" />
         <arg value="${system.build.dir}/javadoc/@{module.name}" />
-        <classpath>
-          <pathelement location="${env.SVNKIT_HOME}/ganymed.jar" />
-          <pathelement location="${env.SVNKIT_HOME}/svnkit.jar" />
-          <pathelement location="${env.SVNKIT_HOME}/svnkit-cli.jar" />
-        </classpath>
+        <classpath refid="svnkit.path" />
       </java>
     </sequential>
   </macrodef>
@@ -135,11 +115,7 @@
         <arg value="@{svn.password}" />
         <arg value="${basedir}/javadoc/@{module.name}" />
         <arg value="https://@{module.name}.googlecode.com/svn/javadoc/" />
-        <classpath>
-          <pathelement location="${env.SVNKIT_HOME}/ganymed.jar" />
-          <pathelement location="${env.SVNKIT_HOME}/svnkit.jar" />
-          <pathelement location="${env.SVNKIT_HOME}/svnkit-cli.jar" />
-        </classpath>
+        <classpath refid="svnkit.path" />
       </java>
     </sequential>
   </macrodef>
