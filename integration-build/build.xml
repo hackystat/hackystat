@@ -68,8 +68,9 @@
              clean,
              build.utilities,    
              build.sensorbase,
-             build.postgres,
              build.sensorshell,
+             build.eclipse,
+             build.postgres,
              build.dailyprojectdata,
              build.telemetry,
              build.projectbrowser,
@@ -79,7 +80,6 @@
   	         build.emacs, 
              build.vim,
              build.stackyhack,
-	         build.eclipse,
              build.systemstatus,
              build.simdata" 
     description="Cleans, then checks out and builds all modules.  Requires SVN commit access." />
@@ -147,9 +147,7 @@
   <target name="build.sensorbase">
     <buildModule module.name="${sensorbase.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <copyServiceDist module.name="${sensorbase.system.name}" />
-    <copyServiceBin module.name="${sensorbase.system.name}" bin.name="sensorbase.jar" />
-    <copyServiceBin module.name="${sensorbase.system.name}" bin.name="sensorbase.lib.jar" />
-    <copyServiceBin module.name="${sensorbase.system.name}" bin.name="sensorbaseclient.jar" />
+    <copyServiceBuildJar module.name="${sensorbase.system.name}" />
     <copyServiceBinDir module.name="${sensorbase.system.name}" dir.name="xml" />
     <copyServiceBin module.name="${sensorbase.system.name}" bin.name="sample.sensorbase.properties" />
     <copyServiceBin module.name="${sensorbase.system.name}" bin.name="startup.sensorbase.bat" />
@@ -159,7 +157,7 @@
   <target name="build.postgres">
      <buildModuleNoJUnit module.name="${postgres.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
      <copyServiceDist module.name="${postgres.system.name}" />
-     <copyServiceBin module.name="${postgres.system.name}" bin.name="sensorbase-postgres.jar" />
+     <copyServiceBuildJar module.name="${postgres.system.name}" />
      <copyServiceBin module.name="${postgres.system.name}" bin.name="sample.sensorbase.properties" />
      <copyServiceBin module.name="${postgres.system.name}" bin.name="postgres_hackystat_schema.sql" />
    </target>
@@ -167,33 +165,26 @@
   <target name="build.utilities">
     <buildModule module.name="${utilities.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <copyServiceDist module.name="${utilities.system.name}" />
-    <copyServiceBin module.name="${utilities.system.name}" bin.name="stacktrace.lib.jar" />
-    <copyServiceBin module.name="${utilities.system.name}" bin.name="tstamp.lib.jar" />
-    <copyServiceBin module.name="${utilities.system.name}" bin.name="uricache.lib.jar" />
-    <copyServiceBin module.name="${utilities.system.name}" bin.name="hackystatlogger.lib.jar" />
-    <copyServiceBin module.name="${utilities.system.name}" bin.name="validate.email.lib.jar" />
-    <copyServiceBin module.name="${utilities.system.name}" bin.name="time.lib.jar" />
-    <copyServiceBin module.name="${utilities.system.name}" bin.name="hackystatuserhome.lib.jar" />
+    <copyServiceBuildJar module.name="${utilities.system.name}" />
   </target>
 
   <target name="build.sensorshell">
     <buildModule module.name="${sensorshell.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <copySensorDist module.name="${sensorshell.system.name}" />
-    <copySensorBin module.name="${sensorshell.system.name}" bin.name="sensorshell.jar" />
-    <copySensorBin module.name="${sensorshell.system.name}" bin.name="shellperfeval.jar" />
+    <copySensorBuildJar module.name="${sensorshell.system.name}" />
     <copySensorBin module.name="${sensorshell.system.name}" bin.name="sample.sensorshell.properties" />
   </target>
 
   <target name="build.ant">
     <buildModule module.name="${ant.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <copySensorDist module.name="${ant.system.name}" />
-    <copySensorBin module.name="${ant.system.name}" bin.name="antsensors.jar" />
+    <copySensorBuildJar module.name="${ant.system.name}" />
   </target>
 
   <target name="build.xmldata">
     <buildModule module.name="${xmldata.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <copySensorDist module.name="${xmldata.system.name}" />
-    <copySensorBin module.name="${xmldata.system.name}" bin.name="xmldata-cli.jar" />
+    <copySensorBuildJar module.name="${xmldata.system.name}" />
     <copySensorBinDir module.name="${xmldata.system.name}" dir.name="xml" />
   </target>
 
@@ -216,34 +207,11 @@
     <copySensorBin module.name="${eclipse.system.name}" bin.name="org.hackystat.sensor.eclipse_${eclipse.version}.jar" />
   </target>
 
-  <target name="build.sensordataviewer">
-    <buildModule module.name="${sdv.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
-    <copyServiceDist module.name="${sdv.system.name}" />
-    <copyServiceBin module.name="${sdv.system.name}" bin.name="sensordataviewer.war" />
-  </target>
-
-  <target name="build.sensordatabrowser">
-    <buildModule module.name="${sdb.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
-    <copyServiceDist module.name="${sdb.system.name}" />
-    <copyServiceBin module.name="${sdb.system.name}" bin.name="sensordatabrowser.war" />
-  </target>
-
-  <target name="build.projectviewer">
-    <buildModule module.name="${pv.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
-    <copyServiceDist module.name="${pv.system.name}" />
-    <copyServiceBin module.name="${pv.system.name}" bin.name="projectviewer.war" />
-  </target>
-
-  <target name="build.telemetryviewer">
-    <buildModule module.name="${tv.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
-    <copyServiceDist module.name="${tv.system.name}" />
-    <copyServiceBin module.name="${tv.system.name}" bin.name="telemetryviewer.war" />
-  </target>
   
   <target name="build.projectbrowser">
-     <buildModuleNoJUnit module.name="${pb.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
-     <copyServiceDist module.name="${pb.system.name}" />
-    <copyServiceBin module.name="${pb.system.name}" bin.name="projectbrowser.jar" />
+    <buildModuleNoJUnit module.name="${pb.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <copyServiceDist module.name="${pb.system.name}" />
+    <copyServiceBuildJar module.name="${pb.system.name}" />
     <copyServiceBin module.name="${pb.system.name}" bin.name="sample.projectbrowser.properties" />
     <copyServiceBin module.name="${pb.system.name}" bin.name="startup.projectbrowser.bat" />
     <copyServiceBin module.name="${pb.system.name}" bin.name="startup.projectbrowser.command" />
@@ -252,8 +220,7 @@
   <target name="build.dailyprojectdata">
     <buildModule module.name="${dpd.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <copyServiceDist module.name="${dpd.system.name}" />
-    <copyServiceBin module.name="${dpd.system.name}" bin.name="dailyprojectdata.jar" />
-    <copyServiceBin module.name="${dpd.system.name}" bin.name="dailyprojectdata.lib.jar" />
+    <copyServiceBuildJar module.name="${dpd.system.name}" />
     <copyServiceBin module.name="${dpd.system.name}" bin.name="sample.dailyprojectdata.properties" />
     <copyServiceBin module.name="${dpd.system.name}" bin.name="startup.dpd.bat" />
     <copyServiceBin module.name="${dpd.system.name}" bin.name="startup.dpd.command" />
@@ -262,8 +229,7 @@
   <target name="build.telemetry">
     <buildModule module.name="${telemetry.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <copyServiceDist module.name="${telemetry.system.name}" />
-    <copyServiceBin module.name="${telemetry.system.name}" bin.name="telemetry.jar" />
-    <copyServiceBin module.name="${telemetry.system.name}" bin.name="telemetry.lib.jar" />
+    <copyServiceBuildJar module.name="${telemetry.system.name}" />
     <copyServiceBin module.name="${telemetry.system.name}" bin.name="sample.telemetry.properties" />
     <copyServiceBinDir module.name="${telemetry.system.name}" dir.name="definitions" />
     <copyServiceBinDir module.name="${telemetry.system.name}" dir.name="prefetch" />
@@ -280,20 +246,20 @@
   <target name="build.systemstatus">
     <buildModule module.name="${systemstatus.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <copyServiceDist module.name="${systemstatus.system.name}" />
-    <copyServiceBin module.name="${systemstatus.system.name}" bin.name="pingmail.jar" />
+    <copyServiceBuildJar module.name="${systemstatus.system.name}" />
   </target>
 
   <target name="build.simdata">
     <buildModule module.name="${simdata.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <copyServiceDist module.name="${simdata.system.name}" />
-    <copyServiceBin module.name="${simdata.system.name}" bin.name="simdata.jar" />
+    <copyServiceBuildJar module.name="${simdata.system.name}" />
     <copyServiceBinDir module.name="${simdata.system.name}" dir.name="definitions" />
   </target>
   
   <target name="build.tickertape">
     <buildModule module.name="${tickertape.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <copyServiceDist module.name="${tickertape.system.name}" />
-    <copyServiceBin module.name="${tickertape.system.name}" bin.name="tickertape.jar" />
+    <copyServiceBuildJar module.name="${tickertape.system.name}" />
     <copyServiceBin module.name="${tickertape.system.name}" bin.name="startup.tickertape.bat" />
     <copyServiceBin module.name="${tickertape.system.name}" bin.name="startup.tickertape.command" />
     <copyServiceBin module.name="${tickertape.system.name}" bin.name="sample.tickertape.xml" />

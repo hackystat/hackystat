@@ -51,18 +51,18 @@
       </java>
     </sequential>
   </macrodef>
-  
+
   <macrodef name="module.javadoc.daily">
-     <attribute name="svn.username" />
-     <attribute name="svn.password" />
-     <attribute name="module.name" />
-     <sequential>
-       <module.checkout.anonymous module.name="@{module.name}" />
-       <module.checkout.javadoc module.name="@{module.name}" svn.username="@{svn.username}" svn.password="@{svn.password}" />
-       <module.javadoc module.name="@{module.name}" />
-       <module.commit.javadoc module.name="@{module.name}" svn.username="@{svn.username}" svn.password="@{svn.password}" />
-     </sequential>
-   </macrodef>
+    <attribute name="svn.username" />
+    <attribute name="svn.password" />
+    <attribute name="module.name" />
+    <sequential>
+      <module.checkout.anonymous module.name="@{module.name}" />
+      <module.checkout.javadoc module.name="@{module.name}" svn.username="@{svn.username}" svn.password="@{svn.password}" />
+      <module.javadoc module.name="@{module.name}" />
+      <module.commit.javadoc module.name="@{module.name}" svn.username="@{svn.username}" svn.password="@{svn.password}" />
+    </sequential>
+  </macrodef>
 
   <macrodef name="module.commit.javadoc">
     <attribute name="svn.username" />
@@ -75,7 +75,7 @@
         <arg value="add" />
         <arg value="--auto-props" />
         <arg value="--force" />
-        
+
         <arg value="--username" />
         <arg value="@{svn.username}" />
         <arg value="--password" />
@@ -161,7 +161,7 @@
       <svn.checkout svn.url="https://@{module.name}.googlecode.com/svn/javadoc/" local.workspace="${system.build.dir}/javadoc/@{module.name}" username="@{svn.username}" password="@{svn.password}" />
     </sequential>
   </macrodef>
-  
+
   <macrodef name="module.refresh.javadoc">
     <attribute name="svn.username" />
     <attribute name="svn.password" />
@@ -169,7 +169,7 @@
     <sequential>
       <module.checkout.javadoc module.name="@{module.name}" svn.username="@{svn.username}" svn.password="@{svn.password}" />
       <module.javadoc module.name="@{module.name}" />
-      <module.commit.javadoc module.name="@{module.name}" svn.username="@{svn.username}" svn.password="@{svn.password}" />  
+      <module.commit.javadoc module.name="@{module.name}" svn.username="@{svn.username}" svn.password="@{svn.password}" />
     </sequential>
   </macrodef>
 
@@ -182,18 +182,18 @@
       <ant dir="${system.build.dir}/@{module.name}" antfile="dist.build.xml" />
     </sequential>
   </macrodef>
-  
+
   <macrodef name="buildModuleNoJUnit">
-      <attribute name="svn.username" />
-      <attribute name="svn.password" />
-      <attribute name="module.name" />
-      <sequential>
-        <ant dir="${system.build.dir}/@{module.name}" antfile="checkstyle.build.xml" />
-        <ant dir="${system.build.dir}/@{module.name}" antfile="pmd.build.xml" />
-        <ant dir="${system.build.dir}/@{module.name}" antfile="findbugs.build.xml" />
-        <ant dir="${system.build.dir}/@{module.name}" antfile="dist.build.xml" />
-      </sequential>
-    </macrodef>
+    <attribute name="svn.username" />
+    <attribute name="svn.password" />
+    <attribute name="module.name" />
+    <sequential>
+      <ant dir="${system.build.dir}/@{module.name}" antfile="checkstyle.build.xml" />
+      <ant dir="${system.build.dir}/@{module.name}" antfile="pmd.build.xml" />
+      <ant dir="${system.build.dir}/@{module.name}" antfile="findbugs.build.xml" />
+      <ant dir="${system.build.dir}/@{module.name}" antfile="dist.build.xml" />
+    </sequential>
+  </macrodef>
 
   <macrodef name="module.javadoc">
     <attribute name="module.name" />
@@ -233,17 +233,35 @@
       </copy>
     </sequential>
   </macrodef>
-  
+
+  <macrodef name="copyServiceBuildJar">
+    <attribute name="module.name" />
+    <sequential>
+      <copy todir="${system.services.dir}/bin/@{module.name}/">
+        <fileset dir="${system.build.dir}/@{module.name}/build/jar" excludes="ivy.xml"/>
+      </copy>
+    </sequential>
+  </macrodef>
+
   <macrodef name="copySensorBinDir">
-     <attribute name="module.name" />
-     <attribute name="dir.name" />
-     <sequential>
-       <mkdir dir="${system.sensors.dir}/bin/@{module.name}/@{dir.name}" />
-       <copy todir="${system.sensors.dir}/bin/@{module.name}/@{dir.name}">
-         <fileset dir="${system.build.dir}/@{module.name}/@{dir.name}" />
-       </copy>
-     </sequential>
-   </macrodef>
+    <attribute name="module.name" />
+    <attribute name="dir.name" />
+    <sequential>
+      <mkdir dir="${system.sensors.dir}/bin/@{module.name}/@{dir.name}" />
+      <copy todir="${system.sensors.dir}/bin/@{module.name}/@{dir.name}">
+        <fileset dir="${system.build.dir}/@{module.name}/@{dir.name}" />
+      </copy>
+    </sequential>
+  </macrodef>
+
+  <macrodef name="copySensorBuildJar">
+    <attribute name="module.name" />
+    <sequential>
+      <copy todir="${system.sensors.dir}/bin/@{module.name}/">
+          <fileset dir="${system.build.dir}/@{module.name}/build/jar" excludes="ivy.xml"/>
+        </copy>
+    </sequential>
+  </macrodef>
 
   <macrodef name="copySensorDist">
     <attribute name="module.name" />
@@ -270,14 +288,14 @@
       <ant dir="${system.build.dir}/@{module.name}" antfile="jar.build.xml" />
     </sequential>
   </macrodef>
-  
+
   <macrodef name="cleanAndJarModule">
-     <attribute name="module.name" />
-     <sequential>
-       <ant dir="${system.build.dir}/@{module.name}" antfile="build.xml" target="clean" />
-       <ant dir="${system.build.dir}/@{module.name}" antfile="jar.build.xml" />
-     </sequential>
-   </macrodef>
+    <attribute name="module.name" />
+    <sequential>
+      <ant dir="${system.build.dir}/@{module.name}" antfile="build.xml" target="clean" />
+      <ant dir="${system.build.dir}/@{module.name}" antfile="jar.build.xml" />
+    </sequential>
+  </macrodef>
 
   <macrodef name="runHudsonTask">
     <attribute name="task.name" />
@@ -305,97 +323,70 @@
       <ant dir="${system.build.dir}/${xmldata.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
     </sequential>
   </macrodef>
-  
-  
-  
+
+
+
   <macrodef name="runTask">
     <attribute name="task.name" />
     <attribute name="build.file.name" />
-     <sequential>
-       <!-- Current total: 18 -->
-       <ant dir="${system.build.dir}/${ant.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
-       <ant dir="${system.build.dir}/${dpd.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
-       <ant dir="${system.build.dir}/${eclipse.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
-       <ant dir="${system.build.dir}/${emacs.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
-       <!--
+    <sequential>
+      <!-- Current total: 18 -->
+      <ant dir="${system.build.dir}/${ant.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
+      <ant dir="${system.build.dir}/${dpd.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
+      <ant dir="${system.build.dir}/${eclipse.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
+      <ant dir="${system.build.dir}/${emacs.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
+      <!--
        <ant dir="${system.build.dir}/${pv.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
        <ant dir="${system.build.dir}/${sdb.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
        <ant dir="${system.build.dir}/${sdv.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
        <ant dir="${system.build.dir}/${tv.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
        -->
-       <ant dir="${system.build.dir}/${pb.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
-       <ant dir="${system.build.dir}/${sensorbase.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
-       <ant dir="${system.build.dir}/${sensorshell.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
-       <ant dir="${system.build.dir}/${simdata.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
-       <ant dir="${system.build.dir}/${stackyhack.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
-       <ant dir="${system.build.dir}/${systemstatus.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
-       <ant dir="${system.build.dir}/${telemetry.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
-       <ant dir="${system.build.dir}/${utilities.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
-       <ant dir="${system.build.dir}/${vim.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
-       <ant dir="${system.build.dir}/${xmldata.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
-     </sequential>
-   </macrodef>
-  
+      <ant dir="${system.build.dir}/${pb.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
+      <ant dir="${system.build.dir}/${sensorbase.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
+      <ant dir="${system.build.dir}/${sensorshell.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
+      <ant dir="${system.build.dir}/${simdata.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
+      <ant dir="${system.build.dir}/${stackyhack.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
+      <ant dir="${system.build.dir}/${systemstatus.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
+      <ant dir="${system.build.dir}/${telemetry.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
+      <ant dir="${system.build.dir}/${utilities.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
+      <ant dir="${system.build.dir}/${vim.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
+      <ant dir="${system.build.dir}/${xmldata.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
+    </sequential>
+  </macrodef>
+
   <macrodef name="svn2008">
-     <attribute name="project" />
-      <sequential>
-        <hacky-svn  
-          repositoryName="Hackystat"
-          repositoryUrl="http://@{project}.googlecode.com/svn/trunk"
-          fileNamePrefix="/hackystat-integration/@{project}"
-          fromDate="2008-01-01"
-          toDate="2008-07-12"
-          defaultHackystatAccount="${env.HACKYSTAT_SVN_DEFAULT_ACCOUNT}"
-          defaultHackystatPassword="${env.HACKYSTAT_SVN_DEFAULT_PASSWORD}" 
-          defaultHackystatSensorbase="http://dasha.ics.hawaii.edu:9876/sensorbase"
-          verbose="true" 
-        />
-      </sequential>
-    </macrodef>
-  
+    <attribute name="project" />
+    <sequential>
+      <hacky-svn repositoryName="Hackystat" repositoryUrl="http://@{project}.googlecode.com/svn/trunk" fileNamePrefix="/hackystat-integration/@{project}" fromDate="2008-01-01" toDate="2008-07-12" defaultHackystatAccount="${env.HACKYSTAT_SVN_DEFAULT_ACCOUNT}" defaultHackystatPassword="${env.HACKYSTAT_SVN_DEFAULT_PASSWORD}" defaultHackystatSensorbase="http://dasha.ics.hawaii.edu:9876/sensorbase" verbose="true" />
+    </sequential>
+  </macrodef>
+
   <macrodef name="svn.module.tickertape">
-      <attribute name="module" />
-      <attribute name="dir" default="trunk"/>
-      <attribute name="lastIntervalInMinutes" default="10"/>
-    
-       <sequential>
-         <property environment="env"/>
-         <available file="${env.HACKYSTAT_ANTSENSORS_HOME}/antsensors.jar" type="file" property="hackystat.antsensors.available"/>
-         <fail message="${env.HACKYSTAT_ANTSENSORS_HOME}/antsensors.jar could not be found." unless="hackystat.antsensors.available"/>   
-         <taskdef resource="antlib.xml" classpath="${env.HACKYSTAT_ANTSENSORS_HOME}/antsensors.jar"/>
+    <attribute name="module" />
+    <attribute name="dir" default="trunk" />
+    <attribute name="lastIntervalInMinutes" default="10" />
 
-         <hacky-svn  
-           repositoryName="Hackystat"
-           repositoryUrl="http://@{module}.googlecode.com/svn/@{dir}"
-           fileNamePrefix="/hackystat-integration/@{module}"
-           lastIntervalInMinutes="@{lastIntervalInMinutes}"
-           defaultHackystatAccount="${env.HACKYSTAT_SVN_DEFAULT_ACCOUNT}"
-           defaultHackystatPassword="${env.HACKYSTAT_SVN_DEFAULT_PASSWORD}" 
-           defaultHackystatSensorbase="http://dasha.ics.hawaii.edu:9876/sensorbase"
-           verbose="true" 
-         />
-       </sequential>
-     </macrodef>
-  
+    <sequential>
+      <property environment="env" />
+      <available file="${env.HACKYSTAT_ANTSENSORS_HOME}/antsensors.jar" type="file" property="hackystat.antsensors.available" />
+      <fail message="${env.HACKYSTAT_ANTSENSORS_HOME}/antsensors.jar could not be found." unless="hackystat.antsensors.available" />
+      <taskdef resource="antlib.xml" classpath="${env.HACKYSTAT_ANTSENSORS_HOME}/antsensors.jar" />
+
+      <hacky-svn repositoryName="Hackystat" repositoryUrl="http://@{module}.googlecode.com/svn/@{dir}" fileNamePrefix="/hackystat-integration/@{module}" lastIntervalInMinutes="@{lastIntervalInMinutes}" defaultHackystatAccount="${env.HACKYSTAT_SVN_DEFAULT_ACCOUNT}" defaultHackystatPassword="${env.HACKYSTAT_SVN_DEFAULT_PASSWORD}" defaultHackystatSensorbase="http://dasha.ics.hawaii.edu:9876/sensorbase" verbose="true" />
+    </sequential>
+  </macrodef>
+
   <macrodef name="svn.module.daily">
-      <attribute name="module" />
-      <attribute name="dir" default="trunk"/>
-       <sequential>
-         <property environment="env"/>
-         <available file="${env.HACKYSTAT_ANTSENSORS_HOME}/antsensors.jar" type="file" property="hackystat.antsensors.available"/>
-         <fail message="${env.HACKYSTAT_ANTSENSORS_HOME}/antsensors.jar could not be found." unless="hackystat.antsensors.available"/>   
-         <taskdef resource="antlib.xml" classpath="${env.HACKYSTAT_ANTSENSORS_HOME}/antsensors.jar"/>
+    <attribute name="module" />
+    <attribute name="dir" default="trunk" />
+    <sequential>
+      <property environment="env" />
+      <available file="${env.HACKYSTAT_ANTSENSORS_HOME}/antsensors.jar" type="file" property="hackystat.antsensors.available" />
+      <fail message="${env.HACKYSTAT_ANTSENSORS_HOME}/antsensors.jar could not be found." unless="hackystat.antsensors.available" />
+      <taskdef resource="antlib.xml" classpath="${env.HACKYSTAT_ANTSENSORS_HOME}/antsensors.jar" />
 
-         <hacky-svn  
-           repositoryName="Hackystat"
-           repositoryUrl="http://@{module}.googlecode.com/svn/@{dir}"
-           fileNamePrefix="/hackystat-integration/@{module}"
-           defaultHackystatAccount="${env.HACKYSTAT_SVN_DEFAULT_ACCOUNT}"
-           defaultHackystatPassword="${env.HACKYSTAT_SVN_DEFAULT_PASSWORD}" 
-           defaultHackystatSensorbase="http://dasha.ics.hawaii.edu:9876/sensorbase"
-           verbose="true" 
-         />
-       </sequential>
-     </macrodef>
+      <hacky-svn repositoryName="Hackystat" repositoryUrl="http://@{module}.googlecode.com/svn/@{dir}" fileNamePrefix="/hackystat-integration/@{module}" defaultHackystatAccount="${env.HACKYSTAT_SVN_DEFAULT_ACCOUNT}" defaultHackystatPassword="${env.HACKYSTAT_SVN_DEFAULT_PASSWORD}" defaultHackystatSensorbase="http://dasha.ics.hawaii.edu:9876/sensorbase" verbose="true" />
+    </sequential>
+  </macrodef>
 
 </project>
