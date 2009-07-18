@@ -3,13 +3,6 @@
   A set of tasks for doing integration/daily builds of Hackystat.
   </description>
   
-  <!-- Run this inline to ensure that Ivy is installed whenever Hudson is invoked. -->
-   <import file="ivy.build.xml"/>
-   <mkdir dir="${basedir}/lib/ivy"/>
-   <get src="http://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.version}/ivy-${ivy.version}.jar"
-          dest="${basedir}/lib/ivy/ivy.jar" usetimestamp="true"/>
-
-
   <!-- Overwrite the system build directory for hudson-related stuff. -->
   <property name="system.integration.root" location="${basedir}/hudson" />
   <property name="system.build.dir" location="${system.integration.root}/hackystat-integration" />
@@ -26,16 +19,16 @@
   <import file="hackystat.build.xml" />
   <import file="javadoc.build.xml" />
 
-  <target name="hudson.daily.build" depends="hudson.daily.checkout" description="Checks out and builds all modules. ">
+  <target name="hudson.daily.build" depends="install, hudson.daily.checkout" description="Checks out and builds all modules. ">
     <runHudsonTask task.name="hudson.daily.build" />
   </target>
   
-  <target name="hudson.ivy" description="Ensures ivy and library versions are up to date.">
+  <target name="hudson.ivy" depends="install" description="Ensures ivy and library versions are up to date.">
     <ant dir="${system.build.dir}/${utilities.system.name}" antfile="ivy.build.xml"  />
     <ant dir="${system.build.dir}/${sensorbase.system.name}" antfile="ivy.build.xml"  />
   </target>    
   
-  <target name="hudson.daily.jar"  description="Checks out and builds all modules. ">
+  <target name="hudson.daily.jar"  depends="install" description="Checks out and builds all modules. ">
     
     <ant dir="${system.build.dir}/${utilities.system.name}" target="clean"  />
     <ant dir="${system.build.dir}/${utilities.system.name}" antfile="jar.build.xml"  />
@@ -60,7 +53,8 @@
    </target>
   
   <target name="hudson.daily.sensors"  
-     depends="hudson.daily.checkout,
+     depends="install, 
+              hudson.daily.checkout,
               hudson.ivy,
               hudson.daily.jar, 
               hudson.daily.junit.sensor, 
@@ -70,7 +64,7 @@
               hudson.daily.sclc.sensor"  
     description="Checks out the code, makes jar files, then runs tools and sensors."/>
   
-  <target name="hudson.daily.svn">
+  <target name="hudson.daily.svn" depends="install">
     <svn.module.daily module="hackystat"/>
     <svn.module.daily module="hackystat-analysis-dailyprojectdata"/>
     <svn.module.daily module="hackystat-analysis-telemetry"/>
@@ -90,7 +84,7 @@
     <svn.module.daily module="hackystat-utilities"/>
   </target>
   
-  <target name="hudson.tickertape.svn">
+  <target name="hudson.tickertape.svn" depends="install">
     <svn.module.tickertape module="hackystat"/>
     <svn.module.tickertape module="hackystat-analysis-dailyprojectdata"/>
     <svn.module.tickertape module="hackystat-analysis-telemetry"/>
