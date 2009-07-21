@@ -3,7 +3,7 @@
     Provides targets for Hackystat project checkouts, status, and commits.
     Invoke with "ant install" to install/update Ivy and related files. 
   </description>
-  
+
   <!-- 
     The checkout.{module} targets, in alphabetical order.
     Modules will also checkout all dependent modules. 
@@ -100,7 +100,7 @@
      Modules will also checkout all dependent modules. 
    -->
 
-   <target name="checkout.anonymous.all" depends="check-install, 
+  <target name="checkout.anonymous.all" depends="check-install, 
      checkout.anonymous.hackystat-analysis-dailyprojectdata, 
      checkout.anonymous.hackystat-analysis-telemetry, 
      checkout.anonymous.hackystat-sensor-ant,
@@ -118,73 +118,73 @@
      checkout.anonymous.hackystat-ui-wicket,
      checkout.anonymous.hackystat-utilities" />
 
-   <target name="checkout.anonymous.hackystat-analysis-dailyprojectdata" depends="check-install,  checkout.anonymous.hackystat-sensorbase-uh">
-     <svn.checkout.anonymous module.name="hackystat-analysis-dailyprojectdata" />
-   </target>
+  <target name="checkout.anonymous.hackystat-analysis-dailyprojectdata" depends="check-install,  checkout.anonymous.hackystat-sensorbase-uh">
+    <svn.checkout.anonymous module.name="hackystat-analysis-dailyprojectdata" />
+  </target>
 
-   <target name="checkout.anonymous.hackystat-analysis-telemetry" depends="check-install, checkout.anonymous.hackystat-analysis-dailyprojectdata">
-     <svn.checkout.anonymous module.name="hackystat-analysis-telemetry" />
-   </target>
+  <target name="checkout.anonymous.hackystat-analysis-telemetry" depends="check-install, checkout.anonymous.hackystat-analysis-dailyprojectdata">
+    <svn.checkout.anonymous module.name="hackystat-analysis-telemetry" />
+  </target>
 
-   <target name="checkout.anonymous.hackystat-developer-example" depends="check-install, checkout.anonymous.hackystat-analysis-telemetry">
-     <svn.checkout.anonymous module.name="hackystat-developer-example" />
-   </target>
+  <target name="checkout.anonymous.hackystat-developer-example" depends="check-install, checkout.anonymous.hackystat-analysis-telemetry">
+    <svn.checkout.anonymous module.name="hackystat-developer-example" />
+  </target>
 
-   <target name="checkout.anonymous.hackystat-sensor-ant" depends="check-install, checkout.anonymous.hackystat-sensor-shell">
-     <svn.checkout.anonymous module.name="hackystat-sensor-ant" />
-   </target>
+  <target name="checkout.anonymous.hackystat-sensor-ant" depends="check-install, checkout.anonymous.hackystat-sensor-shell">
+    <svn.checkout.anonymous module.name="hackystat-sensor-ant" />
+  </target>
 
-   <target name="checkout.anonymous.hackystat-sensor-eclipse" depends="check-install, checkout.anonymous.hackystat-sensor-shell">
-     <svn.checkout.anonymous module.name="hackystat-sensor-eclipse" />
-   </target>
+  <target name="checkout.anonymous.hackystat-sensor-eclipse" depends="check-install, checkout.anonymous.hackystat-sensor-shell">
+    <svn.checkout.anonymous module.name="hackystat-sensor-eclipse" />
+  </target>
 
-   <target name="checkout.anonymous.hackystat-sensor-emacs" depends="check-install, checkout.anonymous.hackystat-sensor-shell">
-     <svn.checkout.anonymous module.name="hackystat-sensor-emacs" />
-   </target>
+  <target name="checkout.anonymous.hackystat-sensor-emacs" depends="check-install, checkout.anonymous.hackystat-sensor-shell">
+    <svn.checkout.anonymous module.name="hackystat-sensor-emacs" />
+  </target>
 
-   <target name="checkout.anonymous.hackystat-sensor-example" depends="check-install, checkout.anonymous.hackystat-sensor-ant">
-     <svn.checkout.anonymous module.name="hackystat-sensor-example" />
-   </target>
+  <target name="checkout.anonymous.hackystat-sensor-example" depends="check-install, checkout.anonymous.hackystat-sensor-ant">
+    <svn.checkout.anonymous module.name="hackystat-sensor-example" />
+  </target>
 
-   <target name="checkout.anonymous.hackystat-sensor-shell" depends="check-install, checkout.anonymous.hackystat-sensorbase-uh">
-     <svn.checkout.anonymous module.name="hackystat-sensor-shell" />
-   </target>
+  <target name="checkout.anonymous.hackystat-sensor-shell" depends="check-install, checkout.anonymous.hackystat-sensorbase-uh">
+    <svn.checkout.anonymous module.name="hackystat-sensor-shell" />
+  </target>
 
-   <target name="checkout.anonymous.hackystat-sensor-vim" depends="check-install, checkout.anonymous.hackystat-sensor-shell">
-     <svn.checkout.anonymous module.name="hackystat-sensor-vim" />
-   </target>
+  <target name="checkout.anonymous.hackystat-sensor-vim" depends="check-install, checkout.anonymous.hackystat-sensor-shell">
+    <svn.checkout.anonymous module.name="hackystat-sensor-vim" />
+  </target>
 
-   <target name="checkout.anonymous.hackystat-sensor-xmldata" depends="check-install, checkout.anonymous.hackystat-sensor-shell">
-     <svn.checkout.anonymous module.name="hackystat-sensor-xmldata" />
-   </target>
+  <target name="checkout.anonymous.hackystat-sensor-xmldata" depends="check-install, checkout.anonymous.hackystat-sensor-shell">
+    <svn.checkout.anonymous module.name="hackystat-sensor-xmldata" />
+  </target>
 
-   <target name="checkout.anonymous.hackystat-sensorbase-postgres" depends="check-install, checkout.anonymous.hackystat-sensorbase-uh">
-     <svn.checkout.anonymous module.name="hackystat-sensorbase-postgres" />
-   </target>
+  <target name="checkout.anonymous.hackystat-sensorbase-postgres" depends="check-install, checkout.anonymous.hackystat-sensorbase-uh">
+    <svn.checkout.anonymous module.name="hackystat-sensorbase-postgres" />
+  </target>
 
-   <target name="checkout.anonymous.hackystat-sensorbase-simdata" depends="check-install, checkout.anonymous.hackystat-sensorbase-uh">
-     <svn.checkout.anonymous module.name="hackystat-sensorbase-simdata" />
-   </target>
+  <target name="checkout.anonymous.hackystat-sensorbase-simdata" depends="check-install, checkout.anonymous.hackystat-sensorbase-uh">
+    <svn.checkout.anonymous module.name="hackystat-sensorbase-simdata" />
+  </target>
 
-   <target name="checkout.anonymous.hackystat-sensorbase-uh" depends="check-install, checkout.anonymous.hackystat-utilities">
-     <svn.checkout.anonymous module.name="hackystat-sensorbase-uh" />
-   </target>
+  <target name="checkout.anonymous.hackystat-sensorbase-uh" depends="check-install, checkout.anonymous.hackystat-utilities">
+    <svn.checkout.anonymous module.name="hackystat-sensorbase-uh" />
+  </target>
 
-   <target name="checkout.anonymous.hackystat-ui-systemstatus" depends="check-install, checkout.anonymous.hackystat-sensorbase-uh">
-     <svn.checkout.anonymous module.name="hackystat-ui-systemstatus" />
-   </target>
+  <target name="checkout.anonymous.hackystat-ui-systemstatus" depends="check-install, checkout.anonymous.hackystat-sensorbase-uh">
+    <svn.checkout.anonymous module.name="hackystat-ui-systemstatus" />
+  </target>
 
-   <target name="checkout.anonymous.hackystat-ui-tickertape" depends="check-install, checkout.anonymous.hackystat-analysis-telemetry">
-     <svn.checkout.anonymous module.name="hackystat-ui-tickertape" />
-   </target>
+  <target name="checkout.anonymous.hackystat-ui-tickertape" depends="check-install, checkout.anonymous.hackystat-analysis-telemetry">
+    <svn.checkout.anonymous module.name="hackystat-ui-tickertape" />
+  </target>
 
-   <target name="checkout.anonymous.hackystat-ui-wicket" depends="check-install, checkout.anonymous.hackystat-analysis-telemetry, checkout.anonymous.hackystat-sensorbase-simdata">
-     <svn.checkout.anonymous module.name="hackystat-ui-wicket" />
-   </target>
+  <target name="checkout.anonymous.hackystat-ui-wicket" depends="check-install, checkout.anonymous.hackystat-analysis-telemetry, checkout.anonymous.hackystat-sensorbase-simdata">
+    <svn.checkout.anonymous module.name="hackystat-ui-wicket" />
+  </target>
 
-   <target name="checkout.anonymous.hackystat-utilities" depends="check-install">
-     <svn.checkout.anonymous module.name="hackystat-utilities" />
-   </target>
+  <target name="checkout.anonymous.hackystat-utilities" depends="check-install">
+    <svn.checkout.anonymous module.name="hackystat-utilities" />
+  </target>
 
   <!-- 
     The commit.{module} targets, in alphabetical order.
@@ -392,7 +392,7 @@
     <ant antfile="hackystat-sensor-example/build.xml" target="compile" inheritAll="false" />
     <ant antfile="hackystat-ui-wicket/jar.build.xml" target="publish" inheritAll="false" />
     <ant antfile="hackystat-ui-tickertape/build.xml" target="compile" inheritAll="false" />
-   </target> 
+  </target>
 
   <!-- 
       Ivy download targets and locations. 
@@ -428,7 +428,7 @@
   </target>
 
   <target name="install.svnkit" description="Downloads SVNKit into lib dir.">
-    <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpath="${ivy.jar.path}/ivy.jar"/>
+    <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpath="${ivy.jar.path}/ivy.jar" />
     <ivy:retrieve organisation="com.svnkit" module="svnkit" revision="${svnkit.version}" pattern="${lib.dir}/svnkit/[artifact].[ext]" sync="true" inline="true" conf="default,cli" log="download-only" transitive="false" type="jar" />
   </target>
 
@@ -457,7 +457,7 @@
   <target name="check-svn-message" description="Fails build if svn.message property is not set on command line.">
     <fail message='Error: You must provide a commit message. Example: ant -Dsvn.message="Fix typo." commit.all' unless="svn.message" />
   </target>
-  
+
   <property file="${basedir}/svn.properties" />
 
   <macrodef name="svn.checkout">
@@ -504,7 +504,7 @@
       </java>
     </sequential>
   </macrodef>
-  
+
   <macrodef name="svn.status">
     <attribute name="module.name" />
     <sequential>
@@ -514,6 +514,66 @@
         <classpath refid="svnkit.path" />
       </java>
     </sequential>
-  </macrodef>  
+  </macrodef>
 
+  <!-- Helper target for verifying updates to build system. -->
+
+  <target name="verify-all" description="Runs (almost) all Ant targets, including sensor targets, to make sure build system is working properly.">
+    <!-- Using antcall instead of depends parameter to work around emma's need to create fresh class files and instrument
+   			 them, which hoses any other tasks coming after that -->
+    <!-- Call Emma first to get its weirdness out of the way first -->
+
+    <fail unless="module.dir" message="Please provide -Dmodule.dir={module}" />
+    <ant inheritAll="false" antfile="${module.dir}/emma.build.xml" />
+    <ant inheritAll="false" antfile="${module.dir}/build.xml" target="clean" />
+    <ant inheritAll="false" antfile="${module.dir}/build.xml" target="compile" />
+    <ant inheritAll="false" antfile="${module.dir}/checkstyle.build.xml" />
+    <ant inheritAll="false" antfile="${module.dir}/dependencyfinder.build.xml" />
+    <ant inheritAll="false" antfile="${module.dir}/junit.build.xml" />
+    <ant inheritAll="false" antfile="${module.dir}/pmd.build.xml" />
+    <ant inheritAll="false" antfile="${module.dir}/findbugs.build.xml" />
+    <ant inheritAll="false" antfile="${module.dir}/javadoc.build.xml" />
+    <ant inheritAll="false" antfile="${module.dir}/javancss.build.xml" />
+    <ant inheritAll="false" antfile="${module.dir}/sclc.build.xml" />
+    <ant inheritAll="false" antfile="${module.dir}/dist.build.xml" />
+    <fail message="FindBugs reported warnings." if="findbugs.warningsfound" />
+  </target>
+
+  <target name="delete-emacs-backups">
+    <delete>
+      <fileset dir="." includes="**/*~" defaultexcludes="no" />
+      <fileset dir="." includes="**/cobertura*" defaultexcludes="no" />
+    </delete>
+  </target>
+
+  <target name="update-sensor-files">
+    <fail unless="module.dir" message="Please provide -Dmodule.dir={module}" />
+    <copy file="hackystat-utilities/common.build.xml" tofile="${module.dir}/common.build.xml" overwrite="true" />
+    <copy file="hackystat-utilities/checkstyle.build.xml" tofile="${module.dir}/checkstyle.build.xml" overwrite="true" />
+    <copy file="hackystat-utilities/dependencyfinder.build.xml" tofile="${module.dir}/dependencyfinder.build.xml" overwrite="true" />
+    <copy file="hackystat-utilities/emma.build.xml" tofile="${module.dir}/emma.build.xml" overwrite="true" />
+    <copy file="hackystat-utilities/findbugs.build.xml" tofile="${module.dir}/findbugs.build.xml" overwrite="true" />
+    <copy file="hackystat-utilities/javancss.build.xml" tofile="${module.dir}/javancss.build.xml" overwrite="true" />
+    <copy file="hackystat-utilities/pmd.build.xml" tofile="${module.dir}/pmd.build.xml" overwrite="true" />
+    <copy file="hackystat-utilities/sclc.build.xml" tofile="${module.dir}/sclc.build.xml" overwrite="true" />
+  </target>
+  
+  <target name="propogate-changed-file">
+    <fail unless="file.name" message="Please provide -Dfile.name={file.name}" />
+    <copy file="hackystat-utilities/${file.name}" todir="hackystat-analysis-dailyprojectdata/" overwrite="true" />
+    <copy file="hackystat-utilities/${file.name}" todir="hackystat-analysis-telemetry/" overwrite="true" />
+    <copy file="hackystat-utilities/${file.name}" todir="hackystat-sensor-ant/" overwrite="true" />
+    <copy file="hackystat-utilities/${file.name}" todir="hackystat-sensorbase-postgres/" overwrite="true" />
+    <copy file="hackystat-utilities/${file.name}" todir="hackystat-sensorbase-simdata/" overwrite="true" />
+    <copy file="hackystat-utilities/${file.name}" todir="hackystat-sensorbase-uh/" overwrite="true" />
+    <copy file="hackystat-utilities/${file.name}" todir="hackystat-sensor-eclipse/" overwrite="true" />
+    <copy file="hackystat-utilities/${file.name}" todir="hackystat-sensor-emacs/" overwrite="true" />
+    <copy file="hackystat-utilities/${file.name}" todir="hackystat-sensor-example/" overwrite="true" />
+    <copy file="hackystat-utilities/${file.name}" todir="hackystat-sensor-shell/" overwrite="true" />
+    <copy file="hackystat-utilities/${file.name}" todir="hackystat-sensor-vim/" overwrite="true" />
+    <copy file="hackystat-utilities/${file.name}" todir="hackystat-sensor-xmldata/" overwrite="true" />
+    <copy file="hackystat-utilities/${file.name}" todir="hackystat-ui-systemstatus/" overwrite="true" />
+    <copy file="hackystat-utilities/${file.name}" todir="hackystat-ui-tickertape/" overwrite="true" />
+    <copy file="hackystat-utilities/${file.name}" todir="hackystat-ui-wicket/" overwrite="true" />
+  </target>
 </project>
