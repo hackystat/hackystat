@@ -55,7 +55,6 @@
   <target name="hudson.daily.sensors"  
      depends="install, 
               hudson.daily.checkout,
-              hudson.ivy,
               hudson.daily.jar, 
               hudson.daily.junit.sensor, 
               hudson.daily.javancss.sensor, 

@@ -178,8 +178,9 @@
     <attribute name="svn.password" />
     <attribute name="module.name" />
     <sequential>
-      <ant dir="${system.build.dir}/@{module.name}" antfile="verify.build.xml" />
-      <ant dir="${system.build.dir}/@{module.name}" antfile="dist.build.xml" />
+      <echo message="****************Invoking: ${system.build.dir}/@{module.name}"/>
+      <ant dir="${system.build.dir}/@{module.name}" antfile="verify.build.xml" inheritAll="false" />
+      <ant dir="${system.build.dir}/@{module.name}" antfile="dist.build.xml" inheritAll="false" />
     </sequential>
   </macrodef>
 
@@ -188,17 +189,17 @@
     <attribute name="svn.password" />
     <attribute name="module.name" />
     <sequential>
-      <ant dir="${system.build.dir}/@{module.name}" antfile="checkstyle.build.xml" />
-      <ant dir="${system.build.dir}/@{module.name}" antfile="pmd.build.xml" />
-      <ant dir="${system.build.dir}/@{module.name}" antfile="findbugs.build.xml" />
-      <ant dir="${system.build.dir}/@{module.name}" antfile="dist.build.xml" />
+      <ant dir="${system.build.dir}/@{module.name}" antfile="checkstyle.build.xml" inheritAll="false" />
+      <ant dir="${system.build.dir}/@{module.name}" antfile="pmd.build.xml" inheritAll="false" />
+      <ant dir="${system.build.dir}/@{module.name}" antfile="findbugs.build.xml" inheritAll="false" />
+      <ant dir="${system.build.dir}/@{module.name}" antfile="dist.build.xml" inheritAll="false" />
     </sequential>
   </macrodef>
 
   <macrodef name="module.javadoc">
     <attribute name="module.name" />
     <sequential>
-      <ant dir="${system.build.dir}/@{module.name}" antfile="javadoc.build.xml">
+      <ant dir="${system.build.dir}/@{module.name}" antfile="javadoc.build.xml" inheritAll="false" >
         <property name="javadoc.dir" location="${system.build.dir}/javadoc/@{module.name}" />
       </ant>
     </sequential>
@@ -285,15 +286,15 @@
   <macrodef name="jarModule">
     <attribute name="module.name" />
     <sequential>
-      <ant dir="${system.build.dir}/@{module.name}" antfile="jar.build.xml" />
+      <ant dir="${system.build.dir}/@{module.name}" antfile="jar.build.xml" inheritAll="false" />
     </sequential>
   </macrodef>
 
   <macrodef name="cleanAndJarModule">
     <attribute name="module.name" />
     <sequential>
-      <ant dir="${system.build.dir}/@{module.name}" antfile="build.xml" target="clean" />
-      <ant dir="${system.build.dir}/@{module.name}" antfile="jar.build.xml" />
+      <ant dir="${system.build.dir}/@{module.name}" antfile="build.xml" target="clean"  inheritAll="false" />
+      <ant dir="${system.build.dir}/@{module.name}" antfile="jar.build.xml" inheritAll="false" />
     </sequential>
   </macrodef>
 
@@ -301,26 +302,20 @@
     <attribute name="task.name" />
     <sequential>
       <!-- Current total: 18 -->
-      <ant dir="${system.build.dir}/${utilities.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
-      <ant dir="${system.build.dir}/${sensorbase.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
-      <ant dir="${system.build.dir}/${dpd.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
-      <ant dir="${system.build.dir}/${telemetry.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
-      <ant dir="${system.build.dir}/${sensorshell.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
-      <ant dir="${system.build.dir}/${ant.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
-      <ant dir="${system.build.dir}/${eclipse.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
-      <ant dir="${system.build.dir}/${emacs.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
-      <ant dir="${system.build.dir}/${pb.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
-      <!--
-      <ant dir="${system.build.dir}/${pv.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
-      <ant dir="${system.build.dir}/${sdb.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
-      <ant dir="${system.build.dir}/${sdv.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
-      <ant dir="${system.build.dir}/${tv.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
-      -->
-      <ant dir="${system.build.dir}/${simdata.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
-      <ant dir="${system.build.dir}/${stackyhack.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
-      <ant dir="${system.build.dir}/${systemstatus.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
-      <ant dir="${system.build.dir}/${vim.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
-      <ant dir="${system.build.dir}/${xmldata.system.name}" antfile="hudson.build.xml" target="@{task.name}" />
+      <ant dir="${system.build.dir}/${utilities.system.name}" antfile="hudson.build.xml" target="@{task.name}" inheritAll="false" />
+      <ant dir="${system.build.dir}/${sensorbase.system.name}" antfile="hudson.build.xml" target="@{task.name}" inheritAll="false" />
+      <ant dir="${system.build.dir}/${dpd.system.name}" antfile="hudson.build.xml" target="@{task.name}" inheritAll="false" />
+      <ant dir="${system.build.dir}/${telemetry.system.name}" antfile="hudson.build.xml" target="@{task.name}" inheritAll="false" />
+      <ant dir="${system.build.dir}/${sensorshell.system.name}" antfile="hudson.build.xml" target="@{task.name}" inheritAll="false" />
+      <ant dir="${system.build.dir}/${ant.system.name}" antfile="hudson.build.xml" target="@{task.name}"  inheritAll="false"/>
+      <ant dir="${system.build.dir}/${eclipse.system.name}" antfile="hudson.build.xml" target="@{task.name}"  inheritAll="false"/>
+      <ant dir="${system.build.dir}/${emacs.system.name}" antfile="hudson.build.xml" target="@{task.name}" inheritAll="false" />
+      <ant dir="${system.build.dir}/${pb.system.name}" antfile="hudson.build.xml" target="@{task.name}" inheritAll="false" />
+      <ant dir="${system.build.dir}/${simdata.system.name}" antfile="hudson.build.xml" target="@{task.name}" inheritAll="false" />
+      <ant dir="${system.build.dir}/${stackyhack.system.name}" antfile="hudson.build.xml" target="@{task.name}" inheritAll="false" />
+      <ant dir="${system.build.dir}/${systemstatus.system.name}" antfile="hudson.build.xml" target="@{task.name}" inheritAll="false" />
+      <ant dir="${system.build.dir}/${vim.system.name}" antfile="hudson.build.xml" target="@{task.name}" inheritAll="false" />
+      <ant dir="${system.build.dir}/${xmldata.system.name}" antfile="hudson.build.xml" target="@{task.name}" inheritAll="false" />
     </sequential>
   </macrodef>
 
@@ -331,26 +326,26 @@
     <attribute name="build.file.name" />
     <sequential>
       <!-- Current total: 18 -->
-      <ant dir="${system.build.dir}/${ant.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
-      <ant dir="${system.build.dir}/${dpd.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
-      <ant dir="${system.build.dir}/${eclipse.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
-      <ant dir="${system.build.dir}/${emacs.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
+      <ant dir="${system.build.dir}/${ant.system.name}" antfile="@{build.file.name}" target="@{task.name}" inheritAll="false"  />
+      <ant dir="${system.build.dir}/${dpd.system.name}" antfile="@{build.file.name}" target="@{task.name}" inheritAll="false"  />
+      <ant dir="${system.build.dir}/${eclipse.system.name}" antfile="@{build.file.name}" target="@{task.name}" inheritAll="false"  />
+      <ant dir="${system.build.dir}/${emacs.system.name}" antfile="@{build.file.name}" target="@{task.name}" inheritAll="false"  />
       <!--
        <ant dir="${system.build.dir}/${pv.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
        <ant dir="${system.build.dir}/${sdb.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
        <ant dir="${system.build.dir}/${sdv.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
        <ant dir="${system.build.dir}/${tv.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
        -->
-      <ant dir="${system.build.dir}/${pb.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
-      <ant dir="${system.build.dir}/${sensorbase.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
-      <ant dir="${system.build.dir}/${sensorshell.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
-      <ant dir="${system.build.dir}/${simdata.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
-      <ant dir="${system.build.dir}/${stackyhack.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
-      <ant dir="${system.build.dir}/${systemstatus.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
-      <ant dir="${system.build.dir}/${telemetry.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
-      <ant dir="${system.build.dir}/${utilities.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
-      <ant dir="${system.build.dir}/${vim.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
-      <ant dir="${system.build.dir}/${xmldata.system.name}" antfile="@{build.file.name}" target="@{task.name}" />
+      <ant dir="${system.build.dir}/${pb.system.name}" antfile="@{build.file.name}" target="@{task.name}" inheritAll="false"  />
+      <ant dir="${system.build.dir}/${sensorbase.system.name}" antfile="@{build.file.name}" target="@{task.name}" inheritAll="false"  />
+      <ant dir="${system.build.dir}/${sensorshell.system.name}" antfile="@{build.file.name}" target="@{task.name}" inheritAll="false"  />
+      <ant dir="${system.build.dir}/${simdata.system.name}" antfile="@{build.file.name}" target="@{task.name}" inheritAll="false"  />
+      <ant dir="${system.build.dir}/${stackyhack.system.name}" antfile="@{build.file.name}" target="@{task.name}" inheritAll="false"  />
+      <ant dir="${system.build.dir}/${systemstatus.system.name}" antfile="@{build.file.name}" target="@{task.name}" inheritAll="false"  />
+      <ant dir="${system.build.dir}/${telemetry.system.name}" antfile="@{build.file.name}" target="@{task.name}" inheritAll="false"  />
+      <ant dir="${system.build.dir}/${utilities.system.name}" antfile="@{build.file.name}" target="@{task.name}" inheritAll="false"  />
+      <ant dir="${system.build.dir}/${vim.system.name}" antfile="@{build.file.name}" target="@{task.name}" inheritAll="false"  />
+      <ant dir="${system.build.dir}/${xmldata.system.name}" antfile="@{build.file.name}" target="@{task.name}" inheritAll="false"  />
     </sequential>
   </macrodef>
 
