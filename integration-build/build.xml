@@ -1,6 +1,6 @@
 <project name="integration.build" default="build.all" xmlns:ivy="antlib:org.apache.ivy.ant">
   <description>
-  The master build file for creating system-level releases of Hackystat.
+    The master build file for creating system-level releases of Hackystat.
   </description>
 
   <!-- Get today's version number. -->
@@ -64,25 +64,25 @@
   <import file="macros.build.xml" />
 
   <target name="build.all" depends="
-             check-install,
-             clean,
-             build.utilities,    
-             build.sensorbase,
-             build.sensorshell,
-             build.eclipse,
-             build.postgres,
-             build.dailyprojectdata,
-             build.telemetry,
-             build.projectbrowser,
-             build.tickertape,
-  	         build.ant, 
-  	         build.xmldata, 
-  	         build.emacs, 
-             build.vim,
-             build.stackyhack,
-             build.systemstatus,
-             build.simdata" 
-    description="Cleans, then checks out and builds all modules.  Requires SVN commit access." />
+				    check-install,
+				    clean,
+				    build.utilities,
+				    build.sensorbase,
+				    build.sensorshell,
+				    build.eclipse,
+				    build.postgres,
+				    build.dailyprojectdata,
+				    build.telemetry,
+				    build.projectbrowser,
+				    build.tickertape,
+  				    build.ant,
+  				    build.xmldata,
+  				    build.emacs,
+				    build.vim,
+				    build.stackyhack,
+				    build.systemstatus,
+				    build.simdata"
+	  description="Cleans, then checks out and builds all modules.  Requires SVN commit access." />
 
   <target name="checkout.anonymous" depends="check-install" description="Anonymous check out/update of all projects from Google Project Hosting.">
     <module.checkout.anonymous module.name="${ant.system.name}" />
@@ -153,14 +153,14 @@
     <copyServiceBin module.name="${sensorbase.system.name}" bin.name="startup.sensorbase.bat" />
     <copyServiceBin module.name="${sensorbase.system.name}" bin.name="startup.sensorbase.command" />
   </target>
-  
+
   <target name="build.postgres">
-     <buildModuleNoJUnit module.name="${postgres.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
-     <copyServiceDist module.name="${postgres.system.name}" />
-     <copyServiceBuildJar module.name="${postgres.system.name}" />
-     <copyServiceBin module.name="${postgres.system.name}" bin.name="sample.sensorbase.properties" />
-     <copyServiceBin module.name="${postgres.system.name}" bin.name="postgres_hackystat_schema.sql" />
-   </target>
+    <buildModuleNoJUnit module.name="${postgres.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
+    <copyServiceDist module.name="${postgres.system.name}" />
+    <copyServiceBuildJar module.name="${postgres.system.name}" />
+    <copyServiceBin module.name="${postgres.system.name}" bin.name="sample.sensorbase.properties" />
+    <copyServiceBin module.name="${postgres.system.name}" bin.name="postgres_hackystat_schema.sql" />
+  </target>
 
   <target name="build.utilities">
     <buildModule module.name="${utilities.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
@@ -207,7 +207,7 @@
     <copySensorBin module.name="${eclipse.system.name}" bin.name="org.hackystat.sensor.eclipse_${eclipse.version}.jar" />
   </target>
 
-  
+
   <target name="build.projectbrowser">
     <buildModuleNoJUnit module.name="${pb.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <copyServiceDist module.name="${pb.system.name}" />
@@ -215,7 +215,7 @@
     <copyServiceBin module.name="${pb.system.name}" bin.name="sample.projectbrowser.properties" />
     <copyServiceBin module.name="${pb.system.name}" bin.name="startup.projectbrowser.bat" />
     <copyServiceBin module.name="${pb.system.name}" bin.name="startup.projectbrowser.command" />
-   </target>
+  </target>
 
   <target name="build.dailyprojectdata">
     <buildModule module.name="${dpd.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
@@ -255,7 +255,7 @@
     <copyServiceBuildJar module.name="${simdata.system.name}" />
     <copyServiceBinDir module.name="${simdata.system.name}" dir.name="definitions" />
   </target>
-  
+
   <target name="build.tickertape">
     <buildModule module.name="${tickertape.system.name}" svn.username="${svn.username}" svn.password="${svn.password}" />
     <copyServiceDist module.name="${tickertape.system.name}" />
@@ -269,10 +269,10 @@
     <delete dir="${system.services.dir}" quiet="true" />
     <delete dir="${system.sensors.dir}" quiet="true" />
   </target>
-  
-  <!-- 
-      Ivy download targets and locations. 
-   -->
+
+  <!--
+      Ivy download targets and locations.
+  -->
   <property name="lib.dir" location="${basedir}/lib" />
   <property name="ivy.jar.path" location="${user.home}/.ivy2/ivyjar/" />
   <property name="library.versions.path" location="${user.home}/.hackystat/library.versions.properties" />
@@ -296,11 +296,11 @@
 
   <target name="install.library.versions.properties" description="Downloads library.versions.properties into .hackystat directory.">
     <mkdir dir="${user.home}/.hackystat" />
-    <get src="http://hackystat.googlecode.com/svn/trunk/configfiles/library.versions.properties" dest="${library.versions.path}" usetimestamp="true" />
+    <get src="https://raw.github.com/hackystat/hackystat/master/configfiles/library.versions.properties" dest="${library.versions.path}" usetimestamp="true" />
   </target>
 
   <target name="install.ivysettings.xml" description="Downloads ivysettings.xml into .hackystat/ivy directory.">
-    <get src="http://hackystat.googlecode.com/svn/trunk/configfiles/ivysettings.xml" dest="${basedir}/ivysettings.xml" usetimestamp="true" />
+    <get src="https://raw.github.com/hackystat/hackystat/master/configfiles/ivysettings.xml" dest="${basedir}/ivysettings.xml" usetimestamp="true" />
   </target>
 
   <target name="install.svnkit" description="Downloads SVNKit into lib dir.">
