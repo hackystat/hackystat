@@ -1,17 +1,17 @@
 <project name="build" default="check-install" xmlns:ivy="antlib:org.apache.ivy.ant">
   <description>
     Provides targets for Hackystat project checkouts, status, and commits.
-    Invoke with "ant install" to install/update Ivy and related files. 
+    Invoke with "ant install" to install/update Ivy and related files.
   </description>
 
-  <!-- 
+  <!--
     The checkout.{module} targets, in alphabetical order.
-    Modules will also checkout all dependent modules. 
+    Modules will also checkout all dependent modules.
   -->
 
-  <target name="checkout.all" depends="check-install, 
-    checkout.hackystat-analysis-dailyprojectdata, 
-    checkout.hackystat-analysis-telemetry, 
+  <target name="checkout.all" depends="check-install,
+    checkout.hackystat-analysis-dailyprojectdata,
+    checkout.hackystat-analysis-telemetry,
     checkout.hackystat-sensor-ant,
     checkout.hackystat-sensor-eclipse,
     checkout.hackystat-sensor-emacs,
@@ -27,82 +27,82 @@
     checkout.hackystat-ui-wicket,
     checkout.hackystat-utilities" />
 
-  <target name="checkout.hackystat-analysis-dailyprojectdata" depends="check-install, check-svn-properties, checkout.hackystat-sensorbase-uh">
-    <svn.checkout module.name="hackystat-analysis-dailyprojectdata" />
+  <target name="checkout.hackystat-analysis-dailyprojectdata" depends="check-install, checkout.hackystat-sensorbase-uh">
+    <git.clone module.name="hackystat-analysis-dailyprojectdata" />
   </target>
 
-  <target name="checkout.hackystat-analysis-telemetry" depends="check-install, check-svn-properties, checkout.hackystat-analysis-dailyprojectdata">
-    <svn.checkout module.name="hackystat-analysis-telemetry" />
+  <target name="checkout.hackystat-analysis-telemetry" depends="check-install, checkout.hackystat-analysis-dailyprojectdata">
+    <git.clone module.name="hackystat-analysis-telemetry" />
   </target>
 
-  <target name="checkout.hackystat-developer-example" depends="check-install, check-svn-properties, checkout.hackystat-analysis-telemetry">
-    <svn.checkout module.name="hackystat-developer-example" />
+  <target name="checkout.hackystat-developer-example" depends="check-install, checkout.hackystat-analysis-telemetry">
+    <git.clone module.name="hackystat-developer-example" />
   </target>
 
-  <target name="checkout.hackystat-sensor-ant" depends="check-install, check-svn-properties, checkout.hackystat-sensor-shell">
-    <svn.checkout module.name="hackystat-sensor-ant" />
+  <target name="checkout.hackystat-sensor-ant" depends="check-install, checkout.hackystat-sensor-shell">
+    <git.clone module.name="hackystat-sensor-ant" />
   </target>
 
-  <target name="checkout.hackystat-sensor-eclipse" depends="check-install, check-svn-properties, checkout.hackystat-sensor-shell">
-    <svn.checkout module.name="hackystat-sensor-eclipse" />
+  <target name="checkout.hackystat-sensor-eclipse" depends="check-install, checkout.hackystat-sensor-shell">
+    <git.clone module.name="hackystat-sensor-eclipse" />
   </target>
 
-  <target name="checkout.hackystat-sensor-emacs" depends="check-install, check-svn-properties, checkout.hackystat-sensor-shell">
-    <svn.checkout module.name="hackystat-sensor-emacs" />
+  <target name="checkout.hackystat-sensor-emacs" depends="check-install, checkout.hackystat-sensor-shell">
+    <git.clone module.name="hackystat-sensor-emacs" />
   </target>
 
-  <target name="checkout.hackystat-sensor-example" depends="check-install, check-svn-properties, checkout.hackystat-sensor-ant">
-    <svn.checkout module.name="hackystat-sensor-example" />
+  <target name="checkout.hackystat-sensor-example" depends="check-install, checkout.hackystat-sensor-ant">
+    <git.clone module.name="hackystat-sensor-example" />
   </target>
 
-  <target name="checkout.hackystat-sensor-shell" depends="check-install, check-svn-properties, checkout.hackystat-sensorbase-uh">
-    <svn.checkout module.name="hackystat-sensor-shell" />
+  <target name="checkout.hackystat-sensor-shell" depends="check-install, checkout.hackystat-sensorbase-uh">
+    <git.clone module.name="hackystat-sensor-shell" />
   </target>
 
-  <target name="checkout.hackystat-sensor-vim" depends="check-install, check-svn-properties, checkout.hackystat-sensor-shell">
-    <svn.checkout module.name="hackystat-sensor-vim" />
+  <target name="checkout.hackystat-sensor-vim" depends="check-install, checkout.hackystat-sensor-shell">
+    <git.clone module.name="hackystat-sensor-vim" />
   </target>
 
-  <target name="checkout.hackystat-sensor-xmldata" depends="check-install, check-svn-properties, checkout.hackystat-sensor-shell">
-    <svn.checkout module.name="hackystat-sensor-xmldata" />
+  <target name="checkout.hackystat-sensor-xmldata" depends="check-install, checkout.hackystat-sensor-shell">
+    <git.clone module.name="hackystat-sensor-xmldata" />
   </target>
 
-  <target name="checkout.hackystat-sensorbase-postgres" depends="check-install, check-svn-properties, checkout.hackystat-sensorbase-uh">
-    <svn.checkout module.name="hackystat-sensorbase-postgres" />
+  <target name="checkout.hackystat-sensorbase-postgres" depends="check-install, checkout.hackystat-sensorbase-uh">
+    <git.clone module.name="hackystat-sensorbase-postgres" />
   </target>
 
-  <target name="checkout.hackystat-sensorbase-simdata" depends="check-install, check-svn-properties, checkout.hackystat-sensorbase-uh">
-    <svn.checkout module.name="hackystat-sensorbase-simdata" />
+  <target name="checkout.hackystat-sensorbase-simdata" depends="check-install, checkout.hackystat-sensorbase-uh">
+    <git.clone module.name="hackystat-sensorbase-simdata" />
   </target>
 
-  <target name="checkout.hackystat-sensorbase-uh" depends="check-install, check-svn-properties, checkout.hackystat-utilities">
-    <svn.checkout module.name="hackystat-sensorbase-uh" />
+  <target name="checkout.hackystat-sensorbase-uh" depends="check-install, checkout.hackystat-utilities">
+    <git.clone module.name="hackystat-sensorbase-uh" />
   </target>
 
-  <target name="checkout.hackystat-ui-systemstatus" depends="check-install, check-svn-properties, checkout.hackystat-sensorbase-uh">
-    <svn.checkout module.name="hackystat-ui-systemstatus" />
+  <target name="checkout.hackystat-ui-systemstatus" depends="check-install, checkout.hackystat-sensorbase-uh">
+    <git.clone module.name="hackystat-ui-systemstatus" />
   </target>
 
-  <target name="checkout.hackystat-ui-tickertape" depends="check-install, check-svn-properties, checkout.hackystat-analysis-telemetry">
-    <svn.checkout module.name="hackystat-ui-tickertape" />
+  <target name="checkout.hackystat-ui-tickertape" depends="check-install, checkout.hackystat-analysis-telemetry">
+    <git.clone module.name="hackystat-ui-tickertape" />
   </target>
 
-  <target name="checkout.hackystat-ui-wicket" depends="check-install, check-svn-properties, checkout.hackystat-analysis-telemetry, checkout.hackystat-sensorbase-simdata">
-    <svn.checkout module.name="hackystat-ui-wicket" />
+  <target name="checkout.hackystat-ui-wicket" depends="check-install, checkout.hackystat-analysis-telemetry, checkout.hackystat-sensorbase-simdata">
+    <git.clone module.name="hackystat-ui-wicket" />
   </target>
 
-  <target name="checkout.hackystat-utilities" depends="check-install,  check-svn-properties">
-    <svn.checkout module.name="hackystat-utilities" />
+  <target name="checkout.hackystat-utilities" depends="check-install">
+    <git.clone module.name="hackystat-utilities" />
   </target>
 
-  <!-- 
+  <!--
      The checkout.anonymous.{module} targets, in alphabetical order.
-     Modules will also checkout all dependent modules. 
+     Modules will also checkout all dependent modules.
    -->
 
-  <target name="checkout.anonymous.all" depends="check-install, 
-     checkout.anonymous.hackystat-analysis-dailyprojectdata, 
-     checkout.anonymous.hackystat-analysis-telemetry, 
+  <target name="checkout.anonymous.all" depends="check-install,
+     checkout.anonymous.hackystat-analysis-dailyprojectdata,
+     checkout.anonymous.hackystat-analysis-telemetry,
      checkout.anonymous.hackystat-sensor-ant,
      checkout.anonymous.hackystat-sensor-eclipse,
      checkout.anonymous.hackystat-sensor-emacs,
@@ -118,83 +118,83 @@
      checkout.anonymous.hackystat-ui-wicket,
      checkout.anonymous.hackystat-utilities" />
 
-  <target name="checkout.anonymous.hackystat-analysis-dailyprojectdata" depends="check-install,  checkout.anonymous.hackystat-sensorbase-uh">
-    <svn.checkout.anonymous module.name="hackystat-analysis-dailyprojectdata" />
+  <target name="checkout.anonymous.hackystat-analysis-dailyprojectdata" depends="check-install, checkout.anonymous.hackystat-sensorbase-uh">
+    <git.clone.anonymous module.name="hackystat-analysis-dailyprojectdata" />
   </target>
 
   <target name="checkout.anonymous.hackystat-analysis-telemetry" depends="check-install, checkout.anonymous.hackystat-analysis-dailyprojectdata">
-    <svn.checkout.anonymous module.name="hackystat-analysis-telemetry" />
+    <git.clone.anonymous module.name="hackystat-analysis-telemetry" />
   </target>
 
   <target name="checkout.anonymous.hackystat-developer-example" depends="check-install, checkout.anonymous.hackystat-analysis-telemetry">
-    <svn.checkout.anonymous module.name="hackystat-developer-example" />
+    <git.clone.anonymous module.name="hackystat-developer-example" />
   </target>
 
   <target name="checkout.anonymous.hackystat-sensor-ant" depends="check-install, checkout.anonymous.hackystat-sensor-shell">
-    <svn.checkout.anonymous module.name="hackystat-sensor-ant" />
+    <git.clone.anonymous module.name="hackystat-sensor-ant" />
   </target>
 
   <target name="checkout.anonymous.hackystat-sensor-eclipse" depends="check-install, checkout.anonymous.hackystat-sensor-shell">
-    <svn.checkout.anonymous module.name="hackystat-sensor-eclipse" />
+    <git.clone.anonymous module.name="hackystat-sensor-eclipse" />
   </target>
 
   <target name="checkout.anonymous.hackystat-sensor-emacs" depends="check-install, checkout.anonymous.hackystat-sensor-shell">
-    <svn.checkout.anonymous module.name="hackystat-sensor-emacs" />
+    <git.clone.anonymous module.name="hackystat-sensor-emacs" />
   </target>
 
   <target name="checkout.anonymous.hackystat-sensor-example" depends="check-install, checkout.anonymous.hackystat-sensor-ant">
-    <svn.checkout.anonymous module.name="hackystat-sensor-example" />
+    <git.clone.anonymous module.name="hackystat-sensor-example" />
   </target>
 
   <target name="checkout.anonymous.hackystat-sensor-shell" depends="check-install, checkout.anonymous.hackystat-sensorbase-uh">
-    <svn.checkout.anonymous module.name="hackystat-sensor-shell" />
+    <git.clone.anonymous module.name="hackystat-sensor-shell" />
   </target>
 
   <target name="checkout.anonymous.hackystat-sensor-vim" depends="check-install, checkout.anonymous.hackystat-sensor-shell">
-    <svn.checkout.anonymous module.name="hackystat-sensor-vim" />
+    <git.clone.anonymous module.name="hackystat-sensor-vim" />
   </target>
 
   <target name="checkout.anonymous.hackystat-sensor-xmldata" depends="check-install, checkout.anonymous.hackystat-sensor-shell">
-    <svn.checkout.anonymous module.name="hackystat-sensor-xmldata" />
+    <git.clone.anonymous module.name="hackystat-sensor-xmldata" />
   </target>
 
   <target name="checkout.anonymous.hackystat-sensorbase-postgres" depends="check-install, checkout.anonymous.hackystat-sensorbase-uh">
-    <svn.checkout.anonymous module.name="hackystat-sensorbase-postgres" />
+    <git.clone.anonymous module.name="hackystat-sensorbase-postgres" />
   </target>
 
   <target name="checkout.anonymous.hackystat-sensorbase-simdata" depends="check-install, checkout.anonymous.hackystat-sensorbase-uh">
-    <svn.checkout.anonymous module.name="hackystat-sensorbase-simdata" />
+    <git.clone.anonymous module.name="hackystat-sensorbase-simdata" />
   </target>
 
   <target name="checkout.anonymous.hackystat-sensorbase-uh" depends="check-install, checkout.anonymous.hackystat-utilities">
-    <svn.checkout.anonymous module.name="hackystat-sensorbase-uh" />
+    <git.clone.anonymous module.name="hackystat-sensorbase-uh" />
   </target>
 
   <target name="checkout.anonymous.hackystat-ui-systemstatus" depends="check-install, checkout.anonymous.hackystat-sensorbase-uh">
-    <svn.checkout.anonymous module.name="hackystat-ui-systemstatus" />
+    <git.clone.anonymous module.name="hackystat-ui-systemstatus" />
   </target>
 
   <target name="checkout.anonymous.hackystat-ui-tickertape" depends="check-install, checkout.anonymous.hackystat-analysis-telemetry">
-    <svn.checkout.anonymous module.name="hackystat-ui-tickertape" />
+    <git.clone.anonymous module.name="hackystat-ui-tickertape" />
   </target>
 
   <target name="checkout.anonymous.hackystat-ui-wicket" depends="check-install, checkout.anonymous.hackystat-analysis-telemetry, checkout.anonymous.hackystat-sensorbase-simdata">
-    <svn.checkout.anonymous module.name="hackystat-ui-wicket" />
+    <git.clone.anonymous module.name="hackystat-ui-wicket" />
   </target>
 
   <target name="checkout.anonymous.hackystat-utilities" depends="check-install">
-    <svn.checkout.anonymous module.name="hackystat-utilities" />
+    <git.clone.anonymous module.name="hackystat-utilities" />
   </target>
 
-  <!-- 
+  <!--
     The commit.{module} targets, in alphabetical order.
     Modules will also commit all dependent modules.
-    You might want to run status.{module} first.  
+    You might want to run status.{module} first.
   -->
 
-  <target name="commit.all" depends="check-install, 
-    commit.hackystat-analysis-dailyprojectdata, 
-    commit.hackystat-analysis-telemetry, 
+  <target name="commit.all" depends="check-install,
+    commit.hackystat-analysis-dailyprojectdata,
+    commit.hackystat-analysis-telemetry,
     commit.hackystat-sensor-ant,
     commit.hackystat-sensor-eclipse,
     commit.hackystat-sensor-emacs,
@@ -211,82 +211,82 @@
     commit.hackystat-utilities" />
 
 
-  <target name="commit.hackystat-analysis-dailyprojectdata" depends="check-install, check-svn-properties, check-svn-message, commit.hackystat-sensorbase-uh">
-    <svn.commit module.name="hackystat-analysis-dailyprojectdata" />
+  <target name="commit.hackystat-analysis-dailyprojectdata" depends="check-install, check-git-message, commit.hackystat-sensorbase-uh">
+    <git.commit module.name="hackystat-analysis-dailyprojectdata" />
   </target>
 
-  <target name="commit.hackystat-analysis-telemetry" depends="check-install, check-svn-properties, check-svn-message, commit.hackystat-analysis-dailyprojectdata">
-    <svn.commit module.name="hackystat-analysis-telemetry" />
+  <target name="commit.hackystat-analysis-telemetry" depends="check-install, check-git-message, commit.hackystat-analysis-dailyprojectdata">
+    <git.commit module.name="hackystat-analysis-telemetry" />
   </target>
 
-  <target name="commit.hackystat-developer-example" depends="check-install, check-svn-properties, check-svn-message, commit.hackystat-analysis-telemetry">
-    <svn.commit module.name="hackystat-developer-example" />
+  <target name="commit.hackystat-developer-example" depends="check-install, check-git-message, commit.hackystat-analysis-telemetry">
+    <git.commit module.name="hackystat-developer-example" />
   </target>
 
-  <target name="commit.hackystat-sensor-ant" depends="check-install, check-svn-properties, check-svn-message, commit.hackystat-sensor-shell">
-    <svn.commit module.name="hackystat-sensor-ant" />
+  <target name="commit.hackystat-sensor-ant" depends="check-install, check-git-message, commit.hackystat-sensor-shell">
+    <git.commit module.name="hackystat-sensor-ant" />
   </target>
 
-  <target name="commit.hackystat-sensor-eclipse" depends="check-install, check-svn-properties, check-svn-message, commit.hackystat-sensor-shell">
-    <svn.commit module.name="hackystat-sensor-eclipse" />
+  <target name="commit.hackystat-sensor-eclipse" depends="check-install, check-git-message, commit.hackystat-sensor-shell">
+    <git.commit module.name="hackystat-sensor-eclipse" />
   </target>
 
-  <target name="commit.hackystat-sensor-emacs" depends="check-install, check-svn-properties, check-svn-message, commit.hackystat-sensor-shell">
-    <svn.commit module.name="hackystat-sensor-emacs" />
+  <target name="commit.hackystat-sensor-emacs" depends="check-install, check-git-message, commit.hackystat-sensor-shell">
+    <git.commit module.name="hackystat-sensor-emacs" />
   </target>
 
-  <target name="commit.hackystat-sensor-example" depends="check-install, check-svn-properties, check-svn-message, commit.hackystat-sensor-ant">
-    <svn.commit module.name="hackystat-sensor-example" />
+  <target name="commit.hackystat-sensor-example" depends="check-install, check-git-message, commit.hackystat-sensor-ant">
+    <git.commit module.name="hackystat-sensor-example" />
   </target>
 
-  <target name="commit.hackystat-sensor-shell" depends="check-install, check-svn-properties, check-svn-message, commit.hackystat-sensorbase-uh">
-    <svn.commit module.name="hackystat-sensor-shell" />
+  <target name="commit.hackystat-sensor-shell" depends="check-install, check-git-message, commit.hackystat-sensorbase-uh">
+    <git.commit module.name="hackystat-sensor-shell" />
   </target>
 
-  <target name="commit.hackystat-sensor-vim" depends="check-install, check-svn-properties, check-svn-message, commit.hackystat-sensor-shell">
-    <svn.commit module.name="hackystat-sensor-vim" />
+  <target name="commit.hackystat-sensor-vim" depends="check-install, check-git-message, commit.hackystat-sensor-shell">
+    <git.commit module.name="hackystat-sensor-vim" />
   </target>
 
-  <target name="commit.hackystat-sensor-xmldata" depends="check-install, check-svn-properties, check-svn-message, commit.hackystat-sensor-shell">
-    <svn.commit module.name="hackystat-sensor-xmldata" />
+  <target name="commit.hackystat-sensor-xmldata" depends="check-install, check-git-message, commit.hackystat-sensor-shell">
+    <git.commit module.name="hackystat-sensor-xmldata" />
   </target>
 
-  <target name="commit.hackystat-sensorbase-postgres" depends="check-install, check-svn-properties, check-svn-message, commit.hackystat-sensorbase-uh">
-    <svn.commit module.name="hackystat-sensorbase-postgres" />
+  <target name="commit.hackystat-sensorbase-postgres" depends="check-install, check-git-message, commit.hackystat-sensorbase-uh">
+    <git.commit module.name="hackystat-sensorbase-postgres" />
   </target>
 
-  <target name="commit.hackystat-sensorbase-simdata" depends="check-install, check-svn-properties, check-svn-message, commit.hackystat-sensorbase-uh">
-    <svn.commit module.name="hackystat-sensorbase-simdata" />
+  <target name="commit.hackystat-sensorbase-simdata" depends="check-install, check-git-message, commit.hackystat-sensorbase-uh">
+    <git.commit module.name="hackystat-sensorbase-simdata" />
   </target>
 
-  <target name="commit.hackystat-sensorbase-uh" depends="check-install, check-svn-properties, check-svn-message, commit.hackystat-utilities">
-    <svn.commit module.name="hackystat-sensorbase-uh" />
+  <target name="commit.hackystat-sensorbase-uh" depends="check-install, check-git-message, commit.hackystat-utilities">
+    <git.commit module.name="hackystat-sensorbase-uh" />
   </target>
 
-  <target name="commit.hackystat-ui-systemstatus" depends="check-install, check-svn-properties, check-svn-message, commit.hackystat-sensorbase-uh">
-    <svn.commit module.name="hackystat-ui-systemstatus" />
+  <target name="commit.hackystat-ui-systemstatus" depends="check-install, check-git-message, commit.hackystat-sensorbase-uh">
+    <git.commit module.name="hackystat-ui-systemstatus" />
   </target>
 
-  <target name="commit.hackystat-ui-tickertape" depends="check-install, check-svn-properties, check-svn-message, commit.hackystat-analysis-telemetry">
-    <svn.commit module.name="hackystat-ui-tickertape" />
+  <target name="commit.hackystat-ui-tickertape" depends="check-install, check-git-message, commit.hackystat-analysis-telemetry">
+    <git.commit module.name="hackystat-ui-tickertape" />
   </target>
 
-  <target name="commit.hackystat-ui-wicket" depends="check-install, check-svn-properties, check-svn-message, commit.hackystat-analysis-telemetry, commit.hackystat-sensorbase-simdata">
-    <svn.commit module.name="hackystat-ui-wicket" />
+  <target name="commit.hackystat-ui-wicket" depends="check-install, check-git-message, commit.hackystat-analysis-telemetry, commit.hackystat-sensorbase-simdata">
+    <git.commit module.name="hackystat-ui-wicket" />
   </target>
 
-  <target name="commit.hackystat-utilities" depends="check-install, check-svn-properties, check-svn-message">
-    <svn.commit module.name="hackystat-utilities" />
+  <target name="commit.hackystat-utilities" depends="check-install, check-git-message">
+    <git.commit module.name="hackystat-utilities" />
   </target>
 
-  <!-- 
+  <!--
     The status.{module} targets, in alphabetical order.
     Modules will also check status of all dependent modules.
   -->
 
-  <target name="status.all" depends="check-install, 
-    status.hackystat-analysis-dailyprojectdata, 
-    status.hackystat-analysis-telemetry, 
+  <target name="status.all" depends="check-install,
+    status.hackystat-analysis-dailyprojectdata,
+    status.hackystat-analysis-telemetry,
     status.hackystat-sensor-ant,
     status.hackystat-sensor-eclipse,
     status.hackystat-sensor-emacs,
@@ -304,75 +304,75 @@
 
 
   <target name="status.hackystat-analysis-dailyprojectdata" depends="check-install, status.hackystat-sensorbase-uh">
-    <svn.status module.name="hackystat-analysis-dailyprojectdata" />
+    <git.status module.name="hackystat-analysis-dailyprojectdata" />
   </target>
 
   <target name="status.hackystat-analysis-telemetry" depends="check-install, status.hackystat-analysis-dailyprojectdata">
-    <svn.status module.name="hackystat-analysis-telemetry" />
+    <git.status module.name="hackystat-analysis-telemetry" />
   </target>
 
   <target name="status.hackystat-developer-example" depends="check-install, status.hackystat-analysis-telemetry">
-    <svn.status module.name="hackystat-developer-example" />
+    <git.status module.name="hackystat-developer-example" />
   </target>
 
   <target name="status.hackystat-sensor-ant" depends="check-install, status.hackystat-sensor-shell">
-    <svn.status module.name="hackystat-sensor-ant" />
+    <git.status module.name="hackystat-sensor-ant" />
   </target>
 
   <target name="status.hackystat-sensor-eclipse" depends="check-install, status.hackystat-sensor-shell">
-    <svn.status module.name="hackystat-sensor-eclipse" />
+    <git.status module.name="hackystat-sensor-eclipse" />
   </target>
 
   <target name="status.hackystat-sensor-emacs" depends="check-install, status.hackystat-sensor-shell">
-    <svn.status module.name="hackystat-sensor-emacs" />
+    <git.status module.name="hackystat-sensor-emacs" />
   </target>
 
   <target name="status.hackystat-sensor-example" depends="check-install, status.hackystat-sensor-ant">
-    <svn.status module.name="hackystat-sensor-example" />
+    <git.status module.name="hackystat-sensor-example" />
   </target>
 
   <target name="status.hackystat-sensor-shell" depends="check-install, status.hackystat-sensorbase-uh">
-    <svn.status module.name="hackystat-sensor-shell" />
+    <git.status module.name="hackystat-sensor-shell" />
   </target>
 
   <target name="status.hackystat-sensor-vim" depends="check-install, status.hackystat-sensor-shell">
-    <svn.status module.name="hackystat-sensor-vim" />
+    <git.status module.name="hackystat-sensor-vim" />
   </target>
 
   <target name="status.hackystat-sensor-xmldata" depends="check-install, status.hackystat-sensor-shell">
-    <svn.status module.name="hackystat-sensor-xmldata" />
+    <git.status module.name="hackystat-sensor-xmldata" />
   </target>
 
   <target name="status.hackystat-sensorbase-postgres" depends="check-install, status.hackystat-sensorbase-uh">
-    <svn.status module.name="hackystat-sensorbase-postgres" />
+    <git.status module.name="hackystat-sensorbase-postgres" />
   </target>
 
   <target name="status.hackystat-sensorbase-simdata" depends="check-install, status.hackystat-sensorbase-uh">
-    <svn.status module.name="hackystat-sensorbase-simdata" />
+    <git.status module.name="hackystat-sensorbase-simdata" />
   </target>
 
   <target name="status.hackystat-sensorbase-uh" depends="check-install, status.hackystat-utilities">
-    <svn.status module.name="hackystat-sensorbase-uh" />
+    <git.status module.name="hackystat-sensorbase-uh" />
   </target>
 
   <target name="status.hackystat-ui-systemstatus" depends="check-install, status.hackystat-sensorbase-uh">
-    <svn.status module.name="hackystat-ui-systemstatus" />
+    <git.status module.name="hackystat-ui-systemstatus" />
   </target>
 
   <target name="status.hackystat-ui-tickertape" depends="check-install, status.hackystat-analysis-telemetry">
-    <svn.status module.name="hackystat-ui-tickertape" />
+    <git.status module.name="hackystat-ui-tickertape" />
   </target>
 
   <target name="status.hackystat-ui-wicket" depends="check-install, status.hackystat-analysis-telemetry, status.hackystat-sensorbase-simdata">
-    <svn.status module.name="hackystat-ui-wicket" />
+    <git.status module.name="hackystat-ui-wicket" />
   </target>
 
   <target name="status.hackystat-utilities" depends="check-install">
-    <svn.status module.name="hackystat-utilities" />
+    <git.status module.name="hackystat-utilities" />
   </target>
 
 
-  <!-- 
+  <!--
     Rebuild entire system.
     -->
   <target name="build-all" description="Build (and perhaps publish) all hackystat projects in order.">
@@ -386,7 +386,7 @@
     <ant antfile="hackystat-sensor-ant/jar.build.xml" target="publish" inheritAll="false" />
     <ant antfile="hackystat-sensor-xmldata/jar.build.xml" target="publish" inheritAll="false" />
     <ant antfile="hackystat-sensor-vim/build.xml" target="compile" inheritAll="false" />
-    <!-- Cannot do this one except manually within directory. 
+    <!-- Cannot do this one except manually within directory.
     <ant antfile="hackystat-sensor-eclipse/build.xml" target="compile" inheritAll="false" />
     -->
     <ant antfile="hackystat-sensor-example/build.xml" target="compile" inheritAll="false" />
@@ -394,8 +394,8 @@
     <ant antfile="hackystat-ui-tickertape/build.xml" target="compile" inheritAll="false" />
   </target>
 
-  <!-- 
-      Ivy download targets and locations. 
+  <!--
+      Ivy download targets and locations.
    -->
   <property name="lib.dir" location="${basedir}/lib" />
   <property name="ivy.jar.path" location="${user.home}/.ivy2/ivyjar/" />
@@ -403,14 +403,12 @@
   <available file="${ivy.jar.path}/ivy.jar" property="ivy.jar.available" />
   <available file="${library.versions.path}" property="library.versions.available" />
   <available file="${basedir}/ivysettings.xml" property="ivysettings.available" />
-  <available file="${lib.dir}/svnkit/svnkit.jar" property="svnkit.available" />
 
   <target name="install" description="Downloads library version numbers, then downloads Ivy and ivysettings.xml">
     <antcall target="install.library.versions.properties" />
     <property file="${library.versions.path}" />
     <antcall target="install.ivy" />
     <antcall target="install.ivysettings.xml" />
-    <antcall target="install.svnkit" />
   </target>
 
   <target name="install.ivy" description="Downloads Ivy into lib directory.">
@@ -420,99 +418,71 @@
 
   <target name="install.library.versions.properties" description="Downloads library.versions.properties into .hackystat directory.">
     <mkdir dir="${user.home}/.hackystat" />
-    <get src="http://hackystat.googlecode.com/svn/trunk/configfiles/library.versions.properties" dest="${library.versions.path}" usetimestamp="true" />
+    <get src="https://raw.github.com/hackystat/hackystat/master/configfiles/library.versions.properties" dest="${library.versions.path}" usetimestamp="true" />
   </target>
 
   <target name="install.ivysettings.xml" description="Downloads ivysettings.xml into .hackystat/ivy directory.">
-    <get src="http://hackystat.googlecode.com/svn/trunk/configfiles/ivysettings.xml" dest="${basedir}/ivysettings.xml" usetimestamp="true" />
+    <get src="https://raw.github.com/hackystat/hackystat/master/configfiles/ivysettings.xml" dest="${basedir}/ivysettings.xml" usetimestamp="true" />
   </target>
-
-  <target name="install.svnkit" description="Downloads SVNKit into lib dir.">
-    <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpath="${ivy.jar.path}/ivy.jar" />
-    <ivy:retrieve organisation="com.svnkit" module="svnkit" revision="${svnkit.version}" pattern="${lib.dir}/svnkit/[artifact].[ext]" sync="true" inline="true" conf="default,cli" log="download-only" transitive="false" type="jar" />
-  </target>
-
-  <path id="svnkit.path">
-    <fileset dir="${lib.dir}/svnkit">
-      <include name="*.jar" />
-    </fileset>
-  </path>
 
   <target name="check-install" description="Fails build if Ivy installation is not OK.">
     <fail message="Error: ivysettings.xml not found. Please invoke 'ant install'." unless="ivysettings.available" />
     <fail message="Error: ivy.jar not found. Please invoke 'ant install'." unless="ivy.jar.available" />
     <fail message="Error: library.versions.properties not found. Please invoke 'ant install'." unless="library.versions.available" />
-    <fail message="Error: svnkit not found. Please invoke 'ant install'." unless="svnkit.available" />
   </target>
 
-  <!-- 
-      Macros and other utilities to simplify coding of SVN targets. 
+  <!--
+      Macros and other utilities to simplify coding of GIT targets.
    -->
-  <available file="${basedir}/svn.properties" property="svn.properties.available" />
-
-  <target name="check-svn-properties" description="Fails build if svn.properties file is not available">
-    <fail message="Error: You have invoked an SVN operation requiring credentials but there is no svn.properties file with those credentials." unless="svn.properties.available" />
+  <target name="check-git-message" description="Fails build if git.message property is not set on command line.">
+    <fail message='Error: You must provide a commit message. Example: ant -Dgit.message="Fix typo." commit.all' unless="git.message" />
   </target>
 
-  <target name="check-svn-message" description="Fails build if svn.message property is not set on command line.">
-    <fail message='Error: You must provide a commit message. Example: ant -Dsvn.message="Fix typo." commit.all' unless="svn.message" />
-  </target>
-
-  <property file="${basedir}/svn.properties" />
-
-  <macrodef name="svn.checkout">
+  <macrodef name="git.clone">
     <attribute name="module.name" />
     <sequential>
-      <java classname="org.tmatesoft.svn.cli.SVN" fork="true" failonerror="true">
-        <arg value="checkout" />
-        <arg value="https://@{module.name}.googlecode.com/svn/trunk/" />
-        <arg value="@{module.name}" />
-        <arg value="--username" />
-        <arg value="${svn.username}" />
-        <arg value="--password" />
-        <arg value="${svn.password}" />
-        <classpath refid="svnkit.path" />
-      </java>
+      <echo message="git clone @{module.name}" />
+      <exec executable="git">
+            <arg value="clone" />
+            <arg value="git@github.com:hackystat/@{module.name}.git" />
+            <arg value="@{module.name}" />
+      </exec>
     </sequential>
   </macrodef>
 
-  <macrodef name="svn.checkout.anonymous">
+  <macrodef name="git.clone.anonymous">
     <attribute name="module.name" />
     <sequential>
-      <java classname="org.tmatesoft.svn.cli.SVN" fork="true" failonerror="true">
-        <arg value="checkout" />
-        <arg value="http://@{module.name}.googlecode.com/svn/trunk/" />
-        <arg value="@{module.name}" />
-        <classpath refid="svnkit.path" />
-      </java>
+      <echo message="git checkout @{module.name}" />
+      <exec executable="git">
+            <arg value="clone" />
+            <arg value="https://github.com/hackystat/@{module.name}.git" />
+            <arg value="@{module.name}" />
+      </exec>
     </sequential>
   </macrodef>
 
-  <macrodef name="svn.commit">
+  <macrodef name="git.commit">
     <attribute name="module.name" />
     <sequential>
-      <java classname="org.tmatesoft.svn.cli.SVN" fork="true" failonerror="true">
+      <echo message="git commit @{module.name}" />
+      <exec executable="git">
         <arg value="commit" />
         <arg value="--message" />
-        <arg value="'${svn.message}'" />
-        <arg value="--username" />
-        <arg value="${svn.username}" />
-        <arg value="--password" />
-        <arg value="${svn.password}" />
+        <arg value="'${git.message}'" />
         <arg value="@{module.name}" />
-        <classpath refid="svnkit.path" />
-      </java>
+      </exec>
     </sequential>
   </macrodef>
 
-  <macrodef name="svn.status">
+  <macrodef name="git.status">
     <attribute name="module.name" />
     <sequential>
-      <java classname="org.tmatesoft.svn.cli.SVN" fork="true" failonerror="true">
-        <arg value="status" />
-        <arg value="@{module.name}" />
-        <classpath refid="svnkit.path" />
-      </java>
+      <echo message="git status @{module.name}" />
+      <exec executable="git" dir="@{module.name}">
+          <arg value="status" />
+          <arg value="--short" />
+      </exec>
     </sequential>
   </macrodef>
 
@@ -557,7 +527,7 @@
     <copy file="hackystat-utilities/pmd.build.xml" tofile="${module.dir}/pmd.build.xml" overwrite="true" />
     <copy file="hackystat-utilities/sclc.build.xml" tofile="${module.dir}/sclc.build.xml" overwrite="true" />
   </target>
-  
+
   <target name="propogate-changed-file">
     <fail unless="file.name" message="Please provide -Dfile.name={file.name}" />
     <copy file="hackystat-utilities/${file.name}" todir="hackystat-analysis-dailyprojectdata/" overwrite="true" />
